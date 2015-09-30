@@ -38,10 +38,10 @@ eng.dataProcessors["UserProcessor"]={
     }          
 };
 
-eng.routes={
+eng.routes["global"]={
     loginFallback: "login",
     routeList:[
-        { routePath: "login", forwardTo: "/work/config/login.jsp", isRestricted: "false" },
+        { routePath: "login", forwardTo: "/work/config/login.jsp", isRestricted: "false", zindex:1 },
         { routePath: "register", forwardTo: "/work/config/register.jsp", isRestricted: "false" },
         { routePath: "", forwardTo: "/index.jsp", isRestricted: "false"},
         { routePath: "work", isRestricted: "true"},

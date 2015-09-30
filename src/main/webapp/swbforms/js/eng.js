@@ -1767,8 +1767,12 @@ var eng = {
         return id;
     },
     
-    initPlatform: function(file, start)
+    initPlatform: function(file, cache)
     {
+        if(!cache && cache!=false)
+        {
+            cache=true;
+        }
         if(!eng.inited)
         {
             eng.inited=true;     
@@ -1798,8 +1802,8 @@ var eng = {
                     eng.dataSourceScriptPath=file;
                 }
 
-                eng.utils.loadJS("/swbforms/js/eng_lang.js",false,true);
-                eng.utils.loadJS(file,false,true);     
+                eng.utils.loadJS("/swbforms/js/eng_lang.js",false,cache);
+                eng.utils.loadJS(file,false,cache);     
             }
         }
     }
