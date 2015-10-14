@@ -22,7 +22,7 @@ eng.dataSources["Pais"] = {
     displayField: "nombre",
     fields: [
         {name: "nombre", title: "Pais", required: true, type: "string"},
-        {name: "abre", title: "Abre", required: true, type: "string"},
+        {name: "abre", title: "Clave", required: true, type: "string"},
     ]
 };
 
