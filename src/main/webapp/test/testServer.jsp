@@ -18,20 +18,51 @@
     <body>
         <h1>Hello World!</h1>
         <pre>
-        <%
-    //DataObject user = (DataObject) session.getAttribute("_USER_");
-    SWBScriptEngine engine = DataMgr.getUserScriptEngine("/test/datasources.js", null,false);
+<%
+    DataObject user = (DataObject) session.getAttribute("_USER_");
+    SWBScriptEngine engine = DataMgr.getUserScriptEngine("/test/datasources.js", user,false);       //
     SWBDataSource ds=engine.getDataSource("Pais");
     
     //Fetch
     DataObject query=new DataObject();
-    DataObject data=new DataObject();
-    query.put("data", data);
-    data.put("abre", "mx");
+
+    //paginar startRow, endRow
+    query.addParam("startRow", 0).addParam("endRow", 10);
+
+    //DataObject data=new DataObject();
+    //query.put("data", data);
+    //data.put("abre", "mx");
+    // O en una sola linea
+    query.addSubObject("data").addParam("abre", "mx");
     
+    //textMatchStyle: substring, startsWith
+    //query.addParam("textMatchStyle", "startsWith");
+    //query.addSubObject("data").addParam("abre", "mx");    //todos los registros que inicien con mx en abre
+    
+    //o pueden usar expresiones regulares
+    //query.addSubObject("data").addSubObject("abre").addParam("$regex", "^mx");
+        
     DataObject obj=ds.fetch(query);
     
     out.println(obj);
+ /*
+    Respuesta
+{
+    "response":{
+        "startRow":0, 
+        "data":[
+            {"abre":"mx", "_id":"_suri:SWBF2:Pais:561d5602d4c6a8eda771a0ac", "nombre":"México"}, 
+            {"abre":"mx", "_id":"_suri:SWBF2:Pais:561d5aa7d4c6a8eda771a0ae", "nombre":"Jei"}
+        ], 
+        "endRow":2, 
+        "totalRows":2, 
+        "status":0
+    }
+}
+ */     
+    out.println("totalRows:"+obj.getDataObject("response").getLong("totalRows"));
+    out.println("data.size():"+obj.getDataObject("response").getDataList("data").size());
+    
     out.println(obj.getDataObject("response").getDataList("data").getDataObject(0).getString("nombre"));
     
     //Add    
@@ -49,7 +80,6 @@
     
     //Remove
     out.println(ds.removeObjById(newobj.getId()));    
-    
    
         %>
 </pre>

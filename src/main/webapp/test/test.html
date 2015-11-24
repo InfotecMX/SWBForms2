@@ -10,7 +10,7 @@
         <script type="text/javascript">
             eng.initPlatform("/test/datasources.js",false);
             
-            eng.createGrid({
+            var pais=eng.createGrid({
                 left:"-10", 
                 margin:"10px", 
                 width: "100%", 
@@ -20,7 +20,7 @@
                 canAdd:true,
             }, "Pais");          
             
-            eng.createGrid({
+            var estado=eng.createGrid({
                 left:"-10", 
                 margin:"10px", 
                 width: "100%", 
@@ -35,7 +35,7 @@
                 //]
             }, "Estado");            
             
-            var grid3=eng.createGrid({
+            var direccion=eng.createGrid({
                 left:"-10", 
                 margin:"10px", 
                 width: "100%", 

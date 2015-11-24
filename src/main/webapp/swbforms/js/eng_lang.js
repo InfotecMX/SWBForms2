@@ -471,7 +471,13 @@ isc.GridEditorItem.addProperties({
                             //g.startEditingNew(eng.utils.copyAttributes(field.values,eng.utils.copyAttributes(g.initialCriteria,{})));
                         }
                     }
-                });                
+                });   
+                
+                if(this.addButtonClick!==undefined)
+                {
+                    this.addButton.click = this.addButtonClick;
+                }                
+                
                 mem.push(this.addButton);
             }
             mem.push(this.editButton);
@@ -582,6 +588,12 @@ isc.GridEditorItem.addProperties({
             }            
             
         });
+        
+        if(this.recordDoubleClick!==undefined)
+        {
+            grid.recordDoubleClick = this.recordDoubleClick;
+        }        
+        
         grid.form=this.form;
         grid.canvasItem=this;
         this.grid=grid;
