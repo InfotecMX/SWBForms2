@@ -553,6 +553,7 @@ isc.GridEditorItem.addProperties({
             createRecordComponent:this.createRecordComponent,
             groupStartOpen:this.groupStartOpen,
             groupByField:this.groupByField,     
+            showGridSummary:this.showGridSummary,
             canRemoveRecords:canEdit && this.canRemove!==false,
             
             recordDoubleClick: function(viewer, record, recordNum, field, fieldNum, value, rawValue)
