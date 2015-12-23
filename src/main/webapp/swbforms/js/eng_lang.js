@@ -69,14 +69,14 @@ eng.fieldProcesors["select"] = function(field)
     //base.editorProperties = {optionDataSource: dsObjDef.dsId, valueField: "_id", displayField: ds.displayField};
     base.valueField= "_id";
     
-    base.displayField= dsf;
+    base.displayField=dsf;
     if(base.displayFormat)
     {
         base.formatValue= function (value, baserecord, form, item) 
         {   
             var record = item.getSelectedRecord();
             if (record) {
-                //console.log(selectedRecord);
+                //console.log("formatValue:"+value,record);
                 if("function" == typeof base.displayFormat)
                 {
                     return base.displayFormat(value, record);
@@ -544,7 +544,7 @@ isc.GridEditorItem.addProperties({
             canEdit:canEdit,
             winEdit: this.winEdit,
             autoSaveEdits: false,
-            gridComponents: ["header", "body", toolStrip],
+            gridComponents: ["filterEditor","header", "body","summaryRow", toolStrip],
             autoFitData: "vertical",
             autoFitMaxRecords: 5,
             initialCriteria: this.initialCriteria,

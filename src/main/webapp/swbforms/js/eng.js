@@ -995,18 +995,8 @@ var eng = {
 
         var butts=[];
         
-        if(!(form.canEdit===false))
+        if(!(form.canPrint===false))
         {
-            var submit = isc.IButton.create(
-                    {
-                        title: "Guardar",
-                        click: function(p1) {
-                            //eng.submit(p1.target.form);
-                            formsubmit = p1.target.form;
-                            isc.confirm("¿Desea guardar la información?", "value = value ? 'OK' : 'Cancel'; if(value == 'OK'){eng.submit(formsubmit);}");                                              
-                        }
-                    });
-
             var print = isc.IButton.create(
                     {
                         title: "Imprimir",
@@ -1019,11 +1009,23 @@ var eng = {
                               	form.showPrintPreview();
                         }
                     });                
-
-
+            butts.push(print);
+        }        
+        
+        if(!(form.canEdit===false))
+        {
+            var submit = isc.IButton.create(
+                    {
+                        title: "Guardar",
+                        click: function(p1) {
+                            //eng.submit(p1.target.form);
+                            formsubmit = p1.target.form;
+                            isc.confirm("¿Desea guardar la información?", "value = value ? 'OK' : 'Cancel'; if(value == 'OK'){eng.submit(formsubmit);}");                                              
+                        }
+                    });
             submit.form = form;
-            butts=[print,submit];
-        }
+            butts.push(submit);
+        }        
         
         var pane=isc.VStack.create({
             members: [form]
