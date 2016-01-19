@@ -147,7 +147,7 @@ public class FormsFilter implements Filter {
 
                             RouteData rd = RoutesMgr.getRouteData(name);
 
-                            if (rd != null) {
+                            if (rd != null && rd.getHandler()!=null) {
                                 logger.fine("encontré handler de " + name);
                                 ((RouteHandler) rd.getHandler()).handle(request, response);
                             } else {
