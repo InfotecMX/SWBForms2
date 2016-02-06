@@ -16,9 +16,7 @@ eng.fieldProcesors["text"] = function(field)
     if (!base.width)
         base.width = "100%";
     if (!base.type)
-        base.type= "string";
-    if (!base.length)
-        base.length = 500;
+        base.type= "TextArea";
     return base;
 };
 
@@ -27,14 +25,24 @@ eng.fieldProcesors["select"] = function(field)
     var base = eng.utils.cloneObject(field);
 
     var dsObjDef = eng.getDataSourceObjDef(eng.utils.removeAttribute(base, "dataSource"));
-    var ds;
     var dsf;
+    var dsfmt;
     if(dsObjDef.dsName)
     {
-        ds = eng.createDataSource(dsObjDef,true,base);
+      	var ds = ds = eng.createDataSource(dsObjDef,true,base);
+      	dsObjDef.ds=ds;
         if(ds==null)console.log("Undefined DS:",dsObjDef,field);
-        else dsf=ds.displayField;  
+        else 
+        {
+          	//console.log(ds);
+            dsf=ds.displayField;
+            dsfmt=ds.displayFormat;
+        }
     }
+    
+    if(base.displayFormat)dsfmt=base.displayFormat;
+    //console.log(dsfmt,base.displayFormat);
+    
     
     if(base.multiple===true)                //validar bug de multiple no puede ser gequerido
     {
@@ -43,7 +51,7 @@ eng.fieldProcesors["select"] = function(field)
 
     if (!base.editorType)
     {
-        if(base.displayFormat || base.multiple===true)
+        if(dsfmt || base.multiple===true)
         {
             base.editorType = "SelectItem";
         }
@@ -70,19 +78,19 @@ eng.fieldProcesors["select"] = function(field)
     base.valueField= "_id";
     
     base.displayField=dsf;
-    if(base.displayFormat)
+    if(dsfmt)
     {
         base.formatValue= function (value, baserecord, form, item) 
         {   
             var record = item.getSelectedRecord();
             if (record) {
-                //console.log("formatValue:"+value,record);
-                if("function" == typeof base.displayFormat)
+                console.log("formatValue:"+value,record,dsfmt,item,this);
+                if("function" == typeof dsfmt)
                 {
-                    return base.displayFormat(value, record);
+                    return dsfmt(value, record);
                 }else
                 {
-                    return eval(base.displayFormat);
+                    return eval(dsfmt);
                 }
             } else {
                return value;
@@ -536,6 +544,7 @@ isc.GridEditorItem.addProperties({
             //dataSource:eng.createDataSource(this.dataSource,true,this),
             fields:this.fields,
             autoFetchData:false,
+            warnOnRemoval:true,
             
             alternateRecordStyles: true,
             sortField: this.gridSortField,
@@ -645,6 +654,8 @@ isc.GridEditorItem.addProperties({
     // implement showValue to update the ListGrid selection
     showValue : function (displayValue, dataValue) {
         if (this.canvas == null) return;
+      
+      	if((!dataValue || dataValue==null)&& this.grid.getAllEditRows().length>0)return;
 
         if (this.grid.invalidate == false && this.dataValue && dataValue && this.dataValue.toString() == dataValue.toString())
             return; //comparar si cambio o no el contenido
@@ -850,7 +861,15 @@ isc.FileUpload.addProperties({
 
                         FilesAdded: function(up, files) {
                             //console.log("FilesAdded",up,files);
-                            var vals=this.canvas.canvasItem.form.getValue(this.canvas.canvasItem.name);
+                            var vals;
+                            
+//                            if(this.canvas.canvasItem.grid)
+//                            {
+//                                vals=this.canvas.canvasItem.grid.getEditForm().values[this.canvas.canvasItem.name];
+//                            }else
+//                            {
+                                vals=this.canvas.canvasItem.form.getValue(this.canvas.canvasItem.name);
+//                            }
                             
                             if(!(Array.isArray(vals)))
                             {
@@ -870,13 +889,14 @@ isc.FileUpload.addProperties({
                                 vals.push({id:f.id,name:f.name,lastModifiedDate:f.lastModifiedDate,size:f.size,target_name:f.target_name,type:f.type,percent:f.percent});
                             }
                             
-                            if(this.canvas.canvasItem.grid)
-                            {
-                                this.canvas.canvasItem.grid.setEditValue(this.canvas.canvasItem.rowNum,this.canvas.canvasItem.colNum,vals);
-                            }else
-                            {
+//                            if(this.canvas.canvasItem.grid)
+//                            {
+//                                this.canvas.canvasItem.grid.getEditForm().values[this.canvas.canvasItem.name]=vals;
+//                                //this.canvas.canvasItem.grid.setEditValue(this.canvas.canvasItem.rowNum,this.canvas.canvasItem.colNum,vals);
+//                            }else
+//                            {
                                 this.canvas.canvasItem.form.setValue(this.canvas.canvasItem.name,vals);
-                            }
+//                            }
                             uploader.start();
                         },
 
@@ -900,14 +920,16 @@ isc.FileUpload.addProperties({
                         {
                             //console.log('[UploadProgress]', up, file);
                             var vals;
-                            if(this.canvas.canvasItem.grid)
-                            {
-                                vals=this.canvas.canvasItem.grid.getEditedRecord(file.grid.rowNum)[this.canvas.canvasItem.name];
-                                this.canvas.canvasItem.grid.validateCell(file.grid.rowNum,this.canvas.canvasItem.name);
-                            }else
-                            {
+//                            if(this.canvas.canvasItem.grid)
+//                            {
+//                                vals=this.canvas.canvasItem.grid.getEditForm().values[this.canvas.canvasItem.name];
+//                                //vals=this.canvas.canvasItem.grid.getEditValue(file.grid.rowNum,file.grid.colNum);
+//                                //vals=this.canvas.canvasItem.grid.getEditedRecord(file.grid.rowNum)[this.canvas.canvasItem.name];
+//                                this.canvas.canvasItem.grid.validateCell(file.grid.rowNum,this.canvas.canvasItem.name);
+//                            }else
+//                            {
                                 vals=this.canvas.canvasItem.form.getValue(this.canvas.canvasItem.name);
-                            }
+//                            }
                             
                             if(vals)
                             {
@@ -925,13 +947,13 @@ isc.FileUpload.addProperties({
                                         }
                                     }
                                 }
-                                if(this.canvas.canvasItem.grid)
-                                {
-                                    this.canvas.canvasItem.grid.setEditValue(file.grid.rowNum,file.grid.colNum,vals);
-                                }else
-                                {
+//                                if(this.canvas.canvasItem.grid)
+//                                {
+//                                    //this.canvas.canvasItem.grid.setEditValue(file.grid.rowNum,file.grid.colNum,vals);
+//                                }else
+//                                {
                                     this.canvas.canvasItem.form.setValue(this.canvas.canvasItem.name,vals);
-                                }                            
+//                                }                            
                             }
                         },
 
@@ -1064,6 +1086,4 @@ isc.GridSelectItem.addProperties({
             this.grid.transferSelectedData(this.gridSelect);
         }
     }    
-
-    
 });

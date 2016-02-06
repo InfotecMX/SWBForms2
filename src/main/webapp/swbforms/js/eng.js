@@ -17,6 +17,8 @@ var eng = {
     authModules:{},                     //Modulos de autenticación    
     userRepository:{},                  //User Repository
     
+    dataSourcesCache:{},                //cache de datasources
+    
     dsCounter:0,                        //contador incremental para IDs de datasources 
     
     dataSourceScriptPath:"",            //ruta de datasource.js
@@ -733,13 +735,15 @@ var eng = {
     {
         var dsObjDef=eng.getDataSourceObjDef(dsDef,clone);
         
-        var ds=(dsObjDef.ds)?dsObjDef.ds:eng.findObject(dsObjDef.dsId);
-            
-        if (ds == null)
+        //var ds=(dsObjDef.ds)?dsObjDef.ds:eng.findObject(dsObjDef.dsId);            
+        //if (ds == null)
+        var ds=(dsObjDef.ds)?dsObjDef.ds:eng.dataSourcesCache[dsObjDef.dsId];            
+        if (!ds)
         {
-            var data = eng.utils.cloneObject(eng.dataSources[dsObjDef.dsName]);
+            var data = eng.utils.cloneObject(eng.dataSources[dsObjDef.dsName]);            
             if(data)
-            {
+            {                
+              	eng.dataSourcesCache[dsObjDef.dsId]=data;	//se aperta temporalmente el id para romper recursividad
                 data.ID = dsObjDef.dsId;
                 data.dsName = dsObjDef.dsName;
                 data.dataFormat = "json";
@@ -749,11 +753,14 @@ var eng = {
                 if(formDef && formDef.fields)
                 {
                     data.fields=eng.mergeAndArray(data.fields,formDef.fields);
-                }
-
+                }                
                 eng.processFields(data.fields);
                 data.fields.unshift({name: "_id", type: "string", hidden: true, primaryKey: true});    //Insertar llave primaria
-                return isc.RestDataSource.create(data);
+              
+                var rds=isc.RestDataSource.create(data);
+                eng.dataSourcesCache[dsObjDef.dsId]=rds;              
+              
+                return rds;
             }
         }
         return ds;
@@ -789,7 +796,9 @@ var eng = {
         if (base.canAdd===undefined)
             base.canAdd = false;
         if (base.canPrint===undefined)
-            base.canPrint = true;        
+            base.canPrint = true;      
+        if (base.warnOnRemoval===undefined)
+            base.warnOnRemoval = true;      
         base.canRemoveRecords = eng.utils.removeAttribute(base, "canRemove");
         base.showFilterEditor = eng.utils.removeAttribute(base, "showFilter");
 
