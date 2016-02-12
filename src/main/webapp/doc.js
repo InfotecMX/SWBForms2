@@ -189,6 +189,11 @@ validators:[{type:"custom", condition:"return value == true", errorMessage:"You 
 validators:[{type:"regexp", expression:"^\\d{5}(-\\d{4})?$", errorMessage:"Zip Codes should be in the format ##### or #####-####."}]
 */
 
+//Propuedades de diseño de elementos de forma 
+{
+    endRow:true, 
+    startRow:true,
+}
 
 
 //*************************************** server ************************//
@@ -426,3 +431,47 @@ form.submitButton.setTitle("Enviar");
         //formatEditorValue:
     }
 ]
+
+eng.dataSources["Log"] = {
+    scls: "Log",
+    modelid: "Forms",
+    dataStore: "mongodb",
+    displayField: "user",
+    fields: [
+        {name: "source", title: "Source", type: "string"},
+        {name: "user", title: "Usuario", type: "string"},
+        {name: "dataSource", title: "DataSource", type: "string"},
+        {name: "action", title: "Acción", type: "string"},
+        {name: "data", title: "Datos", type: "boolean"},			//Se define como boolean para que internamente se interprete como objeto
+        {name: "timestamp", title: "TimeStamp", type: "long"},
+    ],
+};
+
+
+eng.dataServices["LogsService"] = {
+    dataSources: ["*"],
+    actions:["add","remove","update"],
+    service: function(request, response, dataSource, action)
+    {
+        //print("user:"+this.user+" dataSource:"+dataSource+" action:"+action+" request:"+request.data);
+        if(dataSource!=="Log")
+        {
+            
+            var data={
+                source:this.source,
+                //user:this.user.login,
+                dataSource:dataSource,
+                action:action,
+              	data:[request.data],
+                timestamp:new java.util.Date().getTime(),
+            };
+            if(this.user)
+            {
+              data.user=this.user.login;
+              data.userIp=this.user.ip;
+            }
+            //print("saveLog:"+data);
+            this.getDataSource("Log").addObj(data);
+        }
+    }
+};
