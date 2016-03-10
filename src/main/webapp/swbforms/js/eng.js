@@ -455,9 +455,10 @@ var eng = {
                 {
                     
                     var sform=isc.DynamicForm.create({
-                        numCols: "6",
+                        numCols: link.numCols?link.numCols:6,
                         cellPadding: 5,
                         titleAlign : "right",
+                        titleOrientation:link.titleOrientation?link.titleOrientation:"left",
                         disabled : false,
                         dataSource: ds,
                         fields:link.fields,
@@ -489,7 +490,8 @@ var eng = {
                 }else if(link.stype==="tab")
                 {
                     var sform=isc.DynamicForm.create({
-                        numCols: "6",
+                        numCols: link.numCols?link.numCols:6,
+                        titleOrientation:link.titleOrientation?link.titleOrientation:"left",
                         cellPadding: 5,
                         titleAlign : "right",
                         disabled : false,
@@ -979,7 +981,9 @@ var eng = {
 
         if (formBase.numCols===undefined)
             formBase.numCols = 6;        
-        //colWidths: [60, "*"],        
+        //colWidths: [60, "*"],     
+        if (formBase.titleOrientation===undefined)
+            formBase.titleOrientation = "left";        
         if (formBase.titleAlign===undefined)
             formBase.titleAlign = "right";
         if (formBase.cellPadding===undefined)
@@ -1059,6 +1063,8 @@ var eng = {
         
         var layout=isc.VLayout.create({
             membersMargin: 5,
+            left: base.left,
+            top: base.top,
             width: base.width,
             height: base.height,
             members: [

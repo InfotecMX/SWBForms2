@@ -544,15 +544,15 @@ isc.GridEditorItem.addProperties({
             //dataSource:eng.createDataSource(this.dataSource,true,this),
             fields:this.fields,
             autoFetchData:false,
+            alternateRecordStyles: this.alternateRecordStyles?this.alternateRecordStyles:true,
             warnOnRemoval:true,
-            
-            alternateRecordStyles: true,
             sortField: this.gridSortField,
             // the record being edited is assumed to have a set of subrecords
             //data:this.getValue(),
             canEdit:canEdit,
             winEdit: this.winEdit,
             autoSaveEdits: false,
+            cellHeight:this.cellHeight,
             gridComponents: ["filterEditor","header", "body","summaryRow", toolStrip],
             autoFitData: "vertical",
             autoFitMaxRecords: 5,
@@ -563,6 +563,14 @@ isc.GridEditorItem.addProperties({
             groupStartOpen:this.groupStartOpen,
             groupByField:this.groupByField,     
             showGridSummary:this.showGridSummary,
+            wrapCells:this.wrapCells,
+            editEvent:this.editEvent,
+            editByCell:this.editByCell,
+            canReorderFields:this.canReorderFields,
+            canResizeFields:this.canResizeFields,
+            canSort:this.canSort,
+            canSelect:this.canSelect,
+            baseStyle:this.baseStyle,
             canRemoveRecords:canEdit && this.canRemove!==false,
             
             recordDoubleClick: function(viewer, record, recordNum, field, fieldNum, value, rawValue)
@@ -586,7 +594,7 @@ isc.GridEditorItem.addProperties({
                     }                    
                 }
             },
-            dataChanged: function()
+            dataChanged: this.dataChanged?this.dataChanged:function()
             {
                 this.Super("dataChanged", arguments);
                 var totalRows = this.data.getLength();
