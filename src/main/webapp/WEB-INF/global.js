@@ -1,7 +1,16 @@
 //******* DataStores ***************
 
 eng.config={
-    baseDatasource:"/WEB-INF/global.js"
+    baseDatasource:"/WEB-INF/global.js",
+    mail:{
+        from:"xxx@gmail.com",
+        fromName:"Name",
+        host:"smtp.gmail.com",
+        user:"email.gmail.com",
+        passwd:"password",
+        port:465,
+        ssl:true
+    }
 };
 
 //******* DataStores ***************
@@ -32,7 +41,7 @@ eng.dataProcessors["UserProcessor"]={
     {
         if(request.data.password)
         {
-            request.data.password=this.encodeSHA(request.data.password);
+            request.data.password=this.utils.encodeSHA(request.data.password);
         }
         return request;
     }          
@@ -46,6 +55,6 @@ eng.routes["global"]={
         { routePath: "", forwardTo: "/index.jsp", isRestricted: "false"},
         { routePath: "work", isRestricted: "true"},
         { routePath: "work/*", jspMapTo: "/work/jsp/", isRestricted: "true" },
-        { routePath: "ds", forwardTo: "/swbforms/jsp/datasource.jsp", isRestricted: "false" },
+        { routePath: "ds", forwardTo: "/swbforms/jsp/datasource.jsp", isRestricted: "true" },
     ],
 };
