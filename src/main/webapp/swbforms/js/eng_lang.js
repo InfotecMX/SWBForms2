@@ -44,7 +44,7 @@ eng.fieldProcesors["select"] = function(field)
     //console.log(dsfmt,base.displayFormat);
     
     
-    if(base.multiple===true)                //validar bug de multiple no puede ser gequerido
+    if(base.multiple===true)                //validar bug de multiple no puede ser requerido
     {
         base.required=false;
     }
@@ -572,6 +572,8 @@ isc.GridEditorItem.addProperties({
             canSelect:this.canSelect,
             baseStyle:this.baseStyle,
             canRemoveRecords:canEdit && this.canRemove!==false,
+            headerHeight:this.headerHeight,
+            headerSpans:this.headerSpans,
             
             recordDoubleClick: function(viewer, record, recordNum, field, fieldNum, value, rawValue)
             {
