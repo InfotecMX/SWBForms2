@@ -572,7 +572,7 @@ isc.GridEditorItem.addProperties({
             canSelect:this.canSelect,
             baseStyle:this.baseStyle,
             canRemoveRecords:canEdit && this.canRemove!==false,
-            headerHeight:this.headerHeight,
+            headerHeight:this.headerHeight?this.headerHeight:25,
             headerSpans:this.headerSpans,
             
             recordDoubleClick: function(viewer, record, recordNum, field, fieldNum, value, rawValue)
