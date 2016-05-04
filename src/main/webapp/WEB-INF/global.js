@@ -8,8 +8,9 @@ eng.config={
         host:"smtp.gmail.com",
         user:"email.gmail.com",
         passwd:"password",
-        port:465,
-        ssl:true
+        port:25,
+        ssl:true,
+        sslPort:465
     }
 };
 
