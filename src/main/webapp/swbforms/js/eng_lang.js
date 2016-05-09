@@ -267,6 +267,23 @@ eng.fieldProcesors["grid"] = function(field)
     return base;
 };
 
+eng.fieldProcesors["gridView"] = function(field)
+{
+    var base = eng.utils.cloneObject(field);
+
+    if (!base.editorType)
+        base.editorType = "GridViewItem";
+    if (!base.width)
+        base.width = "100%";
+    if (!base.height)
+        base.height = "150";
+    if (!base.startRow)
+        base.startRow = true;
+    if (!base.colSpan)
+        base.colSpan = 5;
+    return base;
+};
+
 eng.fieldProcesors["gridSelect"] = function(field)
 {
     var base = eng.utils.cloneObject(field);
@@ -706,6 +723,117 @@ isc.GridEditorItem.addProperties({
             this.grid.setData([]);
         }
     }
+    
+});
+
+//*********** GridViewItem ***********************************
+isc.ClassFactory.defineClass("GridViewItem", "CanvasItem");
+
+isc.GridViewItem.addProperties({
+    height:"*", 
+    width:"*",
+    rowSpan:"*", 
+    endRow:true, 
+    startRow:true,
+    
+    // Implement 'createCanvas' to build a ListGrid from which the user may 
+    // select items.
+    createCanvas : function () {
+        var grid= isc.ListGrid.create({
+            width:this.width, 
+            height:this.height,
+            leaveScrollbarGaps:false,
+            fields:this.fields,
+            autoFetchData:false,
+            alternateRecordStyles: this.alternateRecordStyles?this.alternateRecordStyles:true,
+            sortField: this.gridSortField,
+            autoSaveEdits: false,
+            cellHeight:this.cellHeight,
+            autoFitData: "vertical",
+            autoFitMaxRecords: 5,
+            initialCriteria: this.initialCriteria,
+            showRecordComponents:this.showRecordComponents,
+            showRecordComponentsByCell:this.showRecordComponentsByCell,
+            createRecordComponent:this.createRecordComponent,
+            groupStartOpen:this.groupStartOpen,
+            groupByField:this.groupByField,     
+            showGridSummary:this.showGridSummary,
+            wrapCells:this.wrapCells,
+            canReorderFields:this.canReorderFields,
+            canResizeFields:this.canResizeFields,
+            canSort:this.canSort,
+            canSelect:this.canSelect,
+            baseStyle:this.baseStyle,
+            headerHeight:this.headerHeight?this.headerHeight:25,
+            headerSpans:this.headerSpans,
+            data:this.data,
+            //showFilterEditor: this.showFilter,
+        });
+        
+        if(this.recordDoubleClick!==undefined)
+        {
+            grid.recordDoubleClick = this.recordDoubleClick;
+        }        
+        
+        grid.form=this.form;
+        grid.canvasItem=this;
+        this.grid=grid;
+        //eng.linkFormGrid(this.form, this.grid);
+        return grid;        
+    },
+    
+    isEditable:function()
+    {
+        return false;
+    },    
+    
+    /*
+    // implement showValue to update the ListGrid selection
+    showValue : function (displayValue, dataValue) {
+        if (this.canvas == null) return;
+      
+      	if((!dataValue || dataValue==null)&& this.grid.getAllEditRows().length>0)return;
+
+        if (this.grid.invalidate == false && this.dataValue && dataValue && this.dataValue.toString() == dataValue.toString())
+            return; //comparar si cambio o no el contenido
+
+        if (dataValue && dataValue.length>0)
+        {
+            this.grid.discardAllEdits(null);
+            this.dataValue = dataValue;
+            this.grid.invalidateCache();
+            //if(dataValue==null)dataValue="";
+            if(dataValue != null)
+            {
+                this.grid.invalidate = false;  //bandera para recargar cache            
+                this.grid.fetchData({
+                    _id: dataValue
+                },
+                function(dsResponse, data, dsRequest)
+                {
+//                    var grid = isc.eval(dsRequest.componentId);
+//                    for (i = 0; i < data.length; i++)
+//                    {
+//                        if (data[i]._id.endsWith("_biz"))
+//                        {
+//                            grid.data.localData[i] = {
+//                                _id: data[i]._id
+//                            };
+//                            grid.setEditValues(i, data[i]);
+//                        }
+//                    }
+                });
+            }
+        }else
+        //else if (null==dataValue)
+        {
+            this.dataValue=null;
+            this.grid.discardAllEdits(null);
+            //this.grid.setCriteria({_id:""})
+            this.grid.setData([]);
+        }
+    }
+    */
     
 });
 

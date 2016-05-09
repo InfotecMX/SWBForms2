@@ -301,6 +301,13 @@ eng.dataSources["Direccion"] = {
 };
 
 
+//GridView
+{name: "view", title:"Vista", stype:"gridView", fields: [
+        {name: "name", title:"Nombre", type:"string"},
+        {name: "number", title:"Número", type:"int"},
+    ], data:[{name:"Javier",number:34},{name:"Carlos",number:24}]
+},
+
 //*****************************************************************//
 //default values
 
