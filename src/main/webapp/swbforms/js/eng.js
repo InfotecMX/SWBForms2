@@ -424,6 +424,7 @@ var eng = {
     mergeAndArray:function(bnodes, fnodes)
     {
         if(!fnodes)return bnodes;
+        if(!bnodes)return fnodes;
         var ret=[];
         for(var x=0;x<fnodes.length;x++)
         {
@@ -453,7 +454,7 @@ var eng = {
                                 
                 if(link.stype==="subForm")
                 {
-                    
+                    if(ds==null)eng.processFields(link.fields);
                     var sform=isc.DynamicForm.create({
                         numCols: link.numCols?link.numCols:6,
                         cellPadding: 5,
@@ -486,9 +487,10 @@ var eng = {
                     
                     eng.linkForm(form,sform,link.name);
                     
-                    eng.addLinks(ds.links,tabs,tab,spane,sform);
+                    eng.addLinks(ds?ds.links:undefined,tabs,tab,spane,sform);
                 }else if(link.stype==="tab")
                 {
+                    if(ds==null)eng.processFields(link.fields);
                     var sform=isc.DynamicForm.create({
                         numCols: link.numCols?link.numCols:6,
                         titleOrientation:link.titleOrientation?link.titleOrientation:"left",
@@ -512,7 +514,7 @@ var eng = {
                     
                     tabs.addTab(stab);
                     eng.linkForm(form,sform,link.name);
-                    eng.addLinks(ds.links,tabs,stab,spane,sform);
+                    eng.addLinks(ds?ds.links:undefined,tabs,stab,spane,sform);
                 }
             }                  
         }        
