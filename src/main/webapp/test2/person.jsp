@@ -16,7 +16,8 @@
             eng.createForm({
                 width: "100%",
                 height: 300,
-                showTabs: false,
+                title:"Información",
+                showTabs: true,
                 fields: [
                     {name: "name", width:"500", colSpan:3, rowSpan:2},
                     {name: "lastname"},
@@ -57,7 +58,17 @@
                     },
                 ],
                 links: [
-                    {name: "address2"}
+                    {name: "address2", title:"Address"},
+                    {name: "test",
+                        fields: [
+                            {name: "addresses", title: "Direcciones", required: false, stype: "grid", dataSource: "Address"},
+                            {name: "view", title:"Vista", stype:"gridView", fields: [
+                                    {name: "name", title:"Nombre", type:"string"},
+                                    {name: "number", title:"Número", type:"int"},
+                                ], data:[{name:"Javier",number:34},{name:"Carlos",number:24}]
+                            },
+                        ]
+                    }
                 ]
             }, id, "Person");
         </script>

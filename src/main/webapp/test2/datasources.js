@@ -75,7 +75,8 @@ eng.dataSources["Person"] = {
         {name: "addresses", title: "Direcciones", required: false, stype: "grid", dataSource: "Address"},
     ],
     links: [
-        {name: "address2", title: "Dirección", stype: "subForm", dataSource: "Address"}
+        {name: "address2", title: "Dirección", stype: "subForm", dataSource: "Address"},
+        {name: "test", title: "Test", stype: "tab"}
     ]
 };
 

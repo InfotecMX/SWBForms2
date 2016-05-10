@@ -26,7 +26,7 @@
     //Fetch
     DataObject query=new DataObject();
 
-    //paginar startRow, endRow
+    //paginar opcional startRow, endRow
     query.addParam("startRow", 0).addParam("endRow", 10);
 
     //DataObject data=new DataObject();

@@ -48,7 +48,13 @@
             var form=eng.createForm({
                 width:"100%",
                 showTabs:false,
-            },null,"Direccion");
+                fields: [
+                    {name: "nombre"},
+                    {name: "abre"},
+                    //{name: "ext", title: "Ext2"},
+                ],
+                values:{nombre:"Hola"}             
+            },null,"Pais");
             
         </script>        
     </body>

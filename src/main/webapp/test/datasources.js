@@ -10,7 +10,7 @@ eng.dataSources["Direccion"] = {
         {name: "colonia", title: "Colonia", type: "string"},
         {name: "municipio", title: "Municipio", type: "string"},
         {name: "cp", title: "CP", type: "int", validators_:[{stype:"zipcode"}]},
-        {name: "pais", title: "Pais", required: true, stype: "select", dataSource:"Pais", dependentSelect:"estado", dependentSelect_: {filterProp:"pais", dependentField:"estado"}},
+        {name: "pais", title: "Pais", required: true, stype: "select", dataSource:"Pais", displayFormat_:"value+'_Hola'", dependentSelect:"estado", dependentSelect_: {filterProp:"pais", dependentField:"estado"}},
         {name: "estado", title: "Estado", required: true, stype: "select", dataSource:"Estado", canFilter:false, initialCriteria_ : {} },
     ]
 };
@@ -23,6 +23,7 @@ eng.dataSources["Pais"] = {
     fields: [
         {name: "nombre", title: "Pais", required: true, type: "string"},
         {name: "abre", title: "Clave", required: true, type: "string"},
+        {name: "ext", title: "Ext", required: false, type: "string"},
     ]
 };
 
@@ -34,6 +35,48 @@ eng.dataSources["Estado"] = {
     fields: [
         {name: "nombre", title: "Estado", required: true, type: "string"},
         {name: "pais", title: "Pais", required: true, stype: "select", dataSource:"Pais"},
+        {name: "bandera", title: "Bandera", required: false, stype: "file"},
     ]
 };
 
+/*
+//dataService
+eng.dataServices["EstadoService"] = {
+    dataSources: ["Estado"],
+    actions: ["add"],
+    service: function(request, response, dataSource, action)
+    {
+        print("request:" + request);
+        response.data.jei=["Hola","Mundo"];
+        this.getDataSource(dataSource).updateObj(response.data);
+    }
+};
+*/
+
+//dataProcessor
+eng.dataProcessors["EstadoProcessor"] = {
+    dataSources: ["Estado"],
+    actions: ["add",],
+    request: function(request, dataSource, action)
+    {
+        //print("action:" + action);
+        //request.data.jei=["Hola","Mundo"];
+        //print("request:" + request);        
+        return request;
+    },
+    response: function(response, dataSource, action)
+    {
+        print("response:" + response);
+        //response.data.jei=["Hola","Mundo"];        
+        var obj=this.getDataSource(dataSource).fetchObjById(response.response.data._id);
+        obj.jei=["Hola","Mundo"];
+        this.getDataSource(dataSource).updateObj(obj);
+        
+        
+        print(this.getDataSource(dataSource).fetch({data:{nombre:"jj"}}));
+        
+        print("obj:" + obj);   
+        
+        return response;
+    },
+};
