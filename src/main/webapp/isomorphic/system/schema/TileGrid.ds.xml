@@ -1,6 +1,6 @@
 <DataSource ID="TileGrid"	inheritsFrom="TileLayout"	Constructor="TileGrid">
 	<fields>
-        <field name="initialCriteria" type="Object"/>
+        <field name="initialCriteria" type="AdvancedCriteria" basic="true"/>
         <!-- visualBuilder: enable databinding on this component -->
 		<field name="dataSource"		type="DataSource" hidden="false" idAllowed="true"/>
 		<field name="data" multiple="true" type="TileRecord"/>

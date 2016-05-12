@@ -14,6 +14,8 @@ if (!window.isc && document.domain && document.domain.indexOf(".") != -1
     var set = false;
     while (document.domain.indexOf(".") != -1) {
         try {
+             
+            if (window.parent && window.parent.isc) break;
             if (window.opener && window.opener.isc) break;
             if (window.top.isc) break;
             

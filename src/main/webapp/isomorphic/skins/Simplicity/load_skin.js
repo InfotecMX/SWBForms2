@@ -13,9 +13,13 @@ isc.loadSkin = function (theWindow) {
         isc.Class.modifyFrameworkStart();
 
         isc.Canvas.setProperties({
-            // use synthetic scrollbars in mobile and for Macs, since from OSX Lion onward,
-            // scrollbars are not shown by default
-            showCustomScrollbars:isc.Browser.isMobile || isc.Browser.isMac,
+            // use synthetic scrollbars 
+            // in mobile 
+            // for Macs, since from OSX Lion onward, scrollbars are not shown by default
+            // in Webkit browsers as css scrollbars are natively shown in some cases when 
+            // this should not be necessary
+            showCustomScrollbars:(isc.Browser.isMobile || isc.Browser.isMac ||
+                                !(isc.Browser.isIE || isc.Browser.isFirefox)),
             groupBorderCSS :"1px solid #165fa7"
         });
 
@@ -140,6 +144,42 @@ isc.loadSkin = function (theWindow) {
         if (isc.SectionStack) {
             isc.SectionStack.addProperties({
                 headerHeight:26
+            });
+        }
+
+        if (isc.MiniNavControl) {
+            isc.MiniNavControl.addProperties({
+                src: isc.Browser.isIPhone ? "[SKIN]/miniNav.svg" : "[SKIN]/miniNav~2.png",
+                showDisabled: true,
+                showDown: false,
+                upButtonSrc: null,
+                downButtonSrc: null
+            });
+        }
+        if (isc.NavigationBar) {
+            isc.NavigationBar.addProperties({
+                leftButtonIcon: "[SKINIMG]NavigationBar/back_arrow~2.png"
+            });
+            isc.NavigationBar.changeDefaults("leftButtonDefaults", {
+                iconWidth: 14,
+                iconHeight: 24,
+                iconSpacing: 7,
+                showDown: false,
+                showRTLIcon: true
+            });
+            isc.NavigationBar.changeDefaults("titleLabelDefaults", {
+                margin: 0
+            });
+
+            if (isc.Browser.isIPhone || isc.Browser.isIPad) {
+                isc.NavigationBar.addProperties({
+                    leftButtonIcon: "[SKINIMG]NavigationBar/back_arrow.svg"
+                });
+            }
+        }
+        if (isc.NavigationButton) {
+            isc.NavigationButton.addProperties({
+                padding: 0
             });
         }
 
@@ -318,6 +358,12 @@ isc.loadSkin = function (theWindow) {
                 bodyColor: "#f6f6f6"
             });
         }
+        if (isc.Dialog.Warn) {
+            if (isc.Browser.isTouch) isc.Dialog.Warn.showModalMask = true;
+        }
+        if (isc.Dialog.Prompt) {
+            if (isc.Browser.isTouch) isc.Dialog.Prompt.showModalMask = true;
+        }
 
         // Dynamic form skinning
         if (isc.FormItem) {
@@ -439,22 +485,12 @@ isc.loadSkin = function (theWindow) {
             });
         }
         if (isc.MiniDateRangeItem) {
-            isc.MiniDateRangeItem.changeDefaults("pickerIconDefaults", {
-                src: "[SKIN]/DynamicForm/date_control.png"
-            });
+            isc.MiniDateRangeItem.addProperties({"pickerIconSrc": "[SKIN]/DynamicForm/date_control.png"});
         }
         if (isc.RelativeDateItem) {
             isc.RelativeDateItem.changeDefaults("pickerIconDefaults", {
                 neverDisable: false,
                 src: "[SKIN]/DynamicForm/date_control.png"
-            });
-        }
-
-        // Native FILE INPUT items are rendered differently in Safari from other browsers
-        // Don't show standard textbox styling around them as it looks odd
-        if (isc.UploadItem && isc.Browser.isSafari) {
-            isc.UploadItem.addProperties({
-                textBoxStyle:"normal"
             });
         }
 
@@ -584,6 +620,23 @@ isc.loadSkin = function (theWindow) {
             isc.PrintWindow.changeDefaults("printButtonDefaults", {
                 height: 22
             });
+        }
+
+        if (isc.SplitPane) {
+            isc.SplitPane.changeDefaults("backButtonDefaults", {
+                icon: "[SKINIMG]NavigationBar/back_arrow~2.png",
+                iconWidth: 14,
+                iconHeight: 24,
+                iconSpacing: 7,
+                showDown: false,
+                showRTLIcon: true
+            });
+
+            if (isc.Browser.isIPhone || isc.Browser.isIPad) {
+                isc.SplitPane.changeDefaults("backButtonDefaults", {
+                    icon: "[SKINIMG]NavigationBar/back_arrow.svg"
+                });
+            }
         }
 
         // remember the current skin so we can detect multiple skins being loaded

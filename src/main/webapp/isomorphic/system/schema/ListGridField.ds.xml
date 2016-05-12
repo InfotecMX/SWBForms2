@@ -3,7 +3,7 @@
         <field name="thumbNailSize"     type="number"/>
         <field name="thumbNailWidth"    type="number"/>
         <field name="thumbNailHeight"   type="number"/>
-        <field name="type"              type="ListGridFieldType"/>
+        <field name="type"              type="ListGridFieldType" rebuildOnChange="true"/>
 		<field name="name"				type="string" basic="true" xmlAttribute="true"/>
 		<field name="title" 			type="string" basic="true" xmlAttribute="true"/>
 		<field name="summaryTitle" 	type="string"/>
@@ -37,7 +37,7 @@
         <field name="editorImageURLPrefix" type="URL"/>
         <field name="editorImageURLSuffix" type="URL"/>   
         <field name="icons" type="FormItemIcon" multiple="true"/>
-        <field name="defaultValue" type="string"/>
+        <field name="defaultValue" fieldTypeProperty="type"      type="any"/>
         <field name="iconVAlign" type="alignEnum"/>
         <field name="defaultIconSrc" type="URL"/>
         
@@ -85,6 +85,7 @@
 
         <field name="displayFormat"     type="string"/>
         <field name="inputFormat"       type="string"/>
+        <field name="initialValue" fieldTypeProperty="type"      type="any"/>
 
         <field name="editorValueMap"    type="ValueMap"/>
 		<field name="canSort" 			type="boolean" basic="true"/>
@@ -119,9 +120,7 @@
         <field name="canFilter"         type="boolean" basic = "true" />
         <field name="frozen"            type="boolean" basic="true" />
 
-        <!-- type should be "any", not "string"; this means type will be wrong unless explicitly
-             defined inline -->
-        <field name="defaultFilterValue" type="string"/>
+        <field name="defaultFilterValue" fieldTypeProperty="type" type="any"/>
         <field name="filterOnKeypress"  type="boolean"/>
         <field name="filterEditorValueMap" type="object" />
         <field name="filterEditorType"  type="className" />
@@ -134,6 +133,9 @@
         <field name="groupGranularity" type="number"/>
         <field name="canSortClientOnly" type="boolean"/>
         <field name="autoFetchDisplayMap" type="boolean"/>
+
+        <field name="editorFormula" type="UserFormula" useRuleScope="true"/>
+        <field name="editorTextFormula" type="UserSummary" useRuleScope="true"/>
  
         <field name="canExport" type="boolean" basic="true" />
  

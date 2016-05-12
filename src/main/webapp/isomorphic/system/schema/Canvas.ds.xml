@@ -94,6 +94,8 @@
 		<field name="scrollTop"			type="integer" title="Scroll Top Shift (Pixels)" visibility="internal"/>
 		
         <field name="disabled"			type="boolean" title="Disabled" defaultValue="false"/>	
+        <field name="enableWhen"        type="AdvancedCriteria" isRuleCriteria="true" basic="true" />
+        <field name="visibleWhen"       type="AdvancedCriteria" isRuleCriteria="true" basic="true" />
 		<field name="redrawOnDisable"	type="boolean" title="Redraw On Disable" visibility="internal"/>	
         <!-- backcompat only -->
         <field name="enabled"			type="boolean" title="Enabled" defaultValue="true"/>	
@@ -156,8 +158,8 @@
 		
         <!-- databinding (not exposed on Canvas, but defined here to make any Canvas subclass databindable) -->
 		<field name="dataSource" xmlAttribute="true" idAllowed="true" type="DataSource" hidden="true"/>
-		<field name="serviceName" type="string" />
-		<field name="serviceNamespace" type="string" />
+		<field name="serviceName" type="string" hidden="true"/>
+		<field name="serviceNamespace" type="string" hidden="true"/>
 		<field name="useAllDataSourceFields"	type="boolean" hidden="true"/>	
 		<field name="showComplexFields"	type="boolean" hidden="true"/>	
 
@@ -243,6 +245,10 @@
         <field name="snapVGap" type="number"/>
         <field name="edgeOffset" type="number"/>
         <field name="edgeOpacity" type="number"/>
+
+        <!-- RuleScope -->
+        <field name="ruleScope"         type="identifier"/>
+        <field name="isRuleScope"       type="boolean"/>
 	</fields>
 
 	<types>

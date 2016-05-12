@@ -4,7 +4,7 @@
         <className type="string"/>
         <methodName type="string"/>
         <lookupStyle type="enum">
-            <valueMap new="new" factory="factory" attribute="attribute" spring="spring"/>
+            <valueMap new="new" factory="factory" attribute="attribute" spring="spring" cdi="cdi"/>
         </lookupStyle>
         <attributeName type="string"/>
         <attributeScope type="enum">

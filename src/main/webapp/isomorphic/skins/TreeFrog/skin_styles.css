@@ -104,6 +104,10 @@ ul {
     padding-right:5px; padding-left:5px;
 }
 
+.richTextEditor p {
+   margin-top:0px; margin-bottom:0px;
+}
+
 /*============================================================
     2) Button
 		button.baseStyle
@@ -543,6 +547,12 @@ ul {
 .textItemDisabledHint,
 .textItemError,
 .textItemHint,
+.uploadItem,
+.uploadItemFocused,
+.uploadItemDisabled,
+.uploadItemDisabledHint,
+.uploadItemError,
+.uploadItemHint,
 .comboBoxItemPendingText,
 .selectItemControl,
 .selectItemControlError,
@@ -597,6 +607,17 @@ ul {
     padding:2px; border:1px solid #114A58;
     background:#FFFFFF url(./images/shared/shadow.gif) repeat-x scroll;
 }
+.uploadItem,
+.uploadItemFocused,
+.uploadItemDisabled,
+.uploadItemDisabledHint,
+.uploadItemError,
+.uploadItemHint {
+    margin:0;
+    border:0;
+    padding:0;
+    background:#FFFFFF;
+}
 
 .textItemDisabled,
 .textItemDisabledHint,
@@ -606,13 +627,16 @@ ul {
     background-color:#FFFFFF;
     border:1px solid #809DA2;
 }
+.uploadItemDisabled,
+.uploadItemDisabledHint,
 .staticTextItemDisabled {
     color:#ACA899;
 }
 
 .textItemHint,
+.uploadItemHint,
 .selectItemTextHint {
-    color:#666666;
+    color:darkGray;
 }
 
 
@@ -1207,10 +1231,9 @@ ul {
 .toolStripGroupDisabled {
     background: #EDF4F5;
     border: 1px solid #808080;
-    border-radius: 3px;
     -moz-border-radius: 3px;
-    -khtml-border-radius: 3px;
     -webkit-border-radius: 3px;
+    border-radius: 3px;
 }
 
 .toolStripGroupTitle,
@@ -1223,10 +1246,9 @@ ul {
 .toolStripGroupTitleDisabled {
     background-color: #CEDADC;
     border: 0;
-    border-radius: 2px;
     -moz-border-radius: 2px;
-    -khtml-border-radius: 2px;
     -webkit-border-radius: 2px;
+    border-radius: 2px;
     color: #114a58;
     font-family: Arial, Verdana, Bitstream Vera Sans, sans-serif; 
     font-size: 11px; 
@@ -1250,10 +1272,9 @@ ul {
 .iconButtonSelectedDisabled {
     background: transparent;
     border: 1px solid transparent;
-    border-radius: 3px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
-    -khtml-border-radius: 3px;
+    border-radius: 3px;
 	color:#333333;
     font-family: Arial, Verdana, Bitstream Vera Sans, sans-serif; 
     font-size:11px;
@@ -1884,6 +1905,7 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 ============================================================*/
 .calendar,
 .calendarDisabled,
+.calendarDisabledDark,
 .calendarDisabledOver,
 .calendarDisabledOverDark,
 .calendarWorkday,
@@ -1898,6 +1920,7 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 .calendarWorkdayDisabled,
 .calendarDark,
 .calendarDisabled,
+.calendarDisabledDark,
 .calendarDisabledOver,
 .calendarDisabledOverDark {
     background-color:gainsboro;    
@@ -1922,6 +1945,7 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
     background-color:#CCCCCC; 
 }
 .labelColumn,
+.labelColumnDark,
 .labelColumnOver,
 .labelColumnOverDark {
     font-family:Verdana,Bitstream Vera Sans,sans-serif; font-size:11px;
@@ -1947,7 +1971,6 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
     border-bottom:1px solid #a0a0a0; border-right:1px solid #a0a0a0;
     background-color: gainsboro;
 }
-
 .calMonthDayHeaderOver,
 .calMonthDayHeaderOverDark {
     font-family:Verdana,Bitstream Vera Sans,sans-serif; font-size:11px;
@@ -1955,6 +1978,14 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
     border-bottom:1px solid #a0a0a0; border-right:1px solid #a0a0a0;
     background-color: #c0ffc0;
 }
+.calMonthDayHeaderDisabled,
+.calMonthDayHeaderDisabledOver {
+    font-family:Verdana,Bitstream Vera Sans,sans-serif; font-size:11px;
+    color:black;
+    border-bottom:1px solid #a0a0a0; border-right:1px solid #a0a0a0;
+    background-color:#E6E6E6;
+}
+
 .calMonthDayBody,
 .calMonthDayBodyDark {
     font-family:Verdana,Bitstream Vera Sans,sans-serif; font-size:11px;
@@ -1969,7 +2000,6 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
     border-bottom:1px solid #a0a0a0; border-right:1px solid #a0a0a0;
     background-color:#c0ffc0;
 }
-
 .calMonthDayBodyDisabled,
 .calMonthDayBodyDisabledOver {
     font-family:Verdana,Bitstream Vera Sans,sans-serif; font-size:11px;

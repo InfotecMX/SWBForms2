@@ -93,7 +93,7 @@ with (theWindow) {
         if (isc.Browser.isNav) {
             isc.TabSet.addProperties({paneContainerDefaults:{backgroundColor:"#EEEEEE"}});
         }
-        isc.TabBar.addProperties({height:19, baseLineThickness:3,
+        isc.TabBar.addProperties({height:19, baseLineThickness:3, baseLineCapSize:0,
                                          leadingMargin:8});
     }
 	if (isc.ImgTab) isc.ImgTab.addProperties({capSize:11});
@@ -189,14 +189,6 @@ with (theWindow) {
         });
         isc.Slider.changeDefaults("valueLabelDefaults", {
             showDisabled: true
-        });
-    }
-
-    // Native FILE INPUT items are rendered differently in Safari from other browsers
-    // Don't show standard textbox styling around them as it looks odd
-    if (isc.UploadItem && isc.Browser.isSafari) {
-        isc.UploadItem.addProperties({
-            textBoxStyle:"normal"
         });
     }
 

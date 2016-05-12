@@ -263,8 +263,8 @@
 .tHeaderButtonDown,
 .tHeaderButtonSelectedOver,
 .tHeaderButtonSelectedDown {
-    border-left:1px solid reg(103,103,105);
-    border-right:1px solid reg(18,18,18);
+    border-left:1px solid rgb(103,103,105);
+    border-right:1px solid rgb(18,18,18);
 }
 
 .tSorterButton,
@@ -282,7 +282,7 @@
 .tSorterButtonDown,
 .tSorterButtonSelectedOver,
 .tSorterButtonSelectedDown {
-    border-left:1px solid reg(103,103,105);
+    border-left:1px solid rgb(103,103,105);
 }
 
 /* ListGrid column header titles */
@@ -448,7 +448,7 @@
 .tTextItemFocused,
 .tSelectItemTextFocused {
     background-color:#595959;
-    color:E6E6E6;
+    color:#E6E6E6;
     -moz-outline-offset:-1;
 }
 

@@ -776,14 +776,6 @@ with (theWindow) {
         });
     }
 
-    // Native FILE INPUT items are rendered differently in Safari from other browsers
-    // Don't show standard textbox styling around them as it looks odd
-    if (isc.UploadItem && isc.Browser.isSafari) {
-        isc.UploadItem.addProperties({
-            textBoxStyle:"normal"
-        });
-    }
-
 
 
 //----------------------------------------

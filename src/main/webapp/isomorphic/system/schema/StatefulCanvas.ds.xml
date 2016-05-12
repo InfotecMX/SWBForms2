@@ -6,6 +6,7 @@
 		<field name="className"			        type="cssClass" inapplicable="true"/>
 		<field name="state"						type="stateEnum"/>
 		<field name="showRollOver"				type="boolean"/>
+        <field name="showOverCanvas"            type="boolean"/>
 		<field name="showDown"					type="boolean"/>
 		<field name="showDisabled"				type="boolean"/>
         <field name="showFocused"               type="boolean"/>
@@ -39,10 +40,8 @@
         <field name="autoFit"   type="boolean"/>
         <field name="selected"  type="boolean"/>
 
-        <field name="showDisabled"   type="boolean"/>
-        <field name="showDown"       type="boolean"/>
+        <!-- deprecated -->
         <field name="showFocus"      type="boolean"/>
-        <field name="showRollOver"   type="boolean"/>
 
 		<field name="align"  type="alignEnum"/>
 		<field name="valign" type="valignEnum"/>
@@ -50,8 +49,6 @@
         <field name="title"  type="HTMLString" basic="true" />
         <field name="showTitle" type="boolean"/>
         <field name="titleStyle"        type="cssClass" visibility="internal"/>
-
-        <field name="showOverCanvas" type="boolean"/>
     </fields>
     
 	<types>

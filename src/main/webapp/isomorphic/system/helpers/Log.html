@@ -8,6 +8,11 @@
 <HEAD>
 <TITLE>SmartClient Developer Console</TITLE>
 
+<style>
+.countsDisplayStyleOnline {border-top: 1px solid #555555}
+.centeredCheckbox {padding-top: 4px}
+</style>
+
 <SCRIPT>
 
 
@@ -20,6 +25,8 @@ if (!window.isc && document.domain && document.domain.indexOf(".") != -1
     var set = false;
     while (document.domain.indexOf(".") != -1) {
         try {
+             
+            if (window.parent && window.parent.isc) break;
             if (window.opener && window.opener.isc) break;
             if (window.top.isc) break;
             
@@ -48,37 +55,44 @@ window.consoleOperationsEnabled=false;
 </SCRIPT>
 <!--  -->
 
-<SCRIPT src=../development/ISC_FileLoader.js?isc_version=v10.0p_2014-09-11.js></SCRIPT>
+<SCRIPT src=../development/ISC_FileLoader.js?isc_version=v11.0p_2016-05-12.js></SCRIPT>
 <SCRIPT>isc.FileLoader.modulesDir = "system/development/";window.modulesDirExplicitlySet=true;</SCRIPT>
-<SCRIPT src=../development/ISC_Core.js?isc_version=v10.0p_2014-09-11.js></SCRIPT>
-<SCRIPT src=../development/ISC_Foundation.js?isc_version=v10.0p_2014-09-11.js></SCRIPT>
-<SCRIPT src=../development/ISC_Containers.js?isc_version=v10.0p_2014-09-11.js></SCRIPT>
-<SCRIPT src=../development/ISC_Grids.js?isc_version=v10.0p_2014-09-11.js></SCRIPT>
-<SCRIPT src=../development/ISC_Forms.js?isc_version=v10.0p_2014-09-11.js></SCRIPT>
-<SCRIPT src=../development/ISC_DataBinding.js?isc_version=v10.0p_2014-09-11.js></SCRIPT>
-<SCRIPT src=../development/ISC_Tools.js?isc_version=v10.0p_2014-09-11.js></SCRIPT>
-<SCRIPT src=../development/ISC_RealtimeMessaging.js?isc_version=v10.0p_2014-09-11.js></SCRIPT>
+<SCRIPT src=../development/ISC_Core.js?isc_version=v11.0p_2016-05-12.js></SCRIPT>
+<SCRIPT src=../development/ISC_Foundation.js?isc_version=v11.0p_2016-05-12.js></SCRIPT>
+<SCRIPT src=../development/ISC_Containers.js?isc_version=v11.0p_2016-05-12.js></SCRIPT>
+<SCRIPT src=../development/ISC_Grids.js?isc_version=v11.0p_2016-05-12.js></SCRIPT>
+<SCRIPT src=../development/ISC_Forms.js?isc_version=v11.0p_2016-05-12.js></SCRIPT>
+<SCRIPT src=../development/ISC_DataBinding.js?isc_version=v11.0p_2016-05-12.js></SCRIPT>
+<SCRIPT src=../development/ISC_RealtimeMessaging.js?isc_version=v11.0p_2016-05-12.js></SCRIPT>
+
+<SCRIPT src="../../DataSourceLoader?dataSource=$systemSchema"></SCRIPT>
+<SCRIPT src="../development/ISC_Drawing.js"></SCRIPT>
+<SCRIPT src="../development/ISC_Tools.js?isc_version=v11.0p_2016-05-12.js"></SCRIPT>
+
 <!--  -->
-<SCRIPT src=../../skins/Enterprise/load_skin.js?isc_version=v10.0p_2014-09-11.js></SCRIPT>
+<SCRIPT src=../../skins/Enterprise/load_skin.js?isc_version=v11.0p_2016-05-12.js></SCRIPT>
 <SCRIPT>
 
 
 if (window.opener && !(isc.loadSkin || window.loadSkin)) {
-    document.write("<script src="+window.opener.isc.Page.getSkinDir()+"load_skin.js?isc_version=v10.0p_2014-09-11.js></"+"script>");
+    document.write("<script src="+window.opener.isc.Page.getSkinDir()+"load_skin.js?isc_version=v11.0p_2016-05-12.js></"+"script>");
 }
 </SCRIPT>
 <SCRIPT>isc.deferAutoDraw = true;</SCRIPT>
 
 </HEAD>
-<BODY ONBLUR='saveState()' STYLE="margin:0px;background-color:#DDDDDD;overflow:hidden">
+<BODY ONBLUR='if(window.saveState) saveState()' STYLE="margin:0px;background-color:#DDDDDD;overflow:hidden">
 
 <!--
 
 -->
-<SCRIPT src="../../../tools/adminConsoleOperations.jsp?checkPresent=true"></SCRIPT>
-<SCRIPT src="../../../tools/developerConsoleOperations.jsp?checkPresent=true"></SCRIPT>
+<SCRIPT>
+var toolsDir = (window.opener && window.opener.isc ? window.opener.isc : isc).Page.getToolsDir();
+document.write("<SCRIPT src="+toolsDir+"adminConsoleOperations.jsp?checkPresent=true></"+"SCRIPT>");
+document.write("<SCRIPT src="+toolsDir+"developerConsoleOperations.jsp?checkPresent=true></"+"SCRIPT>");
+</SCRIPT>
 
-<SCRIPT src="../development/ISC_DeveloperConsole.js"></SCRIPT>
+<SCRIPT src="../development/ISC_DeveloperConsole.js?isc_version=v11.0p_2016-05-12.js"></SCRIPT>
 
 </BODY>
 </HTML>

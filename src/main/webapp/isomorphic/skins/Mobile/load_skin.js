@@ -468,9 +468,7 @@ isc.loadSkin = function (theWindow) {
             });
         }
         if (isc.MiniDateRangeItem) {
-            isc.MiniDateRangeItem.changeDefaults("pickerIconDefaults", {
-                src: "[SKIN]/DynamicForm/date_control.png"
-            });
+            isc.MiniDateRangeItem.addProperties({"pickerIconSrc": "[SKIN]/DynamicForm/date_control.png"});
         }
         if (isc.RelativeDateItem) {
             isc.RelativeDateItem.changeDefaults("pickerIconDefaults", {

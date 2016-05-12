@@ -6,15 +6,16 @@
         <field name="dataPath" xmlAttribute="true" type="string" hidden="true"/>
 		<field name="ID" xmlAttribute="true" type="identifier" basic="false"/>
 		<field name="title" xmlAttribute="true" type="string"  title="Title" basic="true" />
-		<field name="defaultValue"      type="string"  title="Default Value" basic="true" />
+		<field name="defaultValue" xmlAttribute="true"  type="string"  title="Default Value" basic="true" />
         <field name="defaultDynamicValue" type="expression" title="Default Dynamic Value"
             hint="JS expression to evaluate on redraw"
             prompt="JS expression - evaluates to default value"/>
+        <field name="value" xmlAttribute="true" type="any" />
 
         <!-- hidden because for now, you would switch the type of the component instead -->
 		<field name="canEdit" xmlAttribute="true" type="boolean"  title="Can Edit" hidden="true" />
         
-		<field name="showTitle"			type="boolean" title="Show Title" defaultValue="true" />
+		<field name="showTitle"		xmlAttribute="true"	type="boolean" title="Show Title" defaultValue="true" />
 		<field name="icons"         type="FormItemIcon" multiple="true"/>
 		<field name="iconVAlign"	type="" defaultValue="bottom"/>
 		<field name="iconHeight"	type="positiveInteger" defaultValue="20"/>
@@ -42,7 +43,7 @@
             prompt="Position this item on a new row"/>
 		<field name="endRow" 			type="boolean" title="End Row" basic="true" xmlAttribute="true"
             prompt="Start a new row after this item"/>
-        <field name="cellHeight"        type="measure" title="Cell Height"/>
+        <field name="cellHeight"        xmlAttribute="true" type="measure" title="Cell Height"/>
 
         <!-- these apply only to df.itemLayout:"absolute" -->
 		<field name="left" 			    type="integer" visibility="absForm"/>
@@ -54,12 +55,18 @@
             prompt="JS expression - item will be visible if this evaluates to true" />
 
 		<field name="shouldSaveValue" type="boolean" title="Should Save Value" visibility="internal"/>
+        <field name="requiresDSField" type="string" visibility="internal"/>
             
 		<field name="disabled" 			type="boolean" title="Disable"/>
 		
         <field name="required" 			type="boolean" title="Required"/>
 		<field name="validators"		type="Validator"	multiple="true"	title="Validators"/>
 		<field name="validateOnChange" 	type="boolean" title="Validate On Change"/>
+        <field name="readOnlyWhen"      type="AdvancedCriteria" isRuleCriteria="true" basic="true" />
+        <field name="visibleWhen"       type="AdvancedCriteria" isRuleCriteria="true" basic="true" />
+        <field name="requiredWhen"      type="AdvancedCriteria" isRuleCriteria="true" basic="true" />
+        <field name="formula"           type="UserFormula" useRuleScope="true" />
+        <field name="textFormula"       type="UserSummary" useRuleScope="true" />
 
 		<field name="prompt" 			type="HTMLString"    title="Prompt" basic="true" />
 		<field name="hint" 				type="HTMLString" title="Hint" basic="true"/>
@@ -101,8 +108,8 @@
         <field name="pickerIconStyle"  type="cssClass" title="CSS class for form item pickerIcon"
             visibility="pickerIcon"/>
             
-        <field name="valueField" type="string"/>
-        <field name="displayField" type="string"/>
+        <field name="valueField" type="string" editorType="BoundDSFieldPicker" requiresDSField="optionDataSource" basic="true" />
+        <field name="displayField" type="string" editorType="BoundDSFieldPicker" requiresDSField="optionDataSource" basic="true" />
         <field name="optionDataSource" type="DataSource" idAllowed="true"/>
         <field name="optionOperationId" type="string"/>
         <field name="operator" type="OperatorId"/>
@@ -180,7 +187,7 @@
             <field name="canSelectParentItems" type="boolean" hidden="true"/>
             
             <!-- DateItem -->
-            <field name="useTextField" type="boolean" title="Use Text Field" hidden="true" />
+            <field name="useTextField" xmlAttribute="true" type="boolean" title="Use Text Field" hidden="true" />
 
             <!-- TimeItem -->
             <field name="show24HourTime" type="boolean" title="Show 24Hour Time" defaultValue="true" hidden="true" />

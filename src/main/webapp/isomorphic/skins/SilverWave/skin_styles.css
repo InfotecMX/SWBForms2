@@ -105,6 +105,11 @@ ul {
     color:#333333;
     padding-left:5px; padding-right:5px;
 }
+
+.richTextEditor p {
+   margin-top:0px; margin-bottom:0px;
+}
+
 /*============================================================
     2) Button
 		button.baseStyle
@@ -137,7 +142,7 @@ ul {
     font-family:Arial,sans-serif; font-size:11px; 
     border:1px solid #78A9C2;
     background-color:#97BDCF;
-    color:808080;
+    color:#808080;
 }
 
 .buttonFocused,
@@ -171,7 +176,7 @@ ul {
     font-family:Arial,sans-serif; font-size:11px; 
     border:1px solid #808080;
     background-color:#FFFFFF;
-    color:808080;
+    color:#808080;
 }
 /* ImgButton */
 .imgButton,
@@ -582,6 +587,12 @@ border-left:5px;
 .textItemDisabledHint,
 .textItemError,
 .textItemHint,
+.uploadItem,
+.uploadItemFocused,
+.uploadItemDisabled,
+.uploadItemDisabledHint,
+.uploadItemError,
+.uploadItemHint,
 .selectItemControl,
 .selectItemControlError,
 .selectItemControlFocused,
@@ -640,6 +651,17 @@ border-left:5px;
     background:rgb(230,241,247) url(./images/controls/text_input.gif) repeat-x scroll;
     color:#333333;
 }
+.uploadItem,
+.uploadItemFocused,
+.uploadItemDisabled,
+.uploadItemDisabledHint,
+.uploadItemError,
+.uploadItemHint {
+    margin:0;
+    border:0;
+    padding:0;
+    background:rgb(230,241,247);
+}
 .selectItemText,
 .selectItemTextError,
 .selectItemTextFocused,
@@ -657,13 +679,16 @@ border-left:5px;
     background-color:#FFFFFF;
     border:1px solid #6AA0BB;
 }
+.uploadItemDisabled,
+.uploadItemDisabledHint,
 .staticTextItemDisabled {
     color:#666666;
 }
 
 .textItemHint,
+.uploadItemHint,
 .selectItemTextHint {
-    color:#204268;
+    color:darkGray;
 }
 
 .comboBoxItemPendingText {
@@ -731,7 +756,7 @@ border-left:5px;
 .labelAnchorDisabled,
 .labelAnchorError,
 .labelAnchorFocused  { 
-    color:333333; text-decoration:none;
+    color:#333333; text-decoration:none;
 }
 
 /* ColorChooser */
@@ -1179,6 +1204,7 @@ border-left:5px;
     padding:1px;
     border:1px dotted white;
 }
+
 .dragLine,
 .dragLineVertical {
     background-color:#FADD0C;
@@ -1428,10 +1454,9 @@ border-left:5px;
 .toolStripGroupDisabled {
     background:#000000 url(./images/shared/background.gif) repeat-x bottom left scroll;
     border: 1px solid #6DA2BD;
-    border-radius: 3px;
     -moz-border-radius: 3px;
-    -khtml-border-radius: 3px;
     -webkit-border-radius: 3px;
+    border-radius: 3px;
 }
 
 .toolStripGroupTitle,
@@ -1444,10 +1469,9 @@ border-left:5px;
 .toolStripGroupTitleDisabled {
     background: #C5D9E4;
     border: 0;
-    border-radius: 2px;
     -moz-border-radius: 2px;
-    -khtml-border-radius: 2px;
     -webkit-border-radius: 2px;
+    border-radius: 2px;
     color: #333333;
     font-family: Arial, Verdana, Bitstream Vera Sans, sans-serif; 
     font-size: 11px; 
@@ -1471,10 +1495,9 @@ border-left:5px;
 .iconButtonSelectedDisabled {
     background: transparent;
     border: 1px solid transparent;
-    border-radius: 3px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
-    -khtml-border-radius: 3px;
+    border-radius: 3px;
 	color:#333333;
     font-family: Arial, Verdana, Bitstream Vera Sans, sans-serif; 
     font-size:11px;
@@ -2017,7 +2040,7 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
     font-family:Arial,sans-serif; font-size:11px; 
     border:1px solid #78A9C2;
     background-color:#97BDCF;
-    color:808080;
+    color:#808080;
 }
 
 .innerHeaderOver,
@@ -2032,7 +2055,7 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 }
 
 .innerHeaderSelectedDisabled {
-    color:808080;
+    color:#808080;
 }
 
 
@@ -2110,6 +2133,7 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 ============================================================*/
 .calendar,
 .calendarDisabled,
+.calendarDisabledDark,
 .calendarDisabledOver,
 .calendarDisabledOverDark,
 .calendarWorkday,
@@ -2124,6 +2148,7 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 .calendarWorkdayDisabled,
 .calendarDark,
 .calendarDisabled,
+.calendarDisabledDark,
 .calendarDisabledOver,
 .calendarDisabledOverDark {
     background-color:gainsboro;    
@@ -2148,6 +2173,7 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
     background-color:#CCCCCC; 
 }
 .labelColumn,
+.labelColumnDark,
 .labelColumnOver,
 .labelColumnOverDark {
     font-family:Arial,sans-serif; font-size:11px;
@@ -2173,7 +2199,6 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
     border-bottom:1px solid #a0a0a0; border-right:1px solid #a0a0a0;
     background-color: gainsboro;
 }
-
 .calMonthDayHeaderOver,
 .calMonthDayHeaderOverDark {
     font-family:Arial,sans-serif; font-size:11px;
@@ -2181,6 +2206,14 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
     border-bottom:1px solid #a0a0a0; border-right:1px solid #a0a0a0;
     background-color: #c0ffc0;
 }
+.calMonthDayHeaderDisabled,
+.calMonthDayHeaderDisabledOver {
+    font-family:Arial,sans-serif; font-size:11px;
+    color:black;
+    border-bottom:1px solid #a0a0a0; border-right:1px solid #a0a0a0;
+    background-color:#E6E6E6;
+}
+
 .calMonthDayBody,
 .calMonthDayBodyDark {
     font-family:Arial,sans-serif; font-size:11px;
@@ -2195,7 +2228,6 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
     border-bottom:1px solid #a0a0a0; border-right:1px solid #a0a0a0;
     background-color:#c0ffc0;
 }
-
 .calMonthDayBodyDisabled,
 .calMonthDayBodyDisabledOver {
     font-family:Arial,sans-serif; font-size:11px;

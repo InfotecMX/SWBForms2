@@ -1,5 +1,5 @@
 <DataSource ID="DynamicForm" inheritsFrom="Canvas" Constructor="DynamicForm">
-	<fields>
+    <fields>
         <!-- don't show in ComponentEditor -->
 		<field name="values" 			type="Object" hidden="true"/>
 		<field name="errors" 			type="Object" hidden="true"/>
@@ -92,6 +92,7 @@
 
         <!-- visualBuilder: enable databinding on this component -->
 		<field name="dataSource"		type="DataSource" hidden="false" idAllowed="true"/>
+        <field name="initialCriteria"   type="AdvancedCriteria"/>
         <field name="selectionComponent" type="Canvas" hidden="true"/>
 
         <field name="longTextEditorThreshold" type="positiveInteger" title="Long Text Editor Threshold"/>
@@ -107,6 +108,8 @@
         <field name="showErrorIcons" type="boolean"/>
         <field name="showErrorText" type="boolean"/>
         <field name="showErrorStyle" type="boolean"/>
+
+        <field name="canEdit" type="boolean" xmlAttribute="true" />
         
     </fields>
 
@@ -133,7 +136,8 @@
                 icon="[SKINIMG]/actions/undo.png"/>
         <method action="true" title="Reset Values" name="reset" 
                 icon="[SKINIMG]/actions/first.png"/>
-        <method action="true" title="Reset Values" name="itemChanged" basic="true"/>
+        <method action="true" title="Validate Values" name="validate"/>
+        <method action="true" title="Item Changed" name="itemChanged" basic="true"/>
     </methods>
 
 </DataSource>

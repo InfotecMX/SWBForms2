@@ -1,4 +1,4 @@
-<DataSource	ID="DrawItem" inheritsFrom="Canvas" Constructor="DrawItem" >
+<DataSource ID="DrawItem" Constructor="DrawItem">
     <fields>
 		<field name="cursor" type="cursorEnum" title="Cursor"/>	
         <field name="canHover" type="boolean" title="Can Hover"/>	
@@ -15,12 +15,23 @@
         <field name="fillGradient" title="Fill Gradient" type="Gradient"/>
         <field name="fillOpacity" type="float"  title="Fill Opacity" defaultValue="1.0"/>
         <field name="shadow" type="Shadow" title="Shadow"/>
-        <field name="rotation" type="float" title="Rotation" defaultValue="0.0"/>
-        <field name="scale" type="int" title="Scale" multiple="true"/>
+
+        <!-- transform: set EITHER the shapeData opaque object OR the rotation, scale, etc. -->
+        <field name="shapeData"   type="object" title="Shape Data"/>
+        <field name="rotation"     type="float" title="Rotation"       defaultValue="0.0"/>
+        <field name="xShearFactor" type="float" title="x Shear Factor" defaultValue="0.0"/>
+        <field name="yShearFactor" type="float" title="y Shear Factor" defaultValue="0.0"/>
+        <field name="scale"        type="float" title="Scale"     multiple="true"/>
+        <field name="translate"    type="float" title="Translate" multiple="true"/>
+
         <field name="svgFilter" type="string" title="SVG Filter" />
         <field name="startArrow" type="ArrowStyle" title="Start Arrow"/>
         <field name="endArrow" type="ArrowStyle" title="End Arrow"/>
         <field name="knobs" type="KnobType" title="Knobs" multiple="true"/>
+        <!-- nillable="true" ensures that xsi:nil="true" is added to the <title/> element in
+             the XML serialization of the DrawItem if the DrawItem's title is null. Without this,
+             a null title is serialized as `<title></title>', which deserializes as title:"". -->
+        <field name="title" type="text" title="Title" nillable="true"/>
         <field name="keepInParentRect" type="boolean" title="Keep In Parent Rect"/>
         <field name="dragStartDistance" type="number" title="Drag Start Distance" defaultValue="5"/>
         <field name="canDrag" type="boolean" title="Can Drag" defaultValue="false"/>

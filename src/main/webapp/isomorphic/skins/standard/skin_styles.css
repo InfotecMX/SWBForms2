@@ -89,6 +89,11 @@ ul {
     font-family:Verdana,Bitstream Vera Sans,sans-serif; font-size:11px; color:black;
     padding-left:5px; padding-right:5px;
 }
+
+.richTextEditor p {
+   margin-top:0px; margin-bottom:0px;
+}
+
 /*============================================================
     2) Button
 		button.baseStyle
@@ -439,16 +444,30 @@ ul {
     background-color:#FFFFFF;
     padding:1px; border:2px inset #D4D0C8;
 }
+.uploadItem,
+.uploadItemFocused,
+.uploadItemError,
+.uploadItemHint {
+    margin:0;
+    border:0;
+    padding:0;
+    font-family:Verdana,Bitstream Vera Sans,sans-serif; font-size:11px;
+    background:#FFFFFF;
+}
 
 .textItemDisabled,
 .textItemDisabledHint {
     font-family:Verdana,Bitstream Vera Sans,sans-serif; font-size:11px; color:#ACA899;
     padding:1px; border:1px inset #D4D0C8;
-
+}
+.uploadItemDisabled,
+.uploadItemDisabledHint {
+    font-family:Verdana,Bitstream Vera Sans,sans-serif; font-size:11px; color:#ACA899;
 }
 
-.textItemHint {
-    color:#666666;
+.textItemHint,
+.uploadItemHint {
+    color:darkGray;
 }
 
 .comboBoxItemPendingText {
@@ -484,7 +503,7 @@ ul {
 }
 
 .selectItemTextHint {
-    color:#666666;
+    color:darkGray;
 }
 
 .selectItemPickerIcon,
@@ -494,6 +513,8 @@ ul {
     padding:0px;
 }
 
+.uploadItemDisabled,
+.uploadItemDisabledHint,
 .staticTextItemDisabled {
     color:#ACA899;
 }
@@ -1674,6 +1695,7 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 ============================================================*/
 .calendar,
 .calendarDisabled,
+.calendarDisabledDark,
 .calendarDisabledOver,
 .calendarDisabledOverDark,
 .calendarWorkday,
@@ -1688,6 +1710,7 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 .calendarWorkdayDisabled,
 .calendarDark,
 .calendarDisabled,
+.calendarDisabledDark,
 .calendarDisabledOver,
 .calendarDisabledOverDark {
     background-color:gainsboro;    
@@ -1712,6 +1735,7 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
     background-color:#CCCCCC; 
 }
 .labelColumn,
+.labelColumnDark,
 .labelColumnOver,
 .labelColumnOverDark {
     font-family:Verdana,Bitstream Vera Sans,sans-serif; font-size:11px;
@@ -1737,7 +1761,6 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
     border-bottom:1px solid #a0a0a0; border-right:1px solid #a0a0a0;
     background-color: gainsboro;
 }
-
 .calMonthDayHeaderOver,
 .calMonthDayHeaderOverDark {
     font-family:Verdana,Bitstream Vera Sans,sans-serif; font-size:11px;
@@ -1745,6 +1768,14 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
     border-bottom:1px solid #a0a0a0; border-right:1px solid #a0a0a0;
     background-color: #c0ffc0;
 }
+.calMonthDayHeaderDisabled,
+.calMonthDayHeaderDisabledOver {
+    font-family:Verdana,Bitstream Vera Sans,sans-serif; font-size:11px;
+    color:black;
+    border-bottom:1px solid #a0a0a0; border-right:1px solid #a0a0a0;
+    background-color:#E6E6E6;
+}
+
 .calMonthDayBody,
 .calMonthDayBodyDark {
     font-family:Verdana,Bitstream Vera Sans,sans-serif; font-size:11px;
@@ -1759,7 +1790,6 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
     border-bottom:1px solid #a0a0a0; border-right:1px solid #a0a0a0;
     background-color:#c0ffc0;
 }
-
 .calMonthDayBodyDisabled,
 .calMonthDayBodyDisabledOver {
     font-family:Verdana,Bitstream Vera Sans,sans-serif; font-size:11px;
@@ -1986,7 +2016,7 @@ a.calMonthEventLink:active {color:blue; text-decoration:none}
     background-color:#FFFFFF; border-bottom:1px solid #FFFFFF;
 }
 .finderSelectedText {
-    color:white; background-color:black; margins:5;
+    color:white; background-color:black; margin:5px;
 }
 
 	/* header buttons */
@@ -2030,7 +2060,7 @@ a.calMonthEventLink:active {color:blue; text-decoration:none}
     font-family:MS Sans Serif, Verdana,Bitstream Vera Sans,sans-serif; font-size:11px;
 }
 .explorerSelectedText {
-    background-color:darkblue; color:white; margins:5;
+    background-color:darkblue; color:white; margin:5px;
 }
 .explorerButtonOver,
 .explorerButtonSelected,

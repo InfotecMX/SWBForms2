@@ -2,7 +2,7 @@
 /*
 
   SmartClient Ajax RIA system
-  Version v10.0p_2014-09-11/LGPL Development Only (2014-09-11)
+  Version v11.0p_2016-05-12/LGPL Development Only (2016-05-12)
 
   Copyright 2000 and beyond Isomorphic Software, Inc. All rights reserved.
   "SmartClient" is a trademark of Isomorphic Software, Inc.
@@ -36,7 +36,7 @@
 if(window.isc&&window.isc.module_Core&&!window.isc.module_Workflow){isc.module_Workflow=1;isc._moduleStart=isc._Workflow_start=(isc.timestamp?isc.timestamp():new Date().getTime());if(isc._moduleEnd&&(!isc.Log||(isc.Log&&isc.Log.logIsDebugEnabled('loadTime')))){isc._pTM={message:'Workflow load/parse time: '+(isc._moduleStart-isc._moduleEnd)+'ms',category:'loadTime'};if(isc.Log&&isc.Log.logDebug)isc.Log.logDebug(isc._pTM.message,'loadTime');else if(isc._preLog)isc._preLog[isc._preLog.length]=isc._pTM;else isc._preLog=[isc._pTM]}isc.definingFramework=true;isc.defineClass("ProcessElement");isc.ProcessElement.addProperties({})
 isc.defineClass("ProcessSequence","ProcessElement");isc.ProcessSequence.addProperties({})
 isc.defineClass("Task","ProcessElement");isc.Task.addProperties({})
-isc.defineClass("Process","Task");isc.A=isc.Process;isc.B=isc._allFuncs;isc.C=isc.B._maxIndex;isc.D=isc._funcClasses;isc.D[isc.C]=isc.A.Class;isc.A.$27q={};isc.B.push(isc.A.loadProcess=function isc_c_Process_loadProcess(_1,_2){var _3=isc.DataSource.get("WorkflowLoader");_3.fetchData({id:_1},function(_8,_9,_10){var _4=null;var _5=_9.content;if(isc.isAn.Array(_5)){_4=isc.Class.evaluate(_5[0]);_4.ID=_1[0];isc.Process.$27q[_1[0]]=_4;for(var i=1;i<_5.length;i++){var p=isc.Class.evaluate(_5[i]);p.ID=_1[i];isc.Process.$27q[_1[i]]=p}}else{_4=isc.Class.evaluate(_5);_4.ID=_1;isc.Process.$27q[_1]=_4}
+isc.defineClass("Process","Task");isc.A=isc.Process;isc.B=isc._allFuncs;isc.C=isc.B._maxIndex;isc.D=isc._funcClasses;isc.D[isc.C]=isc.A.Class;isc.A.$27q={};isc.B.push(isc.A.loadProcess=function isc_c_Process_loadProcess(_1,_2){var _3=isc.DataSource.get("WorkflowLoader");_3.fetchData({id:_1},function(_8,_9,_10){var _4=null;var _5=_9.content;if(_5!=null){if(isc.isAn.Array(_5)){_4=isc.Class.evaluate(_5[0]);_4.ID=_1[0];isc.Process.$27q[_1[0]]=_4;for(var i=1;i<_5.length;i++){var p=isc.Class.evaluate(_5[i]);p.ID=_1[i];isc.Process.$27q[_1[i]]=p}}else{_4=isc.Class.evaluate(_5);_4.ID=_1;isc.Process.$27q[_1]=_4}}else{isc.logWarn("File named \""+_1+"\".proc.xml could not be found in the search path specified by \"project.processes\".")}
 _2(_4)})},isc.A.getProcess=function isc_c_Process_getProcess(_1){return isc.Process.$27q[_1]});isc.B._maxIndex=isc.C+2;isc.A=isc.Process.getPrototype();isc.B=isc._allFuncs;isc.C=isc.B._maxIndex;isc.D=isc._funcClasses;isc.D[isc.C]=isc.A.Class;isc.A.autoStart=false;isc.B.push(isc.A.init=function isc_Process_init(){var _1=this.Super("init",arguments);this.$91e=this.startElement;if(this.autoStart)this.start();return _1},isc.A.getElement=function isc_Process_getElement(_1){return this.$87g(this,_1)},isc.A.setState=function isc_Process_setState(_1){this.state=_1},isc.A.$87g=function isc_Process__searchElement(_1,_2){if(_1.sequences){for(var i=0;i<_1.sequences.length;i++){var s=_1.sequences[i];if(s.ID==_2){return s}else if(s.sequences||s.elements){var _5=this.$87g(s,_2);if(_5)return _5}}}
 if(_1.elements){for(var i=0;i<_1.elements.length;i++){var e=_1.elements[i];if(e.ID==_2){return e}else if(e.sequences||e.elements){var _5=this.$87g(e,_2);if(_5)return _5}}}},isc.A.start=function isc_Process_start(){if(this.executionStack==null){this.executionStack=[]}
 if(this.state==null)this.state={};while(this.$39n()){var _1=this.$87h();if(_1){this.$104r=true;if(!_1.executeElement(this)){return}}}
@@ -116,38 +116,3 @@ return v}else if("integer"==_2){var v=parseInt(_1.toString());if(isNaN(v)){if(th
 return null}
 return v}else if("record"==_2){if(isc.isAn.Object(_1)&&!isc.isAn.Array(_1)&&!isc.isAn.RegularExpression(_1)&&!isc.isAn.Date(_1)){return _1}
 return null}else if("array"==_2){if(isc.isAn.Array(_1))return _1;return[_1]}else{return _1}});isc.B._maxIndex=isc.C+2;isc._nonDebugModules=(isc._nonDebugModules!=null?isc._nonDebugModules:[]);isc._nonDebugModules.push('Workflow');isc.checkForDebugAndNonDebugModules();isc._moduleEnd=isc._Workflow_end=(isc.timestamp?isc.timestamp():new Date().getTime());if(isc.Log&&isc.Log.logIsInfoEnabled('loadTime'))isc.Log.logInfo('Workflow module init time: '+(isc._moduleEnd-isc._moduleStart)+'ms','loadTime');delete isc.definingFramework;if(isc.Page)isc.Page.handleEvent(null,"moduleLoaded",{moduleName:'Workflow',loadTime:(isc._moduleEnd-isc._moduleStart)});}else{if(window.isc&&isc.Log&&isc.Log.logWarn)isc.Log.logWarn("Duplicate load of module 'Workflow'.");}
-
-/*
-
-  SmartClient Ajax RIA system
-  Version v10.0p_2014-09-11/LGPL Development Only (2014-09-11)
-
-  Copyright 2000 and beyond Isomorphic Software, Inc. All rights reserved.
-  "SmartClient" is a trademark of Isomorphic Software, Inc.
-
-  LICENSE NOTICE
-     INSTALLATION OR USE OF THIS SOFTWARE INDICATES YOUR ACCEPTANCE OF
-     ISOMORPHIC SOFTWARE LICENSE TERMS. If you have received this file
-     without an accompanying Isomorphic Software license file, please
-     contact licensing@isomorphic.com for details. Unauthorized copying and
-     use of this software is a violation of international copyright law.
-
-  DEVELOPMENT ONLY - DO NOT DEPLOY
-     This software is provided for evaluation, training, and development
-     purposes only. It may include supplementary components that are not
-     licensed for deployment. The separate DEPLOY package for this release
-     contains SmartClient components that are licensed for deployment.
-
-  PROPRIETARY & PROTECTED MATERIAL
-     This software contains proprietary materials that are protected by
-     contract and intellectual property law. You are expressly prohibited
-     from attempting to reverse engineer this software or modify this
-     software for human readability.
-
-  CONTACT ISOMORPHIC
-     For more information regarding license rights and restrictions, or to
-     report possible license violations, please contact Isomorphic Software
-     by email (licensing@isomorphic.com) or web (www.isomorphic.com).
-
-*/
-

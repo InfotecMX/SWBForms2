@@ -510,6 +510,12 @@ ul {
 .textItemDisabledHint,
 .textItemError,
 .textItemHint,
+.uploadItem,
+.uploadItemFocused,
+.uploadItemDisabled,
+.uploadItemDisabledHint,
+.uploadItemError,
+.uploadItemHint,
 .selectItemControl,
 .selectItemControlError,
 .selectItemControlFocused,
@@ -556,9 +562,23 @@ ul {
     background-color:#FFFFFF;
     padding:2px; border:1px solid #808080;
 }
-.textItemHint {
-    color:#666666;
+.uploadItem,
+.uploadItemFocused,
+.uploadItemDisabled,
+.uploadItemDisabledHint,
+.uploadItemError,
+.uploadItemHint {
+    margin:0;
+    border:0;
+    padding:0;
+    background:#FFFFFF;
 }
+.textItemHint,
+.uploadItemHint {
+    color:darkGray;
+}
+.uploadItemDisabled,
+.uploadItemDisabledHint,
 .textItemDisabled,
 .textItemDisabledHint {
     color:#ACA899;
@@ -595,7 +615,7 @@ ul {
 }
 
 .selectItemTextHint {
-    color:#666666;
+    color:darkGray;
 }
 
 .selectItemPickerIcon,
@@ -1088,10 +1108,9 @@ ul {
 .toolStripGroupDisabled {
     background: #C7C7C7;
     border: 1px solid #A7ABB4;
-    border-radius: 3px;
     -moz-border-radius: 3px;
-    -khtml-border-radius: 3px;
     -webkit-border-radius: 3px;
+    border-radius: 3px;
 }
 
 .toolStripGroupTitle,
@@ -1743,6 +1762,7 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 ============================================================*/
 .calendar,
 .calendarDisabled,
+.calendarDisabledDark,
 .calendarDisabledOver,
 .calendarDisabledOverDark,
 .calendarWorkday,
@@ -1757,6 +1777,7 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 .calendarWorkdayDisabled,
 .calendarDark,
 .calendarDisabled,
+.calendarDisabledDark,
 .calendarDisabledOver,
 .calendarDisabledOverDark {
     background-color:gainsboro;    
@@ -1781,6 +1802,7 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
     background-color:#CCCCCC; 
 }
 .labelColumn,
+.labelColumnDark,
 .labelColumnOver,
 .labelColumnOverDark {
     font-family:Verdana,Bitstream Vera Sans,sans-serif; font-size:11px;
@@ -1806,7 +1828,6 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
     border-bottom:1px solid #a0a0a0; border-right:1px solid #a0a0a0;
     background-color: gainsboro;
 }
-
 .calMonthDayHeaderOver,
 .calMonthDayHeaderOverDark {
     font-family:Verdana,Bitstream Vera Sans,sans-serif; font-size:11px;
@@ -1814,6 +1835,14 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
     border-bottom:1px solid #a0a0a0; border-right:1px solid #a0a0a0;
     background-color: #c0ffc0;
 }
+.calMonthDayHeaderDisabled,
+.calMonthDayHeaderDisabledOver {
+    font-family:Verdana,Bitstream Vera Sans,sans-serif; font-size:11px;
+    color:black;
+    border-bottom:1px solid #a0a0a0; border-right:1px solid #a0a0a0;
+    background-color:#E6E6E6;
+}
+
 .calMonthDayBody,
 .calMonthDayBodyDark {
     font-family:Verdana,Bitstream Vera Sans,sans-serif; font-size:11px;
@@ -1828,7 +1857,6 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
     border-bottom:1px solid #a0a0a0; border-right:1px solid #a0a0a0;
     background-color:#c0ffc0;
 }
-
 .calMonthDayBodyDisabled,
 .calMonthDayBodyDisabledOver {
     font-family:Verdana,Bitstream Vera Sans,sans-serif; font-size:11px;

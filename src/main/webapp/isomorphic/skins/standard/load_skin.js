@@ -124,6 +124,7 @@ with (theWindow) {
         if (isc.Browser.isNav) {
             isc.TabSet.addProperties({paneContainerDefaults:{backgroundColor:"#DDDDDD"}});
         }
+        isc.TabBar.addProperties({baseLineCapSize:0});
     }
 
     // Default EdgedCanvas skinning (for any canvas where showEdges is set to true)
@@ -147,15 +148,6 @@ with (theWindow) {
     if (isc.ToolStrip) {
         isc.ToolStrip.changeDefaults("dropLineDefaults", {
             className:"toolStripLayoutDropLine"
-        });
-    }
-
-    // Dynamic form item skinning
-    // Native FILE INPUT items are rendered differently in Safari from other browsers
-    // Don't show standard textbox styling around them as it looks odd
-    if (isc.UploadItem && isc.Browser.isSafari) {
-        isc.UploadItem.addProperties({
-            textBoxStyle:"normal"
         });
     }
 

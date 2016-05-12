@@ -3,7 +3,7 @@
     <xsl:output 
         method="xml" 
         indent="yes"
-        doctype-public="-//Hibernate/Hibernate Mapping DTD 3.0//EN http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"
+        doctype-public="-//Hibernate/Hibernate Mapping DTD 3.0//EN http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"
     />
 
     <xsl:template match="/">

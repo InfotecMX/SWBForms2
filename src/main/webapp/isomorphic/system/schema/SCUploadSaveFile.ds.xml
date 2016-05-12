@@ -5,8 +5,8 @@
 >
     <fields>
     	<field name="path" primaryKey="true" hidden="true" />
-    	<field name="lastChangeDate" hidden="true" />
 		<field name="file" type="binary" />
+    	<field name="file_dir" hidden="true" />
     </fields>
     
     <operationBindings>

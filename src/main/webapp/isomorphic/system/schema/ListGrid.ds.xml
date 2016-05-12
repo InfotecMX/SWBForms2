@@ -1,6 +1,6 @@
 <DataSource ID="ListGrid"	inheritsFrom="Canvas"	Constructor="ListGrid">
 	<fields>
-        <field name="initialCriteria" type="Object"/>
+        <field name="initialCriteria" type="AdvancedCriteria" basic="true"/>
 		<field name="data" multiple="true" type="ListGridRecord"/>
         <field name="dataProperties" type="ResultSet"/>
 		<field name="dataPageSize" type="positiveInteger"/>
@@ -25,6 +25,7 @@
 		<field name="waitForSave" type="boolean"/>
 		<field name="leaveScrollbarGap" type="boolean"/>
         <field name="titleField" type="string"/>        
+        <field name="minFieldWidth" type="positiveInteger"/>        
         
 		<field name="addNewBeforeEditing" type="boolean" visibility="advancedInlineEdit"/>
 		<field name="rowEndEditAction" type="rowEndEditActionEnum"/>

@@ -19,6 +19,7 @@
         <field name="dynamicIcon" type="expression"/>
         <field name="action" type="Action" editorType="ActionMenuItem"/>
         <field name="canSelectParent" type="boolean"/>
+        <field name="enableWhen" type="AdvancedCriteria" isRuleCriteria="true" basic="true" />
 	</fields>
 	<types>
 		<type ID="key">

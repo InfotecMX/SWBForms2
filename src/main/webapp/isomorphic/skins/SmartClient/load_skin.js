@@ -224,7 +224,7 @@ with (theWindow) {
             // have the baseline overlap the top edge of the TabSet, using rounded media
             baseLineSrc:"[SKIN]baseline.png",
             baseLineThickness:4,
-            baseLineCapSize:4
+            baseLineCapSize:0
         })
     }
     if (isc.ImgTab) {
@@ -506,7 +506,8 @@ with (theWindow) {
         pickerIconSrc:"[SKIN]/controls/dropdown_control.gif",
         pendingTextBoxStyle:"comboBoxItemPendingText",
         height:20, // pickerIcon automatically sizes to this height
-        pickerIconWidth:17
+        pickerIconWidth:17,
+        textBoxStyle:"textItem"
     })}
     // used by SelectItem and ComboBoxItem for picklist
     if (isc.ScrollingMenu) {isc.ScrollingMenu.addProperties({
@@ -570,14 +571,6 @@ with (theWindow) {
     if (isc.RelativeDateItem) {
         isc.RelativeDateItem.changeDefaults("pickerIconDefaults", {
             neverDisable: false
-        });
-    }
-
-    // Native FILE INPUT items are rendered differently in Safari from other browsers
-    // Don't show standard textbox styling around them as it looks odd
-    if (isc.UploadItem && isc.Browser.isSafari) {
-        isc.UploadItem.addProperties({
-            textBoxStyle:"normal"
         });
     }
 

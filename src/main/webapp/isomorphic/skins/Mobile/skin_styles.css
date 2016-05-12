@@ -89,9 +89,7 @@ Button (also used as MenuButton base style)
 .buttonSelected,
 .buttonSelectedDown,
 .buttonSelectedOver,
-.buttonSelectedDisabled
-{
-    -x-system-font:none;
+.buttonSelectedDisabled {
     font-family:Verdana,Arial,Helvetica,sans-serif;
     font-size:12px;
     font-size-adjust:none;
@@ -135,7 +133,6 @@ Button (also used as MenuButton base style)
     background: #ddd;
     background-image: -moz-linear-gradient(top, #cccccc, #ffffff);
     background-image: -webkit-gradient(linear, left top, left bottom, from(#cccccc), to(#ffffff));
-    filter: progid:DXImageTransform.Microsoft.Gradient(startColorStr = #cccccc, endColorStr = #ffffff);
     -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(startColorStr=#CCCCCC, endColorStr=#FFFFFF)"
 }
 
@@ -147,7 +144,6 @@ Button (also used as MenuButton base style)
     background: #ddd;
     background-image: -moz-linear-gradient(top, #cccccc, #ffffff);
     background-image: -webkit-gradient(linear, left top, left bottom, from(#cccccc), to(#ffffff));
-    filter: progid:DXImageTransform.Microsoft.Gradient(startColorStr = #cccccc, endColorStr = #ffffff);
     -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(startColorStr=#CCCCCC, endColorStr=#FFFFFF)"
 }
 
@@ -156,7 +152,6 @@ Button (also used as MenuButton base style)
     background: #ddd;
     background-image: -moz-linear-gradient(top, #cccccc, #ffffff);
     background-image: -webkit-gradient(linear, left top, left bottom, from(#cccccc), to(#ffffff));
-    filter: progid:DXImageTransform.Microsoft.Gradient(startColorStr = #cccccc, endColorStr = #ffffff);
     -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(startColorStr=#CCCCCC, endColorStr=#FFFFFF)"
 }
 
@@ -321,7 +316,7 @@ Button (also used as MenuButton base style)
     -webkit-border-radius: 10px;
     -webkit-box-shadow: 2px 2px 10px #000;
     position: relative;
-    opacity: 0px;
+    opacity: 0;
 }
 
 .windowBody,
@@ -332,12 +327,11 @@ Button (also used as MenuButton base style)
     margin-top: 2px;
     margin-right: 5px;
     margin-bottom: 5px;
-    
     -webkit-padding-start: 0px;
     -webkit-border-radius: 10px;
     -webkit-box-shadow: 2px 2px 10px #000;
     position: relative;
-    opacity: 0px;
+    opacity: 0;
 }
 
 .windowHeader,
@@ -637,8 +631,9 @@ Button (also used as MenuButton base style)
     color:#ACA899; 
 }
 
-.textItemHint {
-    color:#666666; 
+.textItemHint,
+.selectItemTextHint {
+    color:darkGray;
 }
 
 .textItem {
@@ -1465,10 +1460,9 @@ Button (also used as MenuButton base style)
 .toolStripGroupDisabled {
     background: #ffffff;
     border: 1px solid #999999;
-    border-radius: 3px;
     -moz-border-radius: 3px;
-    -khtml-border-radius: 3px;
     -webkit-border-radius: 3px;
+    border-radius: 3px;
 }
 
 .toolStripGroupTitle,
@@ -1504,10 +1498,9 @@ Button (also used as MenuButton base style)
 .iconButtonSelectedDisabled {
     background: #FFFFFF;
     border: 1px solid transparent;
-    border-radius: 3px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
-    -khtml-border-radius: 3px;
+    border-radius: 3px;
 	color: #324F85;
     font-family: Arial, Verdana, Bitstream Vera Sans, sans-serif; 
     font-size:12px;
@@ -1664,7 +1657,6 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
     background: #e7e7e7;
     background-image: -moz-linear-gradient(top, #ffffff, #efefef);
     background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#efefef));
-    filter: progid:DXImageTransform.Microsoft.Gradient(startColorStr = #ffffff, endColorStr = #efefef);
     -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(startColorStr=#FFFFFF, endColorStr=#EFEFEF)";
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
@@ -1704,7 +1696,6 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
     background: #e7e7e7;
     background-image: -moz-linear-gradient(top, #ffffff, #efefef);
     background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#efefef));
-    filter: progid:DXImageTransform.Microsoft.Gradient(startColorStr = #ffffff, endColorStr = #efefef);
     -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(startColorStr=#FFFFFF, endColorStr=#EFEFEF)";
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
@@ -1739,7 +1730,6 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 .tabButtonTopSelectedDown,
 .tabButtonTopSelectedDisabled,
 .tabButtonTopDisabled {
-    -x-system-font:none;
     font-family:Arial,Helvetica,sans-serif;
     font-size:11px;
     font-size-adjust:none;
@@ -1751,7 +1741,6 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
     padding: 2px;
     border: 1px solid #C0C3C7;
     border-bottom:none;
-    
     background: #e7e7e7;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
@@ -2214,15 +2203,15 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 }   
 .chartBar1 {
     background-color:red;
-    filter:"progid:dximagetransform.microsoft.gradient(gradientType=1, startColorStr=#990000, endColorStr=#FF0000)";
+    -ms-filter:"progid:dximagetransform.microsoft.gradient(gradientType=1, startColorStr=#990000, endColorStr=#FF0000)";
 }
 .chartBar2 {
     background-color:blue;
-    filter:"progid:dximagetransform.microsoft.gradient(gradientType=1, startColorStr=#000099, endColorStr=#0000FF)";
+    -ms-filter:"progid:dximagetransform.microsoft.gradient(gradientType=1, startColorStr=#000099, endColorStr=#0000FF)";
 }
 .chartBar3 {
     background-color:green;
-    filter:"progid:dximagetransform.microsoft.gradient(gradientType=1, startColorStr=#009900, endColorStr=#00FF00)";
+    -ms-filter:"progid:dximagetransform.microsoft.gradient(gradientType=1, startColorStr=#009900, endColorStr=#00FF00)";
 }
 
 
@@ -2244,6 +2233,7 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 ============================================================*/
 .calendar,
 .calendarDisabled,
+.calendarDisabledDark,
 .calendarDisabledOver,
 .calendarDisabledOverDark,
 .calendarWorkday,
@@ -2258,6 +2248,7 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 .calendarWorkdayDisabled,
 .calendarDark,
 .calendarDisabled,
+.calendarDisabledDark,
 .calendarDisabledOver,
 .calendarDisabledOverDark {
     background-color:gainsboro;    
@@ -2282,6 +2273,7 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
     background-color:#CCCCCC; 
 }
 .labelColumn,
+.labelColumnDark,
 .labelColumnOver,
 .labelColumnOverDark {
     font-family:Verdana,Bitstream Vera Sans,sans-serif; font-size:11px;
@@ -2307,7 +2299,6 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
     border-bottom:1px solid #a0a0a0; border-right:1px solid #a0a0a0;
     background-color: gainsboro;
 }
-
 .calMonthDayHeaderOver,
 .calMonthDayHeaderOverDark {
     font-family:Verdana,Bitstream Vera Sans,sans-serif; font-size:11px;
@@ -2315,6 +2306,14 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
     border-bottom:1px solid #a0a0a0; border-right:1px solid #a0a0a0;
     background-color: #c0ffc0;
 }
+.calMonthDayHeaderDisabled,
+.calMonthDayHeaderDisabledOver {
+    font-family:Verdana,Bitstream Vera Sans,sans-serif; font-size:11px;
+    color:black;
+    border-bottom:1px solid #a0a0a0; border-right:1px solid #a0a0a0;
+    background-color:#E6E6E6;
+}
+
 .calMonthDayBody,
 .calMonthDayBodyDark {
     font-family:Verdana,Bitstream Vera Sans,sans-serif; font-size:11px;
@@ -2329,7 +2328,6 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
     border-bottom:1px solid #a0a0a0; border-right:1px solid #a0a0a0;
     background-color:#c0ffc0;
 }
-
 .calMonthDayBodyDisabled,
 .calMonthDayBodyDisabledOver {
     font-family:Verdana,Bitstream Vera Sans,sans-serif; font-size:11px;
@@ -2564,7 +2562,7 @@ a.calMonthEventLink:active {color:blue; text-decoration:none}
     border-bottom:1px solid #FFFFFF;
 }
 .finderSelectedText {
-    color:white; background-color:black; margins:5;
+    color:white; background-color:black; margin:5px;
 }
 
 	/* header buttons */
@@ -2608,7 +2606,7 @@ a.calMonthEventLink:active {color:blue; text-decoration:none}
     font-family:MS Sans Serif, Verdana,Bitstream Vera Sans,sans-serif; font-size:12px;
 }
 .explorerSelectedText {
-    background-color:darkblue; color:white; margins:5;
+    background-color:darkblue; color:white; margin:5px;
 }
 .explorerButtonOver,
 .explorerButtonSelected,

@@ -1,6 +1,6 @@
 /*
  * Isomorphic SmartClient
- * Version v10.0p_2014-09-11 (2014-09-11)
+ * Version v11.0p_2016-05-12 (2016-05-12)
  * Copyright(c) 1998 and beyond Isomorphic Software, Inc. All rights reserved.
  * "SmartClient" is a trademark of Isomorphic Software, Inc.
  *
@@ -15,14 +15,3 @@ _3={};isc.addProperties(_3,_1,{canClose:true,pane:this.createAutoChild(_1.paneCl
 var _6={};var _7=_1.getField(_5);for(var _8 in _7){if(isc.isA.String(_8)&&_8.startsWith("_"))continue;_6[_8]=_7[_8]}
 _3.add(_6)}
 this.fieldGrid.setData(_3)},isc.A.tryIt=function isc_DSEditor_tryIt(){var _1=this.buildDSConfig(this.config.ID+"$71x");var _2=isc.DataSource.get("DataSourceStore");_2.performCustomOperation("dsFromConfig",{config:_1},this.getID()+".tryItCallback(data)")},isc.A.tryItCallback=function isc_DSEditor_tryItCallback(_1){this.expandSection("preview");this.previewGrid.setDataSource(_1.ds);this.previewGrid.filterData()},isc.A.saveDS=function isc_DSEditor_saveDS(){var _1=this.buildDSConfig(this.config.ID);var _2=isc.DataSource.get("DataSourceStore");_2.performCustomOperation("dsFromConfig",{config:_1},this.getID()+".xmlLoaded(data)")},isc.A.xmlLoaded=function isc_DSEditor_xmlLoaded(_1){var _2=isc.DataSource.get(this.config.registry.ID);_2.updateData({pk:this.config.pk,object:_1.dsXML})},isc.A.buildDSConfig=function isc_DSEditor_buildDSConfig(_1){var _2={ID:_1,serverType:"sql",dbName:this.dbList.getSelectedDB(),__autoConstruct:"DataSource",operationBindings:[isc.addProperties({operationType:"fetch",skipRowCount:"true",qualifyColumnNames:false},this.fetchOperationForm.getValues())],fields:this.fieldGrid.data};return _2});isc.B._maxIndex=isc.C+11;isc._nonDebugModules=(isc._nonDebugModules!=null?isc._nonDebugModules:[]);isc._nonDebugModules.push('DSBrowser');isc.checkForDebugAndNonDebugModules();isc._moduleEnd=isc._DSBrowser_end=(isc.timestamp?isc.timestamp():new Date().getTime());if(isc.Log&&isc.Log.logIsInfoEnabled('loadTime'))isc.Log.logInfo('DSBrowser module init time: '+(isc._moduleEnd-isc._moduleStart)+'ms','loadTime');delete isc.definingFramework;if(isc.Page)isc.Page.handleEvent(null,"moduleLoaded",{moduleName:'DSBrowser',loadTime:(isc._moduleEnd-isc._moduleStart)});}else{if(window.isc&&isc.Log&&isc.Log.logWarn)isc.Log.logWarn("Duplicate load of module 'DSBrowser'.");}
-/*
- * Isomorphic SmartClient
- * Version v10.0p_2014-09-11 (2014-09-11)
- * Copyright(c) 1998 and beyond Isomorphic Software, Inc. All rights reserved.
- * "SmartClient" is a trademark of Isomorphic Software, Inc.
- *
- * licensing@smartclient.com
- *
- * http://smartclient.com/license
- */
-

@@ -281,8 +281,8 @@ ul {
     border-left:1px solid black; border-right:1px solid black;
 }
 .windowBody {
-    border-top:2px inset "#666666"; border-bottom:2px inset "#666666"; 
-    border-left:2px inset "#666666"; border-right:2px inset "#666666";
+    border-top:2px inset #666666; border-bottom:2px inset #666666;
+    border-left:2px inset #666666; border-right:2px inset #666666;
 }
 .windowHeader {}
 .windowHeaderHilite {}
@@ -319,7 +319,7 @@ ul {
     font-family:Bitstream Vera Sans,Helvetica,Verdana,sans-serif; font-size:11px; 
     color:black; font-weight:bold;
     background-color:#DEDEDE;
-    padding-left:4px; padding-right:4px
+    padding-left:4px; padding-right:4px;
 }
 .dialogStatusBar {
     border-left: 1px solid black; border-right: 1px solid black; 
@@ -442,6 +442,18 @@ ul {
     padding:1px; border:2px inset #D4D0C8;
     background-color:#FFFFFF;
 }
+.uploadItem,
+.uploadItemFocused,
+.uploadItemDisabled,
+.uploadItemDisabledHint,
+.uploadItemError,
+.uploadItemHint {
+    margin:0;
+    border:0;
+    padding:0;
+    font-family:Bitstream Vera Sans,Helvetica,Verdana,sans-serif; font-size:11px;
+    background:#FFFFFF;
+}
 
 /*
 Cupertino relies on the browser's user-agent stylesheet to apply a disabled text color to
@@ -450,12 +462,15 @@ color, but some browsers (e.g. Firefox 31.0, Chrome 36) actually use a different
 we apply color:GrayText ourselves.
 */
 .textItemDisabled,
-.textItemDisabledHint {
+.textItemDisabledHint,
+.uploadItemDisabled,
+.uploadItemDisabledHint {
     color: GrayText;
 }
 
-.textItemHint {
-    color:#666666;
+.textItemHint,
+.uploadItemHint {
+    color:darkGray;
 }
 
 /* selectItem */
@@ -665,7 +680,7 @@ disabled TextItems. Use the CSS2 system color keyword 'GrayText'.
 .dateChooserWeekdayOver,
 .dateChooserWeekendOver,
 .dateChooserButtonOver {
-    font-family:Bitstream Vera Sans,Helvetica,Verdana,sans-serif; font-size:10px; background-color:CCCCCC;
+    font-family:Bitstream Vera Sans,Helvetica,Verdana,sans-serif; font-size:10px; background-color:#CCCCCC;
     border-left:1px solid #000000; border-top:1px solid #000000;
     border-right:1px solid #FFFFFF; border-bottom:1px solid #FFFFFF;
 }
@@ -916,8 +931,8 @@ disabled TextItems. Use the CSS2 system color keyword 'GrayText'.
 .recordSummaryCellDisabledDark {
     font-family:Bitstream Vera Sans,Helvetica,Verdana,sans-serif; font-size:11px; color:#666666;
     background-color:#EFEFEF; text-overflow:ellipsis;
-    border-left:1 px solid #EFEFEF; 
-    border-top:1 px solid #EFEFEF;                             
+    border-left:1px solid #EFEFEF;
+    border-top:1px solid #EFEFEF;
     border-right:1px solid white;
     border-bottom:1px solid white;
 }
@@ -1590,6 +1605,7 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 ============================================================*/
 .calendar,
 .calendarDisabled,
+.calendarDisabledDark,
 .calendarDisabledOver,
 .calendarDisabledOverDark,
 .calendarWorkdayDisabled,
@@ -1604,6 +1620,7 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 .calendarWorkdayDisabled,
 .calendarDark,
 .calendarDisabled,
+.calendarDisabledDark,
 .calendarDisabledOver,
 .calendarDisabledOverDark {
     background-color:gainsboro;    
@@ -1628,6 +1645,7 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
     background-color:#CCCCCC; 
 }
 .labelColumn,
+.labelColumnDark,
 .labelColumnOver,
 .labelColumnOverDark {
     font-family:Verdana,Bitstream Vera Sans,sans-serif; font-size:11px;
@@ -1661,6 +1679,14 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
     border-bottom:1px solid #a0a0a0; border-right:1px solid #a0a0a0;
     background-color: #c0ffc0;
 }
+.calMonthDayHeaderDisabled,
+.calMonthDayHeaderDisabledOver {
+    font-family:Verdana,Bitstream Vera Sans,sans-serif; font-size:11px;
+    color:black;
+    border-bottom:1px solid #a0a0a0; border-right:1px solid #a0a0a0;
+    background-color:#E6E6E6;
+}
+
 .calMonthDayBody,
 .calMonthDayBodyDark {
     font-family:Verdana,Bitstream Vera Sans,sans-serif; font-size:11px;
@@ -1904,7 +1930,7 @@ a.calMonthEventLink:active {color:blue; text-decoration:none}
     border-bottom:1px solid #FFFFFF;
 }
 .finderSelectedText {
-    color:white; background-color:black; margins:5;
+    color:white; background-color:black; margin:5px;
 }
 
 	/* header buttons */
@@ -1948,7 +1974,7 @@ a.calMonthEventLink:active {color:blue; text-decoration:none}
     font-family:MS Sans Serif, Bitstream Vera Sans,Helvetica,Verdana,sans-serif; font-size:11px;
 }
 .explorerSelectedText {
-    color:white; background-color:darkblue; margins:5;
+    color:white; background-color:darkblue; margin:5px;
 }
 .explorerButtonOver,
 .explorerButtonSelected,

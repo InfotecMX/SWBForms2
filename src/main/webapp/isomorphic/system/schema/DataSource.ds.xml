@@ -58,6 +58,8 @@ Validator.ds.xml
 	    <schema type="string" title="Schema" xmlAttribute="true"/>
 	    <tableName type="string" title="Table Name" xmlAttribute="true"/>
 	    <quoteTableName type="boolean" title="Quote Table Name?" xmlAttribute="true"/>
+        <tableCode type="string" xmlAttribute="true"/>
+        <strictSQLFiltering type="boolean" xmlAttribute="true" />
 
         <!-- serverObject definition that applies as a default to all operationBindings -->
         <serverObject type="ServerObject"/>
@@ -147,6 +149,9 @@ Validator.ds.xml
         <requiresRole type="string"/>
         <requires type="string" />
 
+        <ownerIdField type="string" />
+        <guestUserId type="string" />
+        
         <beanClassName type="string" xmlAttribute="true"/>
         
         <autoJoinTransactions type="boolean" xmlAttribute="true"/>
@@ -161,7 +166,9 @@ Validator.ds.xml
 
         <progressiveLoading type="boolean" />
 
-        <allowAdvancedCriteria type="boolean" />
+	<autoConvertRelativeDates type="boolean" />
+
+        <allowAdvancedCriteria type="boolean" xmlAttribute="true" />
         
         <scriptImport type="string"/>
         <script type="Object" idAllowed="true"/>
@@ -196,7 +203,7 @@ Validator.ds.xml
                       none="Do not physically inherit fields onto the inheriting DataSource's SQL table" />
         </inheritanceMode>
         <quoteColumnNames type="boolean" />
-        <generatedBy type="string" />
+        <generatedBy type="string" xmlAttribute="true" />
         <useUTCDateTimes type="boolean" />
         <useOfflineStorage type="boolean" />
         <enumOrdinalProperty type="string" />
@@ -215,6 +222,21 @@ Validator.ds.xml
         <fileSizeField type="string" />
         <fileLastModifiedField type="string" />
         <fileContentsField type="string" />
+
+        <!-- ProjectFile -->
+        <projectFileKey type="string" />
+        <projectFileLocations type="string" multiple="true" childTagName="location" /> 
+        
+        <defaultTextMatchStyle type="string" />
+        <ignoreTextMatchStyleCaseSensitive type="boolean" />
+
+        <defaultMultiUpdatePolicy type="string" xmlAttribute="true">
+            <valueMap never="PK never required" 
+                      clientRequest="PK required for client requests only"
+                      rpcManager="PK required for requests associated with RPCManager"
+                      always="PK always required no matter what"/>
+        </defaultMultiUpdatePolicy>
+        
     </fields>
 </Object>
 

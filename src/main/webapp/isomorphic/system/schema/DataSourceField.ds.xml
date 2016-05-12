@@ -26,7 +26,7 @@
         <xmlNonEmpty type="boolean" visibility="internal"/>
         
         <xsElementRef type="boolean" visibility="internal"/>
-        
+
         <canHide type="boolean" title="User can hide"/>
 
         <!-- whether this field is represented as an attribute in XML -->
@@ -34,6 +34,8 @@
         <!-- whether elements generated from this field must be qualified with the
              schemaNamespace -->
         <mustQualify type="boolean" visibility="internal"/>
+        <!-- whether this field (and children) shoud include explicit xsi type in XML -->
+        <xmlExplicitTypes type="boolean" visibility="internal"/>
 
         <!-- XML binding -->
         <valueXPath type="XPath" title="Value XPath" xmlAttribute="true"/>
@@ -67,6 +69,9 @@
 		<!-- generic hidden flag - typically for applications or for visualBuilder -->
 	    <hidden type="boolean" title="Hidden" inapplicable="true" xmlAttribute="true"/>
 
+        <!-- applied to AdvancedCriteria fields to enable createRuleCriteria mode on FilterBuilder -->
+        <isRuleCriteria type="boolean" xmlAttribute="true" />
+
         <!-- unique constraints / relations -->
 		<primaryKey type="boolean" title="Is Primary Key" xmlAttribute="true"/>
 	    <foreignKey type="string" title="Foreign Key" xmlAttribute="true"/>
@@ -85,6 +90,7 @@
 		<showFileInline type="boolean" xmlAttribute="true"/>
 
 		<escapeHTML type="boolean" xmlAttribute="true"/>
+        
 		
 		<!-- image type fields - these fields can also be references to size fields -->
 		<imageWidth type="integerOrIdentifier" xmlAttribute="true"/>
@@ -148,6 +154,7 @@
         <lenientXPath type="boolean" xmlAttribute="true" />
         
         <summaryFunction type="string" xmlAttribute="true"/>
+        <includeSummaryFunction type="string" xmlAttribute="true"/>
         <!-- concatenation config for summaryFunction "concat" -->
         <joinString type="string" xmlAttribute="true"/>
         <joinPrefix type="string" xmlAttribute="true"/>
@@ -169,6 +176,8 @@
                       SHA="Secure Hashing Algorithm (SHA-1)"/>
         </storeWithHash>
         <sqlDateFormat type="string" />
+
+        <storeMilliseconds type="boolean" />
 
         <initRequiresAuthentication type="boolean" />
         <viewRequiresAuthentication type="boolean" />
@@ -198,5 +207,13 @@
         <valueMapEnum type="string" />
         <sqlFalseValue type="string" />
         <sqlTrueValue type="string" />
+        <sortByField type="string" />
+        <columnCode type="string" xmlAttribute="true"/>
+        <stringInBrowser type="boolean" xmlAttribute="true" />
+        <nillable type="boolean" />
+        <validOperators type="string" />
+        <fieldTypeProperty type="string" />
+        <moveTo type="string" />
+
 	</fields>
 </Object>

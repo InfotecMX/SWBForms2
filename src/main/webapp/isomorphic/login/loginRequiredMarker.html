@@ -13,6 +13,8 @@ if (!window.isc && document.domain && document.domain.indexOf(".") != -1
     var set = false;
     while (document.domain.indexOf(".") != -1) {
         try {
+             
+            if (window.parent && window.parent.isc) break;
             if (window.opener && window.opener.isc) break;
             if (window.top.isc) break;
             
@@ -29,6 +31,7 @@ if (!window.isc && document.domain && document.domain.indexOf(".") != -1
     } 
 }
 
-var isc = top.isc ? top.isc : window.opener ? window.opener.isc : null;
+var isc = window.parent ? window.parent.isc : null;
+if (!isc) isc = top.isc ? top.isc : window.opener ? window.opener.isc : null;
 if (isc && isc.RPCManager) isc.RPCManager.delayCall("handleLoginRequired", [window]);
 </SCRIPT>

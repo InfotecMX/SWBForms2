@@ -25,8 +25,18 @@ with (theWindow) {
     var useCSS3 = isc.Browser.useCSS3,
         useSpriting = isc.Browser.useSpriting;
 
-    if (useCSS3) {
+// --------------------------------------
+// isc.minimalistTextControlAppearance (new property, consulted below) 
+// - Show minimalist drop down controls by default?
+// When true, SelectItem and ComboBoxItems will appear with modern "flat" styling
+// including inline picker icon rather than picker icon button.
+// - Set to false to restore traditional appearance for these controls
+// --------------------------------------
+	if (isc.minimalistTextControlAppearance == null) {
+		isc.minimalistTextControlAppearance = true;
+	}
 
+    if (useCSS3) {
         if (isc.Browser.isIE && isc.Browser.version >= 7 && !isc.Browser.isIE9) {
             isc.Canvas.setAllowExternalFilters(false);
             isc.Canvas.setNeverUseFilters(true);
@@ -196,12 +206,6 @@ with (theWindow) {
 
             isc.Menu.changeDefaults("titleFieldDefaults", {
                 baseStyle: "menuTitleField"
-            });
-        }
-
-        if (isc.PickTreeItem) {
-            isc.PickTreeItem.addProperties({
-                buttonDefaults:{ height:21 }
             });
         }
 
@@ -487,14 +491,15 @@ with (theWindow) {
                 height:42, // 10px margins + 22px button
                 membersMargin:10
             });
-
             if (isc.Dialog.Warn && isc.Dialog.Warn.toolbarDefaults) {
-            isc.logWarn("Case 1:" + isc.Dialog.Warn);
                 isc.addProperties(isc.Dialog.Warn.toolbarDefaults, {
                     buttonConstructor:"IButton",
                     height:42,
                     membersMargin:10
                 });
+            }
+            if (isc.Dialog.Warn) {
+                if (isc.Browser.isTouch) isc.Dialog.Warn.showModalMask = true;
             }
 
 
@@ -502,15 +507,14 @@ with (theWindow) {
             // In the css3-off mode header media is part of the background image, so
             // a header appears to show even though there's no true header widget.
             if (isc.Dialog.Prompt) {
-//            isc.logWarn("case 2:" + isc.Dialog.Prompt);
                 isc.addProperties(isc.Dialog.Prompt, {
                     showHeader:true,
                     showTitle:false,
                     showTitleAsHeaderContents:false,
                     showCloseButton:false,
                     bodyStyle:"windowBody"
-
                 });
+                if (isc.Browser.isTouch) isc.Dialog.Prompt.showModalMask = true;
             }
 
         }
@@ -531,53 +535,101 @@ with (theWindow) {
                 iconWidth:18
             });
         }
-
-        if (isc.CheckboxItem) {
-            isc.CheckboxItem.addProperties({
-                checkedImage:"[SKINIMG]/DynamicForm/checked.png",
-                partialSelectedImage:"[SKINIMG]/DynamicForm/partialcheck.png",
-                showValueIconFocused:false,
-                showValueIconOver:false,
-                uncheckedImage:"[SKINIMG]/DynamicForm/unchecked.png",
-                unsetImage:"[SKINIMG]/DynamicForm/unsetcheck.png",
-                valueIconWidth:13,
-                valueIconHeight:13
-            });
-        }
-
+        
         if (isc.TextItem) {
-            isc.TextItem.addProperties({
-                height:22,
-                showFocused:true
-            });
+			if (isc.minimalistTextControlAppearance) {
+			
+				isc.TextItem.addProperties({
+					height:22,
+					showFocused:true,
+					textBoxStyle:"textItemLite"
+				});
+				
+        	} else {
+				isc.TextItem.addProperties({
+					height:22,
+					showFocused:true
+				});
+            }
+                    
         }
 
         if (isc.TextAreaItem) {
-            isc.TextAreaItem.addProperties({
-                showFocused:true
-            });
+			if (isc.minimalistTextControlAppearance) {
+			
+				isc.TextAreaItem.addProperties({
+					showFocused:true,
+					textBoxStyle:"textItemLite"
+				});
+				
+        	} else {
+				isc.TextAreaItem.addProperties({
+					showFocused:true
+				});
+            }
         }
 
         if (isc.SelectItem) {
-            isc.SelectItem.addProperties({
-                height:22,
-                pickerIconSrc:"[SKIN]/pickers/comboBoxPicker.png",
-                pickerIconWidth:18,
-                valueIconSize:12,
-                showFocusedPickerIcon:false,
-                textBoxStyle:"selectItemText"
-            });
+        
+        	if (isc.minimalistTextControlAppearance) {
+
+				isc.SelectItem.addProperties({
+					showOver:true,
+					updateTextBoxOnOver:false,
+					updateControlOnOver:true,
+					
+					height:22,
+					pickerIconSrc:"[SKIN]/pickers/comboBoxPickerLite.png",
+					pickerIconWidth:16,
+					pickerIconHeight:18,
+					valueIconSize:12,
+					showFocusedPickerIcon:false,
+					textBoxStyle:"selectItemLiteText",
+					controlStyle:"selectItemLiteControl"
+				});
+        	
+        	} else {
+				isc.SelectItem.addProperties({
+					height:22,
+					pickerIconSrc:"[SKIN]/pickers/comboBoxPicker.png",
+					pickerIconWidth:18,
+					valueIconSize:12,
+					showFocusedPickerIcon:false,
+					textBoxStyle:"selectItemText"
+				});
+            }
         }
 
         if (isc.ComboBoxItem) {
-            isc.ComboBoxItem.addProperties({
-                height:22,
-                pendingTextBoxStyle:"comboBoxItemPendingText",
-                pickerIconSrc:"[SKIN]/pickers/comboBoxPicker.png",
-                pickerIconWidth:18,
-                showFocusedPickerIcon:false,
-                textBoxStyle:"selectItemText"
-            });
+        	if (isc.minimalistTextControlAppearance) {
+
+				isc.ComboBoxItem.addProperties({
+					// we have 'showOver' explicitly set to true for the picker-icon
+					// This will hilight the chevron as the user rolls over that icon only
+					showOver:false,
+					
+					height:22,
+					pickerIconSrc:"[SKIN]/pickers/comboBoxPickerLite.png",
+					pickerIconWidth:16,
+					pickerIconHeight:18,
+					showFocusedPickerIcon:false,
+					
+					pendingTextBoxStyle:"selectItemLiteTextPending",
+				    textBoxStyle:"selectItemLiteText",
+				    controlStyle:"selectItemLiteControl"
+				});
+                	
+        	} else {
+        
+				isc.ComboBoxItem.addProperties({
+					height:22,
+					pendingTextBoxStyle:"comboBoxItemPendingText",
+					pickerIconSrc:"[SKIN]/pickers/comboBoxPicker.png",
+					pickerIconWidth:18,
+					showFocusedPickerIcon:false,
+					textBoxStyle:"selectItemText"
+				});
+			}
         }
 
         // used by SelectItem and ComboBoxItem for picklist
@@ -601,13 +653,27 @@ with (theWindow) {
                 pickerIconSrc:"[SKIN]/DynamicForm/date_control.png",
                 pickerIconWidth:16
             });
+            if (isc.minimalistTextControlAppearance) {
+            	isc.DateItem.addProperties({
+            		textBoxStyle:"textItemLite"
+            	});
+            }
         }
 
         if (isc.SpinnerItem) {
-            isc.SpinnerItem.addProperties({
-                height:22,
-                textBoxStyle:"selectItemText"
-            });
+			if (isc.minimalistTextControlAppearance) {
+				isc.SpinnerItem.addProperties({
+					height:22,
+					textBoxStyle:"textItemLite",
+				    unstackedTextBoxStyle: "textItemLite"
+				});
+			
+			} else {
+				isc.SpinnerItem.addProperties({
+					height:22,
+					textBoxStyle:"selectItemText"
+				});
+			}			
 
             isc.SpinnerItem.changeDefaults("increaseIconDefaults",
             {
@@ -655,17 +721,10 @@ with (theWindow) {
             isc.DateRangeDialog.changeDefaults("headerIconProperties", { src:"[SKIN]/DynamicForm/date_control.png" });
         }
 
-        if (isc.MiniDateRangeItem) {
-            isc.MiniDateRangeItem.changeDefaults("pickerIconDefaults", { src:"[SKIN]/DynamicForm/date_control.png" });
+        if(isc.MiniDateRangeItem) {
+            isc.MiniDateRangeItem.addProperties({"pickerIconSrc": "[SKIN]/DynamicForm/date_control.png"});
         }
 
-        // Native FILE INPUT items are rendered differently in Safari from other browsers
-        // Don't show standard textbox styling around them as it looks odd
-        if (isc.UploadItem && isc.Browser.isSafari) {
-            isc.UploadItem.addProperties({
-                textBoxStyle:"normal"
-            });
-        }
         if (isc.DateChooser) {
             isc.DateChooser.addProperties({
                 alternateWeekStyles:false,
@@ -790,9 +849,14 @@ with (theWindow) {
 
 
         }
+        
+        if (isc.FilterBuilder) {
+            isc.FilterBuilder.changeDefaults("topOperatorFormDefaults", {
+                width: 92
+            });
+        }
 
         if (isc.Hover) {
-//        isc.logWarn("HoverCD:" + isc.Hover.hoverCanvasDefaults);
             isc.addProperties(isc.Hover.hoverCanvasDefaults, {
                 shadowDepth:5,
                 showShadow:false
@@ -806,7 +870,8 @@ with (theWindow) {
 
         isc.Page.checkBrowserAndRedirect("[SKIN]/unsupported_browser.html");
 
-    } else { // useCSS3 is false
+    } else 
+    { // useCSS3 is false
 
 
 //============================================================
@@ -1308,12 +1373,17 @@ with (theWindow) {
                 membersMargin:10
             });
             if (isc.Dialog.Warn && isc.Dialog.Warn.toolbarDefaults) {
-            isc.logWarn("TBD:" + isc.Dialog.Warn.toolbarDefaults);
                 isc.addProperties(isc.Dialog.Warn.toolbarDefaults, {
                     buttonConstructor: "IButton",
                     height:42,
                     membersMargin:10
                 });
+            }
+            if (isc.Dialog.Warn) {
+                if (isc.Browser.isTouch) isc.Dialog.Warn.showModalMask = true;
+            }
+            if (isc.Dialog.Prompt) {
+                if (isc.Browser.isTouch) isc.Dialog.Prompt.showModalMask = true;
             }
         }
 
@@ -1342,18 +1412,6 @@ with (theWindow) {
         isc.FormItem.changeDefaults("pickerDefaults", isc.__pickerDefaults);
         isc.FormItem.addProperties({
             defaultIconSrc:"[SKIN]/DynamicForm/default_formItem_icon.png"
-        });
-    }
-    if (isc.CheckboxItem) {
-        isc.CheckboxItem.addProperties({
-            checkedImage:"[SKINIMG]/DynamicForm/checked.png",
-            uncheckedImage:"[SKINIMG]/DynamicForm/unchecked.png",
-            unsetImage:"[SKINIMG]/DynamicForm/unsetcheck.png",
-            partialSelectedImage:"[SKINIMG]/DynamicForm/partialcheck.png",
-            valueIconWidth:13,
-            valueIconHeight:13,
-            showValueIconOver:false,
-            showValueIconFocused:false
         });
     }
     if(isc.RelationItem) {
@@ -1421,13 +1479,6 @@ with (theWindow) {
         });
     }
 
-    // Native FILE INPUT items are rendered differently in Safari from other browsers
-    // Don't show standard textbox styling around them as it looks odd
-    if (isc.UploadItem && isc.Browser.isSafari) {
-        isc.UploadItem.addProperties({
-            textBoxStyle:"normal"
-        });
-    }
 //----------------------------------------
 // 10) Menus
 //----------------------------------------
@@ -1496,7 +1547,6 @@ with (theWindow) {
 // 11) Hovers
 //----------------------------------------
     if (isc.Hover) {
-    isc.logWarn("hoverCD:" + isc.Hover.hoverCanvasDefaults);
         isc.addProperties(isc.Hover.hoverCanvasDefaults, {
             showShadow:false,
             shadowDepth:5
@@ -1618,39 +1668,95 @@ with (theWindow) {
 
     })}
 
-    if (isc.PickTreeItem) {isc.PickTreeItem.addProperties({
-        buttonDefaults: {
-            height:21
-        }
-    })}
+    if (isc.TextItem) {
+		if (isc.minimalistTextControlAppearance) {
+		
+			isc.TextItem.addProperties({
+				height:22,
+				showFocused:true,
+				textBoxStyle:"textItemLite"
+			});
+			
+		} else {
+			isc.TextItem.addProperties({
+				height:22,
+				showFocused:true
+			});
+		}
+    }
 
-    if (isc.TextItem) {isc.TextItem.addProperties({
-        height:22,
-        showFocused: true
-    })}
+	if (isc.TextAreaItem) {
+		if (isc.minimalistTextControlAppearance) {
+		
+			isc.TextAreaItem.addProperties({
+				showFocused:true,
+				textBoxStyle:"textItemLite"
+			});
+			
+		} else {
+			isc.TextAreaItem.addProperties({
+				showFocused:true
+			});
+		}
+	}
+    if (isc.SelectItem) {
+		if (isc.minimalistTextControlAppearance) {
+			isc.SelectItem.addProperties({
+				showOver:true,
+				updateTextBoxOnOver:false,
+				updateControlOnOver:true,
+				
+				height:22,
+				pickerIconSrc:"[SKIN]/pickers/comboBoxPickerLite.png",
+				pickerIconWidth:16,
+				pickerIconHeight:18,
+				valueIconSize:12,
+				showFocusedPickerIcon:false,
+				textBoxStyle:"selectItemLiteText",
+				controlStyle:"selectItemLiteControl"
+			});
+			
+		} else {
+    
+			isc.SelectItem.addProperties({
+				textBoxStyle:"selectItemText",
+				showFocusedPickerIcon:false,
+				pickerIconSrc:"[SKIN]/pickers/comboBoxPicker.png",
+				height:22,
+				pickerIconWidth:18,
+				valueIconSize:12
+			})
+		}
+    }
 
-    if (isc.TextAreaItem) {isc.TextAreaItem.addProperties({
-        showFocused: true
-    })}
-    if (isc.SelectItem) {isc.SelectItem.addProperties({
-        pickListTallBaseStyle:"tallPickListCell",
-        textBoxStyle:"selectItemText",
-        showFocusedPickerIcon:false,
-        pickerIconSrc:"[SKIN]/pickers/comboBoxPicker.png",
-        height:22,
-        pickerIconWidth:18,
-        valueIconSize:12
-    })}
+    if (isc.ComboBoxItem) {
+    
+		if (isc.minimalistTextControlAppearance) {
 
-    if (isc.ComboBoxItem) {isc.ComboBoxItem.addProperties({
-        pickListTallBaseStyle:"tallPickListCell",
-        textBoxStyle:"selectItemText",
-        pendingTextBoxStyle:"comboBoxItemPendingText",
-        showFocusedPickerIcon:false,
-        pickerIconSrc:"[SKIN]/pickers/comboBoxPicker.png",
-        height:22,
-        pickerIconWidth:18
-    })}
+			isc.ComboBoxItem.addProperties({
+				showOver:false,
+				height:22,
+				pendingTextBoxStyle:"selectItemLiteTextPending",
+				pickerIconSrc:"[SKIN]/pickers/comboBoxPickerLite.png",
+				pickerIconWidth:16,
+				pickerIconHeight:18,
+				showFocusedPickerIcon:false,
+				controlStyle:"selectItemLiteControl",
+				textBoxStyle:"selectItemLiteText"
+			});
+				
+		} else {
+		    isc.ComboBoxItem.addProperties({
+				textBoxStyle:"selectItemText",
+				pendingTextBoxStyle:"comboBoxItemPendingText",
+				showFocusedPickerIcon:false,
+				pickerIconSrc:"[SKIN]/pickers/comboBoxPicker.png",
+				height:22,
+				pickerIconWidth:18
+			})
+		}
+	}
+	
     // used by SelectItem and ComboBoxItem for picklist
     if (isc.ScrollingMenu) {isc.ScrollingMenu.addProperties({
         showShadow:false,
@@ -1663,12 +1769,26 @@ with (theWindow) {
             pickerIconHeight:14,
             pickerIconSrc:"[SKIN]/DynamicForm/date_control.png"
         })
+		if (isc.minimalistTextControlAppearance) {
+			isc.DateItem.addProperties({
+				textBoxStyle:"textItemLite"
+			});
+		}
     }
     if (isc.SpinnerItem) {
-        isc.SpinnerItem.addProperties({
-            textBoxStyle:"selectItemText",
-            height:22
-        });
+		if (isc.minimalistTextControlAppearance) {
+			isc.SpinnerItem.addProperties({
+				height:22,
+				textBoxStyle:"textItemLite",
+				unstackedTextBoxStyle: "textItemLite"
+			});
+		
+		} else {
+			isc.SpinnerItem.addProperties({
+				height:22,
+				textBoxStyle:"selectItemText"
+			});
+		}			
         isc.SpinnerItem.changeDefaults("increaseIconDefaults", {
             width:16,
             height:11,
@@ -1713,10 +1833,8 @@ with (theWindow) {
             src: "[SKIN]/DynamicForm/date_control.png"
         });
     }
-    if(isc.MiniDateRangeItem) {
-        isc.MiniDateRangeItem.changeDefaults("pickerIconDefaults", {
-            src: "[SKIN]/DynamicForm/date_control.png"
-        });
+    if (isc.MiniDateRangeItem) {
+        isc.MiniDateRangeItem.addProperties({"pickerIconSrc": "[SKIN]/DynamicForm/date_control.png"});
     }
 
 //----------------------------------------
@@ -1790,6 +1908,9 @@ with (theWindow) {
 		isc.FilterBuilder.changeDefaults("removeButtonDefaults", {
 			showFocused: false
 		});
+        isc.FilterBuilder.changeDefaults("topOperatorFormDefaults", {
+            width: 92
+        });
 	}
 
 // -------------------------------------------
@@ -1850,7 +1971,6 @@ with (theWindow) {
 
 
 
-    // Skinning not dependent on whether CSS3 is being used.
 
     isc.Canvas.setProperties({
         // this skin uses custom scrollbars
@@ -1912,6 +2032,7 @@ with (theWindow) {
     if (isc.NavigationBar) {
         
         isc.NavigationBar.addProperties({
+            skinUsesCSSTransitions: true,
             leftButtonIcon: "[SKINIMG]NavigationBar/back_arrow~2.png"
         });
         isc.NavigationBar.changeDefaults("leftButtonDefaults", {
@@ -1947,7 +2068,7 @@ with (theWindow) {
             backgroundColor: "#C0C3C7"
         });
         isc.TabBar.changeDefaults("tabDefaults", {
-            showFocusOutline: !isc.Browser.isSafari
+            showFocusOutline: false
         });
     }
 
@@ -1988,9 +2109,22 @@ with (theWindow) {
                 booleanTrueImage: "blank",
                 booleanFalseImage: "blank",
                 booleanPartialImage: "blank",
+                printBooleanBaseStyle: "printCheckbox",
+                printBooleanTrueImage: "[SKINIMG]/DynamicForm/checked.png",
+                printBooleanFalseImage: "[SKINIMG]/DynamicForm/unchecked.png",
+                printBooleanPartialImage: "[SKINIMG]/DynamicForm/partialcheck.png",
                 booleanImageWidth: 13,
                 booleanImageHeight: 13
             });
+
+            // TreeGrid does not support booleanBaseStyle.
+            if (isc.TreeGrid) {
+                isc.TreeGrid.addProperties({
+                    booleanTrueImage: "[SKINIMG]/DynamicForm/checked.png",
+                    booleanFalseImage: "[SKINIMG]/DynamicForm/unchecked.png",
+                    booleanPartialImage: "[SKINIMG]/DynamicForm/partialcheck.png"
+                });
+            }
         }
     }
 
@@ -2002,35 +2136,89 @@ with (theWindow) {
             showRTL: true
         });
     }
+
+    if (isc.CheckboxItem) {
+        isc.CheckboxItem.addProperties({
+            checkedImage: "[SKINIMG]/DynamicForm/checked.png",
+            uncheckedImage: "[SKINIMG]/DynamicForm/unchecked.png",
+            unsetImage: "[SKINIMG]/DynamicForm/unsetcheck.png",
+            partialSelectedImage: "[SKINIMG]/DynamicForm/partialcheck.png",
+            valueIconWidth: 13,
+            valueIconHeight: 13,
+            showValueIconOver: false,
+            showValueIconFocused: false
+        });
+        if (useSpriting) {
+            isc.CheckboxItem.addProperties({
+                checkedImage: "blank",
+                uncheckedImage: "blank",
+                unsetImage: "blank",
+                partialSelectedImage: "blank",
+                booleanBaseStyle: "checkbox",
+                printCheckedImage: "[SKINIMG]/DynamicForm/checked.png",
+                printUncheckedImage: "[SKINIMG]/DynamicForm/unchecked.png",
+                printUnsetImage: "[SKINIMG]/DynamicForm/unsetcheck.png",
+                printPartialSelectedImage: "[SKINIMG]/DynamicForm/partialcheck.png",
+                printBooleanBaseStyle: "printCheckbox"
+            });
+        }
+    }
+
     if (isc.ComboBoxItem) {
         isc.ComboBoxItem.addProperties({
+            pickListTallBaseStyle: "tallPickListCell",
             showFocusedPickerIcon: false
         });
         isc.ComboBoxItem.changeDefaults("pickerIconDefaults", {
             showOver: true,
             showRTL: true
         });
+        isc.ComboBoxItem.changeDefaults("separateValuesListDefaults", {
+            showOverAsSelected: false
+        });
         if (useSpriting) {
             isc.ComboBoxItem.addProperties({
                 pickerIconSrc: "blank",
                 pickerIconStyle: "comboBoxItemPickerCell"
             });
-            isc.ComboBoxItem.changeDefaults("pickerIconDefaults", {
-                baseStyle: "comboBoxItemPicker"
-            });
+            
+            if (isc.minimalistTextControlAppearance) {
+				isc.ComboBoxItem.changeDefaults("pickerIconDefaults", {
+					baseStyle: "comboBoxItemPickerLite"
+				});
+			} else {
+				isc.ComboBoxItem.changeDefaults("pickerIconDefaults", {
+					baseStyle: "comboBoxItemPicker"
+				});
+			}
         }
-        // for full-screen comboBox interface, enable rounded input and inline icon for browsers that can handle it
-        // IE9 is the first version of IE to support background-size.
-        if (!isc.Browser.isIE || isc.Browser.isIE9) {
+        if (!isc.Browser.isIE || isc.Browser.isIE11) {
             isc.ComboBoxItem.changeDefaults("pickerSearchFormDefaults", {
                 height: 30
             });
             isc.ComboBoxItem.changeDefaults("pickerSearchFieldDefaults", {
-                textBoxStyle: "pickerSearchBox"
+                textBoxStyle: "pickerSearchBox",
+                icons: [{
+                    name: "search",
+                    inline: true,
+                    imgOnly: true,
+                    src: "[SKINIMG]DynamicForm/search_icon~2.png",
+                    width: 14,
+                    height: 15,
+                    showRTL: true,
+                    click : function (form, item, icon) {
+                        item.focusInItem();
+                    }
+                }]
             });
         }
     }
+
     if (isc.MultiComboBoxItem) {
+        isc.MultiComboBoxItem.addProperties({
+            pendingButtonStyle: useCSS3 ? "buttonRoundedPending" : "stretchImgButtonPending",
+            deselectedButtonStyle: useCSS3 ? "buttonRoundedDeselected" : "stretchImgButtonDeselected"
+        });
         isc.MultiComboBoxItem.changeDefaults("buttonDefaults", {
             icon: "[SKIN]DynamicForm/drop.png",
             iconWidth: 12,
@@ -2038,29 +2226,57 @@ with (theWindow) {
             iconSize: 12
         });
     }
+
+    if (isc.PickListMenu) {
+        isc.PickListMenu.addProperties({
+            showOverAsSelected: false
+        });
+    }
+
+    if (isc.PickTreeItem) {
+        isc.PickTreeItem.addProperties({
+            pendingButtonStyle: "menuButtonPending"
+        });
+        isc.PickTreeItem.changeDefaults("buttonDefaults", {
+            height: 21
+        });
+    }
     if (isc.SelectItem) {
         isc.SelectItem.addProperties({
+            pickListTallBaseStyle: "tallPickListCell",
             showFocusedPickerIcon: false
         });
         isc.SelectItem.changeDefaults("pickerIconDefaults", {
             showOver: true,
             showRTL: true
         });
+        isc.SelectItem.changeDefaults("separateValuesListDefaults", {
+            showOverAsSelected: false
+        });
+        
         if (useSpriting) {
-            isc.SelectItem.addProperties({
-                pickerIconSrc: "blank",
-                pickerIconStyle: "comboBoxItemPickerCell"
-            });
-            isc.SelectItem.changeDefaults("pickerIconDefaults", {
-                baseStyle: "comboBoxItemPicker"
-            });
+			isc.SelectItem.addProperties({
+				pickerIconSrc: "blank",
+				pickerIconStyle: "comboBoxItemPickerCell"
+			});
+			if (isc.minimalistTextControlAppearance) {
+				isc.SelectItem.changeDefaults("pickerIconDefaults", {
+					baseStyle: "comboBoxItemPickerLite"
+				});
+			
+			} else {
+				isc.SelectItem.changeDefaults("pickerIconDefaults", {
+					baseStyle: "comboBoxItemPicker"
+				});
+			}
         }
     }
+
     if (isc.SpinnerItem) {
         isc.SpinnerItem.changeDefaults("increaseIconDefaults", {
             width:16,
             height:11,
-            showOver:false,
+            showOver:true,
             showFocused:true,
             showFocusedWithItem:false,
             showRTL:true
@@ -2068,7 +2284,7 @@ with (theWindow) {
         isc.SpinnerItem.changeDefaults("decreaseIconDefaults", {
             width:16,
             height:11,
-            showOver:false,
+            showOver:true,
             showFocused:true,
             showFocusedWithItem:false,
             showRTL:true
@@ -2177,6 +2393,20 @@ with (theWindow) {
         });
         isc.SplitPane.changeDefaults("listTitleLabelDefaults", {
             baseStyle: "listPaneTitle"
+        });
+    }
+
+    // -------------------------------------------
+    // 24) Drawing
+    // -------------------------------------------
+    if (isc.Gauge) {
+        isc.Gauge.addProperties({
+            fontSize: 11
+        });
+        isc.Gauge.changeDefaults("valueLabelDefaults", {
+            fontFamily: "Arial",
+            fontWeight: "normal",
+            lineColor: "#000000"
         });
     }
 

@@ -2,7 +2,7 @@
 /*
 
   SmartClient Ajax RIA system
-  Version v10.0p_2014-09-11/LGPL Deployment (2014-09-11)
+  Version v11.0p_2016-05-12/LGPL Deployment (2016-05-12)
 
   Copyright 2000 and beyond Isomorphic Software, Inc. All rights reserved.
   "SmartClient" is a trademark of Isomorphic Software, Inc.
@@ -240,40 +240,54 @@ isc.B.push(isc.A.initWidget=function isc_DBPane_initWidget(){
 isc.B._maxIndex=isc.C+4;
 
 isc.DataSource.create({
-    allowAdvancedCriteria:true,
-    ID:"DBSchema",
     operationBindings:[
         {
             operationType:"fetch"
         }
     ],
+    allowAdvancedCriteria:true,
+    ID:"DBSchema",
     fields:[
         {
-            name:"name"
+            name:"name",
+            validators:[
+            ]
         },
         {
-            name:"itemType"
+            name:"itemType",
+            validators:[
+            ]
         },
         {
-            name:"type"
+            name:"type",
+            validators:[
+            ]
         },
         {
             name:"length",
-            type:"integer"
+            type:"integer",
+            validators:[
+            ]
         },
         {
             name:"primaryKey",
-            type:"boolean"
+            type:"boolean",
+            validators:[
+            ]
         },
         {
+            name:"path",
             hidden:true,
-            primaryKey:true,
-            name:"path"
+            validators:[
+            ],
+            primaryKey:true
         },
         {
-            hidden:true,
             name:"parentID",
-            foreignKey:"DBSchema.path"
+            hidden:true,
+            foreignKey:"DBSchema.path",
+            validators:[
+            ]
         }
     ]
 })
@@ -361,87 +375,115 @@ isc.B._maxIndex=isc.C+7;
 isc.DBSchemaTree.registerStringMethods({
     schemaLoaded:""
 });isc.DataSource.create({
-    allowAdvancedCriteria:true,
-    ID:"DataSourceStore",
     operationBindings:[
         {
-            operationType:"custom",
-            operationId:"dsFromSQL"
+            operationId:"dsFromSQL",
+            operationType:"custom"
         },
         {
-            operationType:"custom",
-            operationId:"dsFromTable"
+            operationId:"dsFromTable",
+            operationType:"custom"
         },
         {
-            operationType:"custom",
-            operationId:"dsFromConfig"
+            operationId:"dsFromConfig",
+            operationType:"custom"
         }
     ],
+    allowAdvancedCriteria:true,
+    ID:"DataSourceStore",
     fields:[
         {
-            primaryKey:true,
-            name:"ID"
+            name:"ID",
+            validators:[
+            ],
+            primaryKey:true
         },
         {
-            name:"version"
+            name:"version",
+            validators:[
+            ]
         },
         {
-            name:"dsXML",
             length:50000,
-            type:"text"
+            name:"dsXML",
+            type:"text",
+            validators:[
+            ]
         },
         {
             hidden:true,
-            name:"config"
+            name:"config",
+            validators:[
+            ]
         },
         {
             hidden:true,
-            name:"dbName"
+            name:"dbName",
+            validators:[
+            ]
         },
         {
             hidden:true,
-            name:"tableName"
+            name:"tableName",
+            validators:[
+            ]
         },
         {
             hidden:true,
-            name:"schema"
+            name:"schema",
+            validators:[
+            ]
         },
         {
             hidden:true,
-            name:"sql"
+            name:"sql",
+            validators:[
+            ]
         },
         {
-            hidden:true,
             name:"ds",
-            type:"DataSource"
+            hidden:true,
+            type:"DataSource",
+            validators:[
+            ]
         }
     ]
 })
 isc.DataSource.create({
-    allowAdvancedCriteria:true,
-    dropExtraFields:false,
-    ID:"DBListDS",
     operationBindings:[
         {
             operationType:"fetch"
         }
     ],
+    allowAdvancedCriteria:true,
+    ID:"DBListDS",
+    dropExtraFields:false,
     fields:[
         {
-            primaryKey:true,
-            name:"name"
+            name:"name",
+            validators:[
+            ],
+            primaryKey:true
         },
         {
-            name:"type"
+            name:"type",
+            validators:[
+            ]
         },
         {
-            name:"version"
+            name:"version",
+            validators:[
+            ]
         },
         {
-            name:"driverVersion"
+            name:"driverVersion",
+            validators:[
+            ]
         },
         {
-            name:"status"
+            name:"status",
+            validators:[
+            ]
         }
     ]
 })
@@ -654,12 +696,13 @@ isc.B.push(isc.A.initWidget=function isc_SQLBrowser_initWidget(){
 }
 );
 isc.B._maxIndex=isc.C+6;
+
 isc._debugModules = (isc._debugModules != null ? isc._debugModules : []);isc._debugModules.push('SQLBrowser');isc.checkForDebugAndNonDebugModules();isc._moduleEnd=isc._SQLBrowser_end=(isc.timestamp?isc.timestamp():new Date().getTime());if(isc.Log&&isc.Log.logIsInfoEnabled('loadTime'))isc.Log.logInfo('SQLBrowser module init time: ' + (isc._moduleEnd-isc._moduleStart) + 'ms','loadTime');delete isc.definingFramework;if (isc.Page) isc.Page.handleEvent(null, "moduleLoaded", { moduleName: 'SQLBrowser', loadTime: (isc._moduleEnd-isc._moduleStart)});}else{if(window.isc && isc.Log && isc.Log.logWarn)isc.Log.logWarn("Duplicate load of module 'SQLBrowser'.");}
 
 /*
 
   SmartClient Ajax RIA system
-  Version v10.0p_2014-09-11/LGPL Deployment (2014-09-11)
+  Version v11.0p_2016-05-12/LGPL Deployment (2016-05-12)
 
   Copyright 2000 and beyond Isomorphic Software, Inc. All rights reserved.
   "SmartClient" is a trademark of Isomorphic Software, Inc.

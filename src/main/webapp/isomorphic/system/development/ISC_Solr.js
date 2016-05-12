@@ -2,7 +2,7 @@
 /*
 
   SmartClient Ajax RIA system
-  Version v10.0p_2014-09-11/LGPL Development Only (2014-09-11)
+  Version v11.0p_2016-05-12/LGPL Development Only (2016-05-12)
 
   Copyright 2000 and beyond Isomorphic Software, Inc. All rights reserved.
   "SmartClient" is a trademark of Isomorphic Software, Inc.
@@ -36,7 +36,7 @@
 if(window.isc&&window.isc.module_Core&&!window.isc.module_Solr){isc.module_Solr=1;isc._moduleStart=isc._Solr_start=(isc.timestamp?isc.timestamp():new Date().getTime());if(isc._moduleEnd&&(!isc.Log||(isc.Log&&isc.Log.logIsDebugEnabled('loadTime')))){isc._pTM={message:'Solr load/parse time: '+(isc._moduleStart-isc._moduleEnd)+'ms',category:'loadTime'};if(isc.Log&&isc.Log.logDebug)isc.Log.logDebug(isc._pTM.message,'loadTime');else if(isc._preLog)isc._preLog[isc._preLog.length]=isc._pTM;else isc._preLog=[isc._pTM]}isc.definingFramework=true;isc.defineClass("SolrDataSource","DataSource");isc.A=isc.SolrDataSource;isc.B=isc._allFuncs;isc.C=isc.B._maxIndex;isc.D=isc._funcClasses;isc.D[isc.C]=isc.A.Class;isc.A.baseURL="/solr";isc.A.pathToSchema="/admin/file";isc.A.pathToCores="/admin/cores";isc.A.fieldTypeConversionMapByType={"tint":"int","tfloat":"float","tlong":"long","tdouble":"double","tdate":"date","currency":"localeCurrency"};isc.A.fieldTypeConversionMapByClass={};isc.A.defaultFieldType="text";isc.B.push(isc.A.loadCores=function isc_c_SolrDataSource_loadCores(_1,_2,_3){if(!_2)_2=this.baseURL;if(!_3)_3={};var _4=_3.params?_3.params:{};_3.params=isc.addProperties({action:"STATUS"},_4);var _5=this;var _6=_2+this.pathToCores;isc.XMLTools.loadXML(_6,function(_10,_11){var _7=isc.XMLTools.toJS(_10);var _8=_7.lst.find("name","status");var _9=_8.lst.getProperty("name");if(_1)_5.fireCallback(_1,"cores",[_9])},_3)},isc.A.loadDS=function isc_c_SolrDataSource_loadDS(_1,_2,_3){var _4=_1.ID;var _5=_1.baseURL;if(!_5)_5=this.baseURL;if(!_3)_3={};var _6=_3.params?_3.params:{};_3.params=isc.addProperties({contentType:"text/xml",charset:"utf-8",file:"schema.xml"},_6);var _7=this;var _8=_1.actionURL||_5+this.pathToSchema;isc.XMLTools.loadXML(_8,function(_20,_21){var _9=isc.XMLTools.toJS(_20);var _10=[];var _11=_9.uniqueKey;var _12=_9.types.fieldType;var _13=_1.fields;var _14=isc.addProperties({},_1);delete _14.fields;for(var i=0;i<_9.fields.field.length;i++){var _16=_9.fields.field[i];if(!_16.name){_7.logWarn("["+_9.name+"] - skipping field def with bad name: "+isc.echoFull(_16));continue}
 var _17=_7.convertSolrField(_16,_12.find("name",_16.type));if(_17==null)continue;if(_11&&_17.name==_11)_17.primaryKey=true;if(_17.multiValued)_17.canSort=false;if(_13){var _18=_13.find("name",_17.name);if(_18)isc.addProperties(_17,_18)}
 _10.add(_17)}
-var _19=isc.ClassFactory.getClass(_7.getClassName()).create({ID:_4?_4:_9.name,solrSchemaName:_9.name,baseURL:_5,fields:_10},_14);if(_2)_7.fireCallback(_2,"ds",[_19])},_3)},isc.A.convertSolrField=function isc_c_SolrDataSource_convertSolrField(_1,_2){var _3=isc.addProperties({},_1);for(var _4 in _3){var _5=_3[_4];if(_5==="false")_5=false;else if(_5==="true")_5=true;_3[_4]=_5}
+var _19=isc.ClassFactory.getClass(_7.getClassName(),true).create({ID:_4?_4:_9.name,solrSchemaName:_9.name,baseURL:_5,fields:_10},_14);if(_2)_7.fireCallback(_2,"ds",[_19])},_3)},isc.A.convertSolrField=function isc_c_SolrDataSource_convertSolrField(_1,_2){var _3=isc.addProperties({},_1);for(var _4 in _3){var _5=_3[_4];if(_5==="false")_5=false;else if(_5==="true")_5=true;_3[_4]=_5}
 _3.type=this.convertSolrFieldType(_2);_3.solrField=_1;_3.solrFieldType=_2;return _3},isc.A.convertSolrFieldType=function isc_c_SolrDataSource_convertSolrFieldType(_1){if(_1==null)return this.defaultFieldType;var _2=_1.name;var _3;if(isc.SimpleType.getType(_2))_3=_2;if(!_3)_3=this.fieldTypeConversionMapByType[_2];if(!_3)_3=this.fieldTypeConversionMapByClass[_1["class"]];if(!_3)_3=this.defaultFieldType;return _3});isc.B._maxIndex=isc.C+4;isc.A=isc.SolrDataSource.getPrototype();isc.B=isc._allFuncs;isc.C=isc.B._maxIndex;isc.D=isc._funcClasses;isc.D[isc.C]=isc.A.Class;isc.A.operationMap={fetch:"select",add:"update",update:"update",remove:"update"};isc.A.params={charset:"utf-8"};isc.A.requestProperties={};isc.A.adminPath="/admin";isc.A.queryTypeParam="qt";isc.A.writerTypeParam="wt";isc.A.queryParam="q";isc.A.queryOperatorParam="q.op";isc.A.outputsParam="fl";isc.A.sortParam="sort";isc.A.startRowParam="start";isc.A.numRowsParam="rows";isc.A.criteriaPolicy="dropOnChange";isc.A.dataFormat="custom";isc.A.dataProtocol="getParams";isc.A.dataTransport="scriptInclude";isc.A.callbackParam="json.wrf";isc.A.multipleValueSeparator="<br>";isc.A.enableFacetsParam="facet";isc.A.facetFieldParam="facet.field";isc.A.facetQueryParam="facet.query";isc.A.facetLimitParam="facet.limit";isc.A.filterQueryParam="fq";isc.A.hiliteHandling="mergeOntoRecord";isc.A.recordHiliteProperty="hilites";isc.B.push(isc.A.transformRequest=function isc_SolrDataSource_transformRequest(_1){isc.addProperties(_1,this.requestProperties);var _2=this.baseURL;_2+="/"+this.operationMap[_1.operationType]+"/";_1.actionURL=_2;var _3=_1.data={};isc.addProperties(_3,this.params);if(_1.originalData){var _4=["shards","facets","facetLimit","facetQueries","filterQueries"];_4.map(function(_19){if(_1.originalData[_19]){_1[_19]=_1.originalData[_19];delete _1.originalData[_19]}});var _5=[];for(var _6 in _1.originalData){var _7=_1.originalData[_6];if(_6=="q")_5.add(_7);else _5.add(_6+":"+_7+"*")}
 _3[this.queryParam]=_5.join(" AND ")}
 if(_1.startRow!=null)_3[this.startRowParam]=_1.startRow;if(_1.endRow!=null)_3[this.numRowsParam]=_1.endRow-_1.startRow;if(_1.sortBy){var _8="";for(var i=0;i<_1.sortBy.length;i++){var _10=_1.sortBy[i];var _11="asc";if(_10.startsWith("-")){_11="desc";_10=_10.substring(1)}
@@ -79,38 +79,3 @@ return _1}},{name:"title",showIf:"false"}],initWidget:function(){this.groupStart
 var _2=[];for(var _3 in _1){var _4=_1[_3],_5=this.getFacetTitleForField(_3);for(var i=0;i<_4.length;i+=2){var _7=_4[i],_8=_4[i+1];if(_7==null)continue;_2.add({facet:_3,title:_5,value:_7,count:_8})}}
 var _9=[],_10=this.facets.getProperty("name");for(var i=0;i<_10.length;i++){var _11=_10[i],_12=this.filterQueries[_11];if(_12==null)continue;var _13=_2.find({facet:_11,value:_12});this.selectedFacetStack.setSelectedFacet(_13);_2.removeList(_2.findAll("facet",_11))}
 this.facetGrid.setData(_2)},isc.A.getFacetTitleForField=function isc_VGridFacetPicker_getFacetTitleForField(_1){if(!this.facets)return _1;var f=this.facets.find("name",_1);if(f.title)return f.title;else return _1},isc.A.$127o=function isc_VGridFacetPicker__facetSelected(_1,_2){this.facetSelected(_1,_2)},isc.A.$1224=function isc_VGridFacetPicker__deselectFacet(_1){this.suppressChart=true;this.facetDeselected(_1);this.suppressChart=false});isc.B._maxIndex=isc.C+6;isc._nonDebugModules=(isc._nonDebugModules!=null?isc._nonDebugModules:[]);isc._nonDebugModules.push('Solr');isc.checkForDebugAndNonDebugModules();isc._moduleEnd=isc._Solr_end=(isc.timestamp?isc.timestamp():new Date().getTime());if(isc.Log&&isc.Log.logIsInfoEnabled('loadTime'))isc.Log.logInfo('Solr module init time: '+(isc._moduleEnd-isc._moduleStart)+'ms','loadTime');delete isc.definingFramework;if(isc.Page)isc.Page.handleEvent(null,"moduleLoaded",{moduleName:'Solr',loadTime:(isc._moduleEnd-isc._moduleStart)});}else{if(window.isc&&isc.Log&&isc.Log.logWarn)isc.Log.logWarn("Duplicate load of module 'Solr'.");}
-
-/*
-
-  SmartClient Ajax RIA system
-  Version v10.0p_2014-09-11/LGPL Development Only (2014-09-11)
-
-  Copyright 2000 and beyond Isomorphic Software, Inc. All rights reserved.
-  "SmartClient" is a trademark of Isomorphic Software, Inc.
-
-  LICENSE NOTICE
-     INSTALLATION OR USE OF THIS SOFTWARE INDICATES YOUR ACCEPTANCE OF
-     ISOMORPHIC SOFTWARE LICENSE TERMS. If you have received this file
-     without an accompanying Isomorphic Software license file, please
-     contact licensing@isomorphic.com for details. Unauthorized copying and
-     use of this software is a violation of international copyright law.
-
-  DEVELOPMENT ONLY - DO NOT DEPLOY
-     This software is provided for evaluation, training, and development
-     purposes only. It may include supplementary components that are not
-     licensed for deployment. The separate DEPLOY package for this release
-     contains SmartClient components that are licensed for deployment.
-
-  PROPRIETARY & PROTECTED MATERIAL
-     This software contains proprietary materials that are protected by
-     contract and intellectual property law. You are expressly prohibited
-     from attempting to reverse engineer this software or modify this
-     software for human readability.
-
-  CONTACT ISOMORPHIC
-     For more information regarding license rights and restrictions, or to
-     report possible license violations, please contact Isomorphic Software
-     by email (licensing@isomorphic.com) or web (www.isomorphic.com).
-
-*/
-

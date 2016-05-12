@@ -68,11 +68,15 @@
         <useForCacheSync type="boolean"/>
         <canSyncCache type="boolean"/>
         <allowMultiUpdate type="boolean"/>
+        <providesMissingKeys type="boolean"/>
         
         <!-- Security -->
         <requiresAuthentication type="boolean"/>
         <requiresRole type="string"/>
         <requires type="string" />
+        
+        <ownerIdField type="string" />
+        <guestUserId type="string" />
         
         <mail type="Mail" />
         
@@ -102,15 +106,16 @@
         <skipRowCount type="boolean"/>
         <language type="string" />
         <values type="DSRequestModifier" multiple="true" />
-        <criteria type="DSRequestModifier" multiple="true" />
+        <criteria type="DSRequestModifier" />
         <cacheSyncOperation type="string" />
         <relaxSecurityForCacheSync type="boolean" />
-        <customCriteriaFields type="string" multiple="true" />
-        <excludeCriteriaFields type="string" multiple="true" />
-        <customValueFields type="string" multiple="true" />
+        <customCriteriaFields type="string" />
+        <excludeCriteriaFields type="string" />
+        <customValueFields type="string" />
         <creatorOverrides type="boolean" />
         <qualifyColumnNames type="boolean" />
-        <customFields type="string" multiple="true" />
+        <customFields type="string" />
+        <skipAudit type="boolean" />
     </fields>
     
     <types>

@@ -100,6 +100,10 @@
     color:#CCCCCC; padding-left:5px; padding-right:5px;
 }
 
+.richTextEditor p {
+   margin-top:0px; margin-bottom:0px;
+}
+
 /*============================================================
     2) Button
 		button.baseStyle
@@ -592,6 +596,12 @@
 .textItemDisabledHint,
 .textItemError,
 .textItemHint,
+.uploadItem,
+.uploadItemFocused,
+.uploadItemDisabled,
+.uploadItemDisabledHint,
+.uploadItemError,
+.uploadItemHint,
 .selectItemControl,
 .selectItemControlError,
 .selectItemControlFocused,
@@ -650,6 +660,18 @@
     background:#404040 url(./images/controls/text_input.gif) repeat-x scroll;
     color:#DDDDDD;
 }
+.uploadItem,
+.uploadItemFocused,
+.uploadItemDisabled,
+.uploadItemDisabledHint,
+.uploadItemError,
+.uploadItemHint {
+    margin:0;
+    border:0;
+    padding:0;
+    background:#404040;
+    color:#DDDDDD;
+}
 .selectItemText,
 .selectItemTextError,
 .selectItemTextFocused,
@@ -667,13 +689,19 @@
     background-color:#404040;
     border:1px solid #595959;
 }
+.uploadItemDisabled,
+.uploadItemDisabledHint {
+    color: #888888;
+    background-color:#404040;
+}
 .staticTextItemDisabled {
     color: #888888;
 }
 
 .textItemHint,
+.uploadItemHint,
 .selectItemTextHint {
-    color:#C0C0C0;
+    color:darkGray;
 }
 
 /* selectItem */
@@ -690,7 +718,7 @@
 .textItemFocused,
 .selectItemTextFocused {
     background-color:#595959;
-    color:E6E6E6;
+    color:#E6E6E6;
     -moz-outline-offset:-1;
 }
 
@@ -747,7 +775,7 @@
 
 /* ColorChooser */
 .colorChooserCell,
-.colorChooserCel*lOver {
+.colorChooserCellOver {
     background-color:#EFEFEF;
     border-left:1px solid #EFEFEF; border-top:1px solid #EFEFEF;
     border-right:1px solid #EFEFEF; border-bottom:1px solid #EFEFEF;
@@ -1040,14 +1068,6 @@
 .dateChooserBorder {
   border: 1px solid #ababab;
   background-color: #000000;
-  padding-left: 3px;
-  padding-right: 3px;
-  padding-bottom: 3px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
-  border-radius: 5px;
 }
 
 /* CSS3 version - include bottom and right borders */
@@ -1208,8 +1228,8 @@
 .headerButtonDown,
 .headerButtonSelectedOver,
 .headerButtonSelectedDown {
-    border-left:1px solid reg(103,103,105);
-    border-right:1px solid reg(18,18,18);
+    border-left:1px solid rgb(103,103,105);
+    border-right:1px solid rgb(18,18,18);
 }
 
 .sorterButton,
@@ -1219,15 +1239,16 @@
 .sorterButtonOver,
 .sorterButtonDown,
 .sorterButtonSelectedOver,
-.sorterButtonSelectedDown {
+.sorterButtonSelectedDown,
+.filterOperatorIcon {
     background-color:#000000;
-    border-left:1px solid rgb(53,53,53); 
+    border-left:1px solid rgb(53,53,53);
 }
 .sorterButtonOver,
 .sorterButtonDown,
 .sorterButtonSelectedOver,
 .sorterButtonSelectedDown {
-    border-left:1px solid reg(103,103,105);
+    border-left:1px solid rgb(103,103,105);
 }
 
 /* ListGrid column header titles */
@@ -1255,6 +1276,12 @@
     color: #666666;
 }
 
+.filterOperatorIcon {
+  font-family: monospace;
+  font-size: 10px;
+  padding-left: 2px;
+  padding-right: 2px;
+}
 
 /*============================================================
 	ListGrid cells
@@ -1426,10 +1453,9 @@
 .toolStripGroupDisabled {
     background:#000000 url(./images/shared/background.gif) repeat-x bottom left scroll;
     border: 1px solid #4D5258;
-    border-radius: 3px;
     -moz-border-radius: 3px;
-    -khtml-border-radius: 3px;
     -webkit-border-radius: 3px;
+    border-radius: 3px;
 }
 
 .toolStripGroupTitle,
@@ -1442,10 +1468,9 @@
 .toolStripGroupTitleDisabled {
     background: #303336;
     border: 0;
-    border-radius: 2px;
     -moz-border-radius: 2px;
-    -khtml-border-radius: 2px;
     -webkit-border-radius: 2px;
+    border-radius: 2px;
     color: #E6E6E6;
     font-family: Arial, Verdana, Bitstream Vera Sans, sans-serif; 
     font-size: 11px; 
@@ -1469,10 +1494,9 @@
 .iconButtonSelectedDisabled {
     background: transparent;
     border: 1px solid transparent;
-    border-radius: 3px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
-    -khtml-border-radius: 3px;
+    border-radius: 3px;
 	color:#D3D3D3;
     font-family: Arial, Verdana, Bitstream Vera Sans, sans-serif; 
     font-size:11px;
@@ -2185,6 +2209,7 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 ============================================================*/
 .calendar,
 .calendarDisabled,
+.calendarDisabledDark,
 .calendarDisabledOver,
 .calendarDisabledOverDark,
 .calendarWorkdayDisabled,
@@ -2199,6 +2224,7 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 .calendarWorkdayDisabled,
 .calendarDark,
 .calendarDisabled,
+.calendarDisabledDark,
 .calendarDisabledOver,
 .calendarDisabledOverDark {
     background-color:gainsboro;    
@@ -2223,6 +2249,7 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
     background-color:#CCCCCC; 
 }
 .labelColumn,
+.labelColumnDark,
 .labelColumnOver,
 .labelColumnOverDark {
     font-family:Arial,sans-serif; font-size:11px;
@@ -2256,6 +2283,14 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
     border-bottom:1px solid #a0a0a0; border-right:1px solid #a0a0a0;
     background-color: #c0ffc0;
 }
+.calMonthDayHeaderDisabled,
+.calMonthDayHeaderDisabledOver {
+    font-family:Arial,sans-serif; font-size:11px;
+    color:black;
+    border-bottom:1px solid #a0a0a0; border-right:1px solid #a0a0a0;
+    background-color:#E6E6E6;
+}
+
 .calMonthDayBody,
 .calMonthDayBodyDark {
     font-family:Arial,sans-serif; font-size:11px;

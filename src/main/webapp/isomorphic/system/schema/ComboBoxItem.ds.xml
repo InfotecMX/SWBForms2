@@ -24,6 +24,7 @@
         <field name="showAllOptions" type="boolean"/>
         <field name="optionFilterContext" type="RPCRequest"/>
         <field name="pickListProperties" type="ListGrid" propertiesOnly="true"/>
+        <field name="optionCriteria" type="AdvancedCriteria" basic="true"/>
 
         <!-- deprecated -->
         <field name="pickButtonWidth"   type="number" hidden="true"/>

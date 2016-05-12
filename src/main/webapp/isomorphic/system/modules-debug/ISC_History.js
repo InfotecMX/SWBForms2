@@ -2,7 +2,7 @@
 /*
 
   SmartClient Ajax RIA system
-  Version v10.0p_2014-09-11/LGPL Deployment (2014-09-11)
+  Version v11.0p_2016-05-12/LGPL Deployment (2016-05-12)
 
   Copyright 2000 and beyond Isomorphic Software, Inc. All rights reserved.
   "SmartClient" is a trademark of Isomorphic Software, Inc.
@@ -89,10 +89,21 @@ isc._start = new Date().getTime();
 
 // versioning - values of the form ${value} are replaced with user-provided values at build time.
 // Valid values are: version, date, project (not currently used)
-isc.version = "v10.0p_2014-09-11/LGPL Deployment";
-isc.versionNumber = "v10.0p_2014-09-11";
-isc.buildDate = "2014-09-11";
+isc.version = "v11.0p_2016-05-12/LGPL Deployment";
+isc.versionNumber = "v11.0p_2016-05-12";
+isc.buildDate = "2016-05-12";
 isc.expirationDate = "";
+
+isc.scVersion = "11.0p";
+isc.scVersionNumber = "11.0";
+isc.sgwtVersion = "6.0p";
+isc.sgwtVersionNumber = "6.0";
+
+// these reflect the latest stable version relative to the branch from which this build is
+// created.  So for example for 11.0d/6.0d, this will be 10.1/5.1.  But for 10.0/5.0 this will
+// be 10.0/5.0.
+isc.scParityStableVersionNumber = "11.0";
+isc.sgwtParityStableVersionNumber = "6.0";
 
 // license template data
 isc.licenseType = "LGPL";
@@ -186,6 +197,13 @@ isc.hasOptionalModule = function (module) {
 };
 isc.getOptionalModule = function (module) {
     return isc._optionalModules[module];
+};
+
+
+isc.$a4b5c1c2d3 = function (moduleName) {
+    if (this.hasOptionalModule(moduleName)) return;
+    var moduleEntry = isc._optionalModules[moduleName];
+    if (moduleEntry) moduleEntry.present = !!moduleName + "";
 };
 
 // default to "simple names" mode, where all ISC classes are defined as global variables
@@ -290,6 +308,16 @@ isc.addGlobal("Browser", {
     isSupported: false
 
 
+    ,_assert : function (b, message) {
+        if (!b) {
+            isc.logWarn("assertion failed" +
+                        (message ? " with message: '" + message + "'" : "") +
+                        ". Stack trace:" + (isc.Class.getStackTrace()));
+
+        }
+    }
+
+
 });
 
 
@@ -300,14 +328,20 @@ isc.addGlobal("Browser", {
 //>    @classAttr    Browser.isOpera        (boolean : ? : R)
 //        Are we in Opera ?
 //<
+
 isc.Browser.isOpera = (navigator.appName == "Opera" ||
                     navigator.userAgent.indexOf("Opera") != -1);
+
+//console.log("navigator.appName:" + navigator.appName
+//            + ", navigator.userAgent:" + navigator.userAgent);
+//console.log("is opera?:" + isc.Browser.isOpera);
 
 //>    @classAttr    Browser.isNS (boolean : ? : R)
 //        Are we in Netscape (including Navigator 4+, NS6 & 7, and Mozilla)
 //      Note: Safari also reports itself as Netscape, so isNS is true for Safari.
 //<
 isc.Browser.isNS = (navigator.appName == "Netscape" && !isc.Browser.isOpera);
+//console.log("is NS?:" + isc.Browser.isNS);
 
 //>    @classAttr    Browser.isIE        (boolean : ? : R)
 //        Are we in Internet Explorer?
@@ -315,11 +349,13 @@ isc.Browser.isNS = (navigator.appName == "Netscape" && !isc.Browser.isOpera);
 isc.Browser.isIE = (navigator.appName == "Microsoft Internet Explorer" &&
                     !isc.Browser.isOpera) ||
                    navigator.userAgent.indexOf("Trident/") != -1;
+//console.log("is IE?:" + isc.Browser.isIE);
 
 //>    @classAttr    Browser.isMSN        (boolean : ? : R)
 //      Are we in the MSN browser (based on MSIE, so isIE will be true in this case)
 //<
 isc.Browser.isMSN = (isc.Browser.isIE && navigator.userAgent.indexOf("MSN") != -1);
+//console.log("is MSN?:" + isc.Browser.isMSN);
 
 
 //>    @classAttr    Browser.isMoz        (boolean : ? : R)
@@ -332,27 +368,35 @@ isc.Browser.isMoz = (navigator.userAgent.indexOf("Gecko") != -1) &&
     (navigator.userAgent.indexOf("Safari") == -1) &&
     (navigator.userAgent.indexOf("AppleWebKit") == -1) &&
     !isc.Browser.isIE;
+//console.log("is Moz?:" + isc.Browser.isMoz);
 
 //>    @classAttr    Browser.isCamino (boolean : false : R)
 //  Are we in Mozilla Camino?
 //<
 isc.Browser.isCamino = (isc.Browser.isMoz && navigator.userAgent.indexOf("Camino/") != -1);
+//console.log("is Camino?:" + isc.Browser.isCamino);
+
 
 //>    @classAttr    Browser.isFirefox (boolean : false : R)
 //  Are we in Mozilla Firefox?
 //<
 isc.Browser.isFirefox = (isc.Browser.isMoz && navigator.userAgent.indexOf("Firefox/") != -1);
+//console.log("is Fire Fox?:" + isc.Browser.isFirefox);
 
 
 //> @classAttr  Browser.isAIR    (boolean : ? : R)
 // Is this application running in the Adobe AIR environment?
 //<
 isc.Browser.isAIR = (navigator.userAgent.indexOf("AdobeAIR") != -1);
+//console.log("is AIR?:" + isc.Browser.isAIR);
+
 
 //>    @classAttr    Browser.isWebKit (boolean : ? : R)
 // Are we in a WebKit-based browser (Safari, Chrome, mobile Safari and Android, others).
 //<
 isc.Browser.isWebKit = navigator.userAgent.indexOf("WebKit") != -1;
+//console.log("is webkit?:" + isc.Browser.isWebKit);
+
 
 //>    @classAttr    Browser.isSafari (boolean : ? : R)
 // Are we in Apple's "Safari" browser? Note that this property will also be set for other
@@ -366,13 +410,24 @@ isc.Browser.isWebKit = navigator.userAgent.indexOf("WebKit") != -1;
 //  Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_5_5; en-us) AppleWebKit/525.18 (KHTML, like Gecko)
 isc.Browser.isSafari = isc.Browser.isAIR || navigator.userAgent.indexOf("Safari") != -1 ||
                         navigator.userAgent.indexOf("AppleWebKit") != -1;
+//console.log("is Safari?:" + isc.Browser.isSafari);
+
+//> @classAttr Browser.isEdge (boolean : ? : R)
+// Are we in the Microsoft Edge browser?
+//<
+
+isc.Browser.isEdge = isc.Browser.isSafari && (navigator.userAgent.indexOf("Edge/") != -1);
+//console.log("is Edge?:" + isc.Browser.isEdge);
 
 
 //> @classAttr Browser.isChrome (boolean : ? : R)
 // Are we in the Google Chrome browser?
 //<
-// Behaves like Safari in most ways
-isc.Browser.isChrome = isc.Browser.isSafari && (navigator.userAgent.indexOf("Chrome/") != -1);
+// Behaves like Safari in most ways.  Note: do not detect Edge as Chrome - causes odd scrollbar
+// misrenderings.  As of 7/30/2015 appears to work better with the isSafari codepaths
+isc.Browser.isChrome = isc.Browser.isSafari && !isc.Browser.isEdge && (navigator.userAgent.indexOf("Chrome/") != -1);
+//console.log("is Chrome?:" + isc.Browser.isChrome);
+
 
 
 if (!isc.Browser.isIE && !isc.Browser.isOpera && !isc.Browser.isMoz &&
@@ -380,6 +435,8 @@ if (!isc.Browser.isIE && !isc.Browser.isOpera && !isc.Browser.isMoz &&
 {
     if (navigator.appVersion.indexOf("MSIE") != -1) {
         isc.Browser.isIE = true;
+        //console.log("is IE (inside embedded browser, etc)?:" + isc.Browser.isIE);
+
     }
 }
 
@@ -793,7 +850,20 @@ isc.Browser.isUnix = (!isc.Browser.isMac &&! isc.Browser.isWin);
 //      +link{canvas.resizeFrom,edge-based resizing}, and many other controls.
 // <li> +link{SpinnerItem} switches to side-by-side +/- controls instead of the very small,
 //      vertically stacked +/- control typical of desktop interfaces
+// <li> +link{AdaptiveMenu} can either display menu items inline, or in a drop-down,
+//        or mix the two modes according to available space.
 // </ul>
+// <p>
+// In addition to automatic behavior, SmartClient offers Adaptive Layout whereby a +link{Layout}
+// member may be <i>designed</i> to render itself at multiple possible sizes, in order to fit
+// into the amount of space available in the Layout.  Unlike simply indicating a flexible size
+// on a member, setting an adaptive width or height indicates that the member has two (or more)
+// different <i>ways</i> of rendering itself with different <i>discrete</I> sizes, but does not
+// have the ability to use every additional available pixel.
+// <p>
+// For more guidance, see the documentation under +link{canvas.canAdaptWidth} and the
+// +explorerExample{inlinedMenuMobileSample, Inlined Menu Mobile} and
+// +explorerExample{adaptiveMenuMobileSample, Adaptive Menu} samples.
 // <p>
 // <h3>Finger / touch event handling</h3>
 // <P>
@@ -1075,7 +1145,6 @@ isc.Browser.isUnix = (!isc.Browser.isMac &&! isc.Browser.isWin);
 // See +link{titaniumIntegration,Integration with Titanium} and +link{phonegapIntegration,Integration with PhoneGap}
 // for more information.
 //
-//
 // @title Mobile Application Development
 // @treeLocation Concepts
 // @visibility external
@@ -1215,11 +1284,11 @@ isc.Browser.isUnix = (!isc.Browser.isMac &&! isc.Browser.isWin);
 // <p>You will need to open the application's main HTML file in a text editor to make a few changes:
 // <ul>
 //   <li>Change the DOCTYPE to the HTML5 DOCTYPE: <code>&lt;!DOCTYPE html&gt;</code></li>
-//   <li>Add a <code>&lt;script&gt;</code> tag to the <code>&lt;head&gt;</code> element to load <code>phonegap.js</code>:
-//       <pre>&lt;script type="text/javascript" charset="UTF-8" language="JavaScript" src="phonegap.js"&gt;&lt;/script&gt;</pre>
+//   <li>Add a <code>&lt;script&gt;</code> tag to the <code>&lt;head&gt;</code> element to load <code>cordova.js</code>:
+//       <pre>&lt;script type="text/javascript" charset="UTF-8" src="cordova.js"&gt;&lt;/script&gt;</pre>
 //
-//       <p><b>NOTE:</b> The <code>www/</code> folder should not contain <code>phonegap.js</code>.
-//       In other words, don't try to copy <code>phonegap.js</code> into the <code>www/</code> folder.
+//       <p><b>NOTE:</b> The <code>www/</code> folder should not contain <code>cordova.js</code>.
+//       In other words, don't try to copy <code>cordova.js</code> into the <code>www/</code> folder.
 //       PhoneGap automatically adds the appropriate version of this script, which is different for
 //       each platform.</li>
 //   <li>Ensure that the following <code>&lt;meta&gt;</code> tags are used, also in the <code>&lt;head&gt;</code> element:
@@ -1233,7 +1302,7 @@ isc.Browser.isUnix = (!isc.Browser.isMac &&! isc.Browser.isWin);
 //    particularly if your application invokes any PhoneGap API function.
 //
 //        <smartclient>In SmartClient, deferring the application can be accomplished by wrapping all application code within a 'deviceready' listener:
-//        <pre class="sourcefile">&lt;script type="text/javascript" language="JavaScript"&gt;
+//        <pre class="sourcefile">&lt;script type="text/javascript"&gt;
 //document.addEventListener("deviceready", function onDeviceReady() {
 //    // application code goes here
 //}, false);
@@ -1268,7 +1337,7 @@ isc.Browser.isUnix = (!isc.Browser.isMac &&! isc.Browser.isWin);
 // <p>The <code>CordovaEntryPoint</code> class is used in conjunction with the following JavaScript,
 //        which should be added before the closing <code>&lt/body&gt;</code> tag:
 //
-//     <pre class="sourcefile">&lt;script type="text/javascript" language="JavaScript"&gt;
+//     <pre class="sourcefile">&lt;script type="text/javascript"&gt;
 //document.addEventListener("deviceready", function onDeviceReady() {
 //    window.isDeviceReady = true;
 //    document.removeEventListener("deviceready", onDeviceReady, false);
@@ -1309,8 +1378,8 @@ isc.Browser.isUnix = (!isc.Browser.isMac &&! isc.Browser.isWin);
 // Common errors include:
 // <ul>
 // <li><code>Application Error The protocol is not supported. (gap://ready)</code>
-//     <p>This means that the incorrect <code>phonegap.js</code> script is being used. You
-//     must use the <code>phonegap.js</code> for Android.<!-- http://community.phonegap.com/nitobi/topics/error_starting_app_on_android -->
+//     <p>This means that the incorrect <code>cordova.js</code> script is being used. You
+//     must use the <code>cordova.js</code> for Android.<!-- http://community.phonegap.com/nitobi/topics/error_starting_app_on_android -->
 //     <p>Try updating the 'android' platform to fix the problem:
 //     <pre>phonegap platform update android</pre>
 //     </li>
@@ -1331,11 +1400,14 @@ isc.Browser.isUnix = (!isc.Browser.isMac &&! isc.Browser.isWin);
 // devices is located at <code>smartclientSDK/examples/phonegap/MyContacts-iOS</code>. An Eclipse project used
 // to package the app for Android devices is located at <code>smartclientSDK/examples/phonegap/MyContacts-Android</code>.
 // </smartclient><smartgwt>
-// <p>The Smart&nbsp;GWT Google Code project has a sample application called +externalLink{http://code.google.com/p/smartgwt/source/browse/#svn%2Ftrunk%2Fsamples%2Fphonegap%2FMyContacts,MyContacts} which demonstrates how
-// to work with the PhoneGap API in a Smart&nbsp;GWT app. The main Smart&nbsp;GWT code is located at
-// <code>+externalLink{http://code.google.com/p/smartgwt/source/browse/#svn%2Ftrunk%2Fsamples%2Fphonegap%2FMyContacts,trunk/samples/phonegap/MyContacts}</code>. An Xcode project used to package the app for iOS
-// devices is located at <code>+externalLink{http://code.google.com/p/smartgwt/source/browse/#svn%2Ftrunk%2Fsamples%2Fphonegap%2FMyContacts-iOS,trunk/samples/phonegap/MyContacts-iOS}</code>. An Eclipse project used
-// to package the app for Android devices is located at <code>+externalLink{http://code.google.com/p/smartgwt/source/browse/#svn%2Ftrunk%2Fsamples%2Fphonegap%2FMyContacts-Android,trunk/samples/phonegap/MyContacts-Android}</code>.
+// <p>The Smart&nbsp;GWT Google Code project has a sample application called
+// +externalLink{https://github.com/isomorphic-software/smartgwt/tree/master/samples/phonegap/MyContacts,MyContacts}
+// which demonstrates how to work with the PhoneGap API in a Smart&nbsp;GWT app. The main Smart&nbsp;GWT code is located at
+// <code>+externalLink{https://github.com/isomorphic-software/smartgwt/tree/master/samples/phonegap/MyContacts,trunk/samples/phonegap/MyContacts}</code>.
+// An Xcode project used to package the app for iOS devices is located at <code>
+// +externalLink{https://github.com/isomorphic-software/smartgwt/tree/master/samples/phonegap/MyContacts-iOS,trunk/samples/phonegap/MyContacts-iOS}</code>.
+// An Eclipse project used to package the app for Android devices is located at <code>
+// +externalLink{https://github.com/isomorphic-software/smartgwt/tree/master/samples/phonegap/MyContacts-Android,trunk/samples/phonegap/MyContacts-Android}</code>.
 //
 // <p>This sample application utilizes the script changer technique to load the correct <code>cordova.js</code>.
 // Additionally, GWT's +externalLink{http://www.gwtproject.org/doc/latest/DevGuideCodingBasicsOverlay.html,JavaScript overlay types}
@@ -1684,7 +1756,8 @@ isc.Browser.isBorderBox = (isc.Browser.isIE && !isc.Browser.isStrict);
 //>    @classAttr    Browser.lineFeed    (string : ? : RA)
 //        Linefeed for this platform
 //<
-isc.Browser.lineFeed = (isc.Browser.isWin ? "\r\n" : "\r");
+
+isc.Browser.lineFeed = (isc.Browser.isWin ? "\r\n" : "\n");
 
 //>    @classAttr    Browser._supportsMethodTimeout    (string : ? : RA)
 //        setTimeout() requires text string parameter in MacIE or IE 4
@@ -1791,7 +1864,7 @@ if (isc_css3Mode == "on") {
     isc.Browser.useCSS3 = false;
 } else if (isc_css3Mode == "supported" ||
            isc_css3Mode == "partialSupport" ||
-           isc_css3Mode === undefined)
+           (typeof isc_css3Mode) === "undefined")
 {
     isc.Browser.useCSS3 = isc.Browser.isWebKit ||
                           isc.Browser.isFirefox ||
@@ -1809,6 +1882,23 @@ if (isc_spriting == "off") {
 
 isc.Browser.useInsertAdjacentHTML = !!document.documentElement.insertAdjacentHTML;
 
+
+isc.Browser.useInsertAdjacentHTMLForSVG = (function () {
+    if (!!document.createElementNS) {
+        var svgGElem = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        if ((typeof svgGElem.insertAdjacentHTML) === "function") {
+            try {
+                svgGElem.insertAdjacentHTML("beforeend", "<rect/><ellipse/>");
+                return (svgGElem.childNodes.length == 2 &&
+                        svgGElem.childNodes[1].namespaceURI === "http://www.w3.org/2000/svg");
+            } catch (e) {
+                // ignored
+            }
+        }
+    }
+    return false;
+})();
+
 // Test for availability of the Range.getBoundingClientRect() method which was added to
 // CSSOM View as of the 04 August 2009 Working Draft.
 // http://www.w3.org/TR/2009/WD-cssom-view-20090804/
@@ -1821,9 +1911,7 @@ isc.Browser.hasNativeGetRect = (!isc.Browser.isIE &&
 
 isc.Browser._useNewSingleDivSizing = !((isc.Browser.isIE && isc.Browser.version < 10 && !isc.Browser.isIE9) ||
                                        (isc.Browser.isWebKit && !(parseFloat(isc.Browser.rawSafariVersion) >= 532.3)));
-isc.Browser.useClipDiv = isc.Browser._useNewSingleDivSizing;
-
-isc.Browser.useCreateContextualFragment = !!document.createRange && !!document.createRange().createContextualFragment;
+isc.Browser.useClipDiv = !isc.Browser._useNewSingleDivSizing;
 
 
 isc.Browser.hasTextOverflowEllipsis = (!isc.Browser.isMoz || isc.Browser.version >= 7) &&
@@ -1836,6 +1924,9 @@ isc.Browser._textOverflowPropertyName = (!isc.Browser.isOpera || isc.Browser.ver
 isc.Browser._hasGetBCR = !isc.Browser.isSafari || isc.Browser.version >= 4;
 
 
+isc.Browser._hasElementPointerEvents = ("pointerEvents" in document.documentElement.style &&
+                                        !isc.Browser.isOpera &&
+                                        (!isc.Browser.isIE || isc.Browser.version >= 11));
 
 // Does the browser support HTML5 drag and drop?
 // http://caniuse.com/#feat=dragndrop
@@ -1848,6 +1939,15 @@ isc.Browser.hasNativeDrag = !isc.Browser.isTouch && "draggable" in document.docu
 // http://dom.spec.whatwg.org/#ranges
 isc.Browser._hasDOMRanges = !!(window.getSelection && document.createRange && window.Range);
 
+// Whether the browser supports Range.createContextualFragment() generally.
+
+isc.Browser._supportsCreateContextualFragment = isc.Browser._hasDOMRanges && !!document.createRange().createContextualFragment;
+
+// Whether the browser supports Range.createContextualFragment() in SVG contexts.
+
+isc.Browser._supportsSVGCreateContextualFragment = ((isc.Browser.isMoz && isc.Browser.version >= 36) ||
+                                                    (isc.Browser.isChrome && isc.Browser.version >= 42));
+
 // Whether the browser supports the CSS `background-size' property.
 // https://developer.mozilla.org/en-US/docs/Web/CSS/background-size
 isc.Browser._supportsBackgroundSize = "backgroundSize" in document.documentElement.style;
@@ -1857,10 +1957,11 @@ isc.Browser._supportsBackgroundSize = "backgroundSize" in document.documentEleme
 // Note: No need to check for "msTransition" because IE10 was the first version of IE to have
 // CSS3 transitions support and this is unprefixed.
 
-isc.Browser._supportsCSSTransitions = ("transition" in document.documentElement.style ||
-                                       "WebkitTransition" in document.documentElement.style ||
-                                       "OTransition" in document.documentElement.style) &&
-                                      !isc.Browser.isMoz;
+isc.Browser._supportsCSSTransitions = (("transition" in document.documentElement.style ||
+                                        "WebkitTransition" in document.documentElement.style ||
+                                        "OTransition" in document.documentElement.style) &&
+                                       (!isc.Browser.isMoz ||
+                                        (!isc.Browser.isTouch && isc.Browser.version >= 34)));
 
 
 isc.Browser._transitionEndEventType = ("WebkitTransition" in document.documentElement.style
@@ -1903,10 +2004,12 @@ if (!isc.Browser._supportsNativeNodeContains && window.Node != null) {
 }
 
 
-isc.Browser._supportsMinimalUI = (isc.Browser.isIPhone && !isc.Browser.isIPad && isc.Browser.isMobileSafari && isc.Browser.iOSMinorVersion >= 7.1);
+isc.Browser._supportsMinimalUI = (isc.Browser.isIPhone && !isc.Browser.isIPad &&
+                                  isc.Browser.isMobileSafari &&
+                                  7.1 == isc.Browser.iOSMinorVersion);
 
 
-isc.Browser._svgElementsHaveParentElement = (document.createElementNS && "parentElement" in document.createElementNS("http://www.w3.org/2000/svg", "svg"));
+isc.Browser._svgElementsHaveParentElement = (!!document.createElementNS && "parentElement" in document.createElementNS("http://www.w3.org/2000/svg", "svg"));
 if (!isc.Browser._svgElementsHaveParentElement && window.SVGElement != null && Object.defineProperty) {
     Object.defineProperty(SVGElement.prototype, "parentElement", {
         enumerable: true,
@@ -1920,6 +2023,83 @@ if (!isc.Browser._svgElementsHaveParentElement && window.SVGElement != null && O
     });
 }
 
+isc.Browser._svgElementsHaveContains = (!!document.createElementNS && "contains" in document.createElementNS("http://www.w3.org/2000/svg", "svg"));
+if (!isc.Browser._svgElementsHaveContains && window.SVGElement != null) {
+    SVGElement.prototype.contains = function (otherNode) {
+        for (; otherNode != null; otherNode = otherNode.parentNode) {
+            if (this === otherNode) return true;
+        }
+        return false;
+    };
+}
+
+// Does the browser support the HTML5 'placeholder' attribute?
+
+isc.Browser._supportsPlaceholderAttribute = ("placeholder" in document.createElement("input") &&
+                                             "placeholder" in document.createElement("textarea"));
+
+isc.Browser._supportsIOSTabs = isc.Browser.isMobileWebkit && "webkitMaskBoxImage" in document.documentElement.style;
+
+// Does the browser support the Screen Orientation API?
+// https://w3c.github.io/screen-orientation/
+// http://caniuse.com/#feat=screen-orientation
+
+isc.Browser._supportsScreenOrientationAPI = (window.screen != null && "orientation" in screen && "type" in screen.orientation);
+
+// Does the browser support the SVGSVGElement.getIntersectionList() SVG 1.1 DOM method?
+
+isc.Browser._supportsSVGGetIntersectionList = (!isc.Browser.isSafari &&
+                                               !isc.Browser.isChrome &&
+                                               !!document.createElementNS &&
+                                               "getIntersectionList" in document.createElementNS("http://www.w3.org/2000/svg", "svg") &&
+                                               "createSVGRect" in document.createElementNS("http://www.w3.org/2000/svg", "svg"));
+
+isc.Browser._supportsJSONObject = (window.JSON != null &&
+                                   typeof window.JSON.parse === "function" &&
+                                   typeof window.JSON.stringify === "function" &&
+                                   window.JSON.stringify("\u0013") === "\"\\u0013\"");
+
+
+
+
+//> @classAttr Browser.useHighPerformanceGridTimings (boolean : see below : I)
+// Controls how agressive components based on the +link{class:GridRenderer} are with respect to
+// redraws and data fetches. Modern browsers can generally handle much more frequent redraws
+// and most server configurations can handle fetching more data more frequently in order to
+// reduce the lag the end user perceives when scrolling through databound grids.  Starting with
+// SmartClient 11.0/SmartGWT 6.0, this more aggressive redraw and fetch behavior us the
+// default, but can be reverted to the old behavior if desired - see below.
+// <P>
+// This flag controls the defaults for several other properties (value on left is default for
+// high performance mode, value on right is default when this mode is disabled.
+// <ul>
+// <li> +link{attr:ListGrid.dataFetchDelay} 1 -> 300
+// <li> +link{attr:ListGrid.drawAheadRatio} 2.0 -> 1.3
+// <li> +link{attr:ListGrid.quickDrawAheadRatio} 2.0 -> 1.3
+// <li> +link{attr:ListGrid.scrollRedrawDelay} 0 -> 75
+// <li> +link{attr:ListGrid.scrollWheelRedrawDelay} 0 -> 250
+// <li> +link{attr:ListGrid.touchScrollRedrawDelay} 0 -> 300
+// </ul>
+// Note: since +link{class:TreeGrid} is a subclass of +link{class:ListGrid}, the above settings
+// also apply to +link{class:TreeGrid}s.
+// <ul>
+// <li> +link{attr:GridRenderer.drawAheadRatio} 2.0 -> 1.3
+// <li> +link{attr:GridRenderer.quickDrawAheadRatio} 2.0 -> 1.3
+// <li> +link{attr:GridRenderer.scrollRedrawDelay} 0 -> 75
+// <li> +link{attr:GridRenderer.touchScrollRedrawDelay} 0 -> 300
+// </ul>
+// <P>
+// By default, for all browsers except Android-based Chrome, this flag is set to true, but can
+// be explicitly disabled by setting <code>isc_useHighPerformanceGridTimings=false</code> in a
+// script block before loading SmartClient modules.  Turning off high performance timings
+// effectively enables the original SmartClient/SmartGWT behavior prior to the SmartClient
+// 11.0/SmartGWT 6.0 release.
+//
+// @visibility external
+//<
+isc.Browser.canUseAggressiveGridTimings = !isc.Browser.isAndroid;
+isc.Browser.useHighPerformanceGridTimings = window.isc_useHighPerformanceGridTimings == null ?
+    isc.Browser.canUseAggressiveGridTimings : window.isc_useHighPerformanceGridTimings && isc.Browser.canUseAggressiveGridTimings;
 
 
 
@@ -2009,11 +2189,15 @@ isc.addGlobal("defineStandaloneClass", function (className, classObj) {
         // Also, ClassFactory.makeIsAFunc() expect isA to always be a function, so don't stick
         // an isA object literal on here or it will crash
         isAString : function (object) {
-            if (object == null) return false;
-            if (object.constructor && object.constructor.__nativeType != null) {
-                return object.constructor.__nativeType == 4;
-            }
+            // upgrade: when ISC_Core is available, defer to that code
+            if (isc.isA) return isc.isA.String(object);
             return typeof object == "string";
+        },
+
+        isAnArray : function (object) {
+            // upgrade: when ISC_Core is available, defer to that code
+            if (isc.isA) return isc.isAn.Array(object);
+            return typeof object == "array";
         },
 
         _singleQuoteRegex: new RegExp("'", "g"),
@@ -2227,20 +2411,20 @@ registerCallback : function (callback, requiresData, isAdditional) {
         return -1;
     }
 
-    var id;
+    var historyId;
     if (isAdditional) {
-        id = this._nextCallbackID++;
+        historyId = this._nextCallbackID++;
     } else {
         // unregister the previous primary callback, if set
         this.unregisterCallback(0);
 
-        id = 0;
+        historyId = 0;
     }
 
     var r = {
         callback: callback,
         requiresData: !!requiresData,
-        ID: id
+        ID: historyId
     };
 
     if (isAdditional) {
@@ -2250,7 +2434,7 @@ registerCallback : function (callback, requiresData, isAdditional) {
         // array so that it is called first.
         this._callbacksRegistry.unshift(r);
     }
-    return id;
+    return historyId;
 },
 
 //> @classMethod history.unregisterCallback()
@@ -2262,7 +2446,7 @@ registerCallback : function (callback, requiresData, isAdditional) {
 // <code>false</code> otherwise.
 // @visibility external
 //<
-unregisterCallback : function (id) {
+unregisterCallback : function (historyId) {
     var pos;
     var registry = this._callbacksRegistry;
 
@@ -2270,7 +2454,7 @@ unregisterCallback : function (id) {
     // used standalone, without ISC_Core being loaded
     for (pos = 0; pos < registry.length; ++pos) {
         var r = registry[pos];
-        if (r.ID == id) break;
+        if (r.ID == historyId) break;
     }
 
     // not found
@@ -2303,8 +2487,8 @@ getCurrentHistoryId : function () {
 // @return (any) The data associated with the specified history id.
 // @visibility external
 //<
-getHistoryData : function (id) {
-    return this.historyState ? this.historyState.data[id] : null;
+getHistoryData : function (historyId) {
+    return this.historyState ? this.historyState.data[historyId] : null;
 },
 
 
@@ -2400,13 +2584,13 @@ setHistoryTitle : function (title) {
 // @visibility external
 //<
 _finishAddingHistoryEntryTEAScheduled: false,
-addHistoryEntry : function (id, title, data) {
+addHistoryEntry : function (historyId, title, data) {
     //>DEBUG
-    this.logDebug("addHistoryEntry: id=" + id + " data=" + (isc.echoAll ? isc.echoAll(data) : String(data)));
+    this.logDebug("addHistoryEntry: id=" + historyId + " data=" + (isc.echoAll ? isc.echoAll(data) : String(data)));
     //<DEBUG
 
     // Avoid #null situations. Unfortunately we can't remove the anchor entirely (see below)
-    if (id == null) id = "";
+    if (historyId == null) historyId = "";
 
     if (isc.Browser.isSafari && isc.Browser.safariVersion < 500) {
         // We'd like to simply change the hash in the URL and call it a day.  That would at
@@ -2418,7 +2602,7 @@ addHistoryEntry : function (id, title, data) {
         // didn't change anything.  Revisit later.
         //
         // Last tested in Safari 2.0.4 (419.3)
-        //location.href = this._addHistory(location.href, id);
+        //location.href = this._addHistory(location.href, historyId);
         return;
     }
 
@@ -2440,8 +2624,8 @@ addHistoryEntry : function (id, title, data) {
     if (data === undef) data = null;
 
     // disallow sequentual duplicate entries - treat it as overwrite of data
-    if (currentId == id && this.historyState.data.hasOwnProperty(id)) {
-        this.historyState.data[id] = data;
+    if (currentId == historyId && this.historyState.data.hasOwnProperty(historyId)) {
+        this.historyState.data[historyId] = data;
         this._saveHistoryState();
         return;
     }
@@ -2450,7 +2634,7 @@ addHistoryEntry : function (id, title, data) {
         this.logError("History.addHistoryEntry() cannot be called with different IDs in the " +
                       "same thread. In the current thread of execution, addHistoryEntry() was " +
                       "previously called with id:'" + this.historyState.stack[this.historyState.stack.length - 1] +
-                      "', but an attempt was made to add a history entry with id:'" + id + "'. " +
+                      "', but an attempt was made to add a history entry with id:'" + historyId + "'. " +
                       "Only the first history entry will be added.");
         return;
     }
@@ -2465,16 +2649,16 @@ addHistoryEntry : function (id, title, data) {
         // delete data associated with this id
         delete this.historyState.data[topOfStack];
     }
-    this.historyState.stack[this.historyState.stack.length] = id;
-    this.historyState.data[id] = data;
+    this.historyState.stack[this.historyState.stack.length] = historyId;
+    this.historyState.data[historyId] = data;
     //>DEBUG
-    this.logDebug("historyState[id]: " + (isc.echoAll ? isc.echoAll(this.historyState.data[id]) : String(this.historyState.data[id])));
+    this.logDebug("historyState[historyId]: " + (isc.echoAll ? isc.echoAll(this.historyState.data[historyId]) : String(this.historyState.data[historyId])));
     //<DEBUG
 
     this._saveHistoryState();
 
     if (isc.Browser.isIE) {
-        if (id != null && document.getElementById(id) != null) {
+        if (historyId != null && document.getElementById(historyId) != null) {
             this.logWarn("Warning - attempt to add synthetic history entry with id that conflicts"
                         +" with an existing DOM element node ID - this is known to break in IE");
         }
@@ -2492,12 +2676,12 @@ addHistoryEntry : function (id, title, data) {
             if (docTitle.length) initTitle = docTitle[0].innerHTML;
             this._iframeNavigate("_isc_H_init", initTitle);
         }
-        this._iframeNavigate(id, title);
+        this._iframeNavigate(historyId, title);
     } else {
         // Moz/FF
         // update the visible URL (this actually creates the history entry)
-        location.href = this._addHistory(location.href, id);
-        this._lastHistoryId = id;
+        location.href = this._addHistory(location.href, historyId);
+        this._lastHistoryId = historyId;
     }
     this._lastURL = location.href;
 
@@ -2533,14 +2717,14 @@ readyForAnotherHistoryEntry : function () {
     return !this._finishAddingHistoryEntryTEAScheduled;
 },
 
-_iframeNavigate : function (id, title) {
+_iframeNavigate : function (historyId, title) {
     this._ignoreHistoryCallback = true;
 
     // need to quote special chars because we're document writing this id into the the iframe
-    var escapedId = this._asSource(id);
+    var escapedId = this._asSource(historyId);
     title = (title != null ? title
                            : (this.historyTitle != null ? this.historyTitle
-                                                        : id));
+                                                        : historyId));
 
     var html = "<HTML><HEAD><TITLE>"+
                (title == null ? "" : this._asHTML(title))+
@@ -2553,13 +2737,13 @@ _iframeNavigate : function (id, title) {
 
 // in IE, this method will always return false before pageLoad because historyState is not
 // available until then.  In Moz/FF, this method will return accurate data before pageLoad.
-haveHistoryState : function (id) {
+haveHistoryState : function (historyId) {
     if (isc.Browser.isIE && !isc.SA_Page.isLoaded()) {
         this.logWarn("haveHistoryState() called before pageLoad - this always returns false"
                     +" in IE because state information is not available before pageLoad");
     }
     var undef;
-    return this.historyState && this.historyState.data[id] !== undef;
+    return this.historyState && this.historyState.data[historyId] !== undef;
 },
 
 
@@ -2731,17 +2915,17 @@ _fireInitialHistoryCallback : function () {
         this._firedInitialHistoryCallback = true;
 
         // if we have history state, then it's a history transition for the initial load.
-        var id = this._getHistory(location.href);
-        this._fireHistoryCallback(id);
+        var historyId = this._getHistory(location.href);
+        this._fireHistoryCallback(historyId);
     }
 },
 
 // helper methods to get and add history to URLs.  Anchor values are automatically
 // encoded/decoded by these.
 
-_addHistory : function (url, id) {
+_addHistory : function (url, historyId) {
     var match = url.match(/([^#]*).*/);
-    return match[1]+"#"+encodeURI(id);
+    return match[1]+"#"+encodeURI(historyId);
 },
 
 _getHistory : function (url) {
@@ -2763,8 +2947,8 @@ _saveHistoryState : function() {
 // Moz, Opera
 _statHistory : function () {
     if (location.href != this._lastURL) {
-        var id = this._getHistory(location.href);
-        this._fireHistoryCallback(id);
+        var historyId = this._getHistory(location.href);
+        this._fireHistoryCallback(historyId);
     }
     this._lastURL = location.href;
 },
@@ -2802,10 +2986,10 @@ historyCallback : function (win, currentFrameHistoryId) {
     }
 },
 
-_fireHistoryCallback : function (id) {
+_fireHistoryCallback : function (historyId) {
     // suppress calling the same history callback twice in a row
-    if (this._lastHistoryId == id) {
-        // if this is the first time the callback is fired and _lastHistoryId==id,
+    if (this._lastHistoryId == historyId) {
+        // if this is the first time the callback is fired and _lastHistoryId==historyId,
         // the user has transitioned back to an anchorless URL - let that fire
         if (this._firedHistoryCallback) return;
     }
@@ -2821,9 +3005,9 @@ _fireHistoryCallback : function (id) {
         return;
     }
 
-    if (id == "_isc_H_init") id = null;
+    if (historyId == "_isc_H_init") historyId = null;
 
-    var haveData = this.haveHistoryState(id);
+    var haveData = this.haveHistoryState(historyId);
 
     // create a copy of _callbacksRegistry, but appropriately filtered. If, for example, the
     // callback requires data, but we don't have data, then the callback is excluded from the
@@ -2842,7 +3026,7 @@ _fireHistoryCallback : function (id) {
 
     if (!haveData) {
         if (filteredRegistry.length == 0) {
-            this.logWarn("User navigated to URL associated with synthetic history ID:" + id +
+            this.logWarn("User navigated to URL associated with synthetic history ID:" + historyId +
             ". This ID is not associated with any synthetic history entry generated via " +
             "History.addHistoryEntry(). Not firing a registered historyCallback as " +
             "all callbacks were registered with parameter requiring a data object. " +
@@ -2852,13 +3036,13 @@ _fireHistoryCallback : function (id) {
         }
     }
 
-    var data = this.historyState.data[id];
+    var data = this.historyState.data[historyId];
 
     // store for getLastHistoryId()
-    this._lastHistoryId = id;
+    this._lastHistoryId = historyId;
 
     //>DEBUG
-    this.logDebug("history callback: " + id);
+    this.logDebug("history callback: " + historyId);
     //<DEBUG
 
     // fire all of the callbacks
@@ -2866,10 +3050,10 @@ _fireHistoryCallback : function (id) {
         var r = filteredRegistry[i],
             callback = r.callback;
         if (isc.Class) {
-            isc.Class.fireCallback(callback, ["id", "data"], [id, data]);
+            isc.Class.fireCallback(callback, ["id", "data"], [historyId, data]);
 
         } else {
-            var args = [id, data];
+            var args = [historyId, data];
             if (callback.method != null) {
                 callback = isc.addProperties({}, callback);
                 callback.args = args;
@@ -2886,13 +3070,12 @@ _fireHistoryCallback : function (id) {
 
 // mandatory pre-page load init
 isc.History._init();
-
 isc._debugModules = (isc._debugModules != null ? isc._debugModules : []);isc._debugModules.push('History');isc.checkForDebugAndNonDebugModules();isc._moduleEnd=isc._History_end=(isc.timestamp?isc.timestamp():new Date().getTime());if(isc.Log&&isc.Log.logIsInfoEnabled('loadTime'))isc.Log.logInfo('History module init time: ' + (isc._moduleEnd-isc._moduleStart) + 'ms','loadTime');delete isc.definingFramework;if (isc.Page) isc.Page.handleEvent(null, "moduleLoaded", { moduleName: 'History', loadTime: (isc._moduleEnd-isc._moduleStart)});}else{if(window.isc && isc.Log && isc.Log.logWarn)isc.Log.logWarn("Duplicate load of module 'History'.");}
 
 /*
 
   SmartClient Ajax RIA system
-  Version v10.0p_2014-09-11/LGPL Deployment (2014-09-11)
+  Version v11.0p_2016-05-12/LGPL Deployment (2016-05-12)
 
   Copyright 2000 and beyond Isomorphic Software, Inc. All rights reserved.
   "SmartClient" is a trademark of Isomorphic Software, Inc.

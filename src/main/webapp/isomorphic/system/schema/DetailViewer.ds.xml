@@ -41,6 +41,7 @@
 
         <!-- visualBuilder: enable databinding on this component -->
 		<field name="dataSource"		type="DataSource" hidden="false" idAllowed="true"/>
+        <field name="initialCriteria"   type="AdvancedCriteria" basic="true"/>
 
         <!-- mark superclass fields as not relevant -->
         <field name="children" inapplicable="true"/>
