@@ -99,13 +99,13 @@ var eng = {
             
     getSubmitList:function(form, arr)
     {
-        arr.push(form);
+        if(form.dataSource)arr.push(form);
         if(form.formGrids)
         {
             for (var i = form.formGrids.length; i--;) 
             {
                 var grid=form.formGrids[i];   
-                arr.push(grid);
+                if(grid.dataSource)arr.push(grid);
             }
         }
         if(form.linkToForms)
