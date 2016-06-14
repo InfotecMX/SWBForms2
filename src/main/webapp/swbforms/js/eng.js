@@ -808,6 +808,7 @@ var eng = {
 
         var totalsLabel = isc.Label.create({
             padding: 5,
+            autoDraw:false,
         });
 
         var mem=[
@@ -825,6 +826,7 @@ var eng = {
                 //grid: grid,
                 icon: "[SKIN]/actions/add.png",
                 prompt: "Agregar nuevo registro",
+                autoDraw:false,
             });            
             mem.push(addButton);
         }
@@ -837,6 +839,7 @@ var eng = {
                 //grid: grid,
                 icon: "[SKIN]/actions/print.png",
                 prompt: "Imprimir datos",
+                autoDraw:false,
             });            
             mem.push(printButton);
         }        
@@ -848,6 +851,7 @@ var eng = {
             button2 = isc.ToolStripButton.create({
                 icon: "[SKIN]/actions/column_preferences.png",
                 prompt: "Agregar Marcadores",
+                autoDraw:false,
             });
             mem.push(button2);
         }
@@ -855,6 +859,7 @@ var eng = {
         var exp_button = isc.ToolStripButton.create({
             icon: "[SKIN]/actions/download.png",
             prompt: "Exportar Datos",
+            autoDraw:false,
       	});
       	mem.push(exp_button);
         
@@ -1005,6 +1010,8 @@ var eng = {
             delete formBase.title;
         
         eng.processFields(formBase.fields);
+        
+        formBase.autoDraw=false;
 
         var form = isc.DynamicForm.create(formBase);        
 
@@ -1015,6 +1022,7 @@ var eng = {
             var print = isc.IButton.create(
                     {
                         title: "Imprimir",
+                        autoDraw:false,
                         click: function(p1) {
                           	//console.log(p1,form);
                             window.scrollTo(0, 0);
@@ -1032,6 +1040,7 @@ var eng = {
             var submit = isc.IButton.create(
                     {
                         title: "Guardar",
+                        autoDraw:false,
                         click: function(p1) {
                             //eng.submit(p1.target.form);
                             formsubmit = p1.target.form;
@@ -1043,7 +1052,8 @@ var eng = {
         }        
         
         var pane=isc.VStack.create({
-            members: [form]
+            members: [form],
+            autoDraw:false,
         });
         
         var tabs=pane;
@@ -1061,7 +1071,7 @@ var eng = {
             });
         }
         
-        var buttons=buttons=isc.HLayout.create({height: "20px", padding:"10px", membersMargin:20, align:"right", members: butts});
+        var buttons=buttons=isc.HLayout.create({height: "20px", padding:"10px", membersMargin:20, align:"right", members: butts,autoDraw:false});
         
         var layout=isc.VLayout.create({
             membersMargin: 5,
@@ -1851,16 +1861,16 @@ var eng = {
         {
             eng.inited=true;     
 
-            eng.utils.loadJS(isomorphicDir+"system/modules/ISC_Core.js",false,true);
-            eng.utils.loadJS(isomorphicDir+"system/modules/ISC_Foundation.js",false,true);
-            eng.utils.loadJS(isomorphicDir+"system/modules/ISC_Containers.js",false,true);
-            eng.utils.loadJS(isomorphicDir+"system/modules/ISC_Grids.js",false,true);
-            eng.utils.loadJS(isomorphicDir+"system/modules/ISC_Forms.js",false,true);
-            eng.utils.loadJS(isomorphicDir+"system/modules/ISC_DataBinding.js",false,true);
-            eng.utils.loadJS(isomorphicDir+"system/modules/ISC_Calendar.js",false,true);
-            eng.utils.loadJS(isomorphicDir+"skins/Enterprise/load_skin.js",false,true);
-            eng.utils.loadJS(isomorphicDir+"locales/frameworkMessages_es.properties",false,true);
-            eng.utils.loadJS("/swbforms/plupload/js/plupload.full.min.js",false,true);
+            eng.utils.loadJS(isomorphicDir+"system/modules/ISC_Core.js",false,cache);
+            eng.utils.loadJS(isomorphicDir+"system/modules/ISC_Foundation.js",false,cache);
+            eng.utils.loadJS(isomorphicDir+"system/modules/ISC_Containers.js",false,cache);
+            eng.utils.loadJS(isomorphicDir+"system/modules/ISC_Grids.js",false,cache);
+            eng.utils.loadJS(isomorphicDir+"system/modules/ISC_Forms.js",false,cache);
+            eng.utils.loadJS(isomorphicDir+"system/modules/ISC_DataBinding.js",false,cache);
+            eng.utils.loadJS(isomorphicDir+"system/modules/ISC_Calendar.js",false,cache);
+            eng.utils.loadJS(isomorphicDir+"skins/Enterprise/load_skin.js",false,cache);
+            eng.utils.loadJS(isomorphicDir+"locales/frameworkMessages_es.properties",false,cache);
+            eng.utils.loadJS("/swbforms/plupload/js/plupload.full.min.js",false,cache);
             
             isc.DateItem.DEFAULT_START_DATE.setYear(1900);
             Time.setDefaultDisplayTimezone("-06:00");

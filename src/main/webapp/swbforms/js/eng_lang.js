@@ -29,7 +29,7 @@ eng.fieldProcesors["select"] = function(field)
     var dsfmt;
     if(dsObjDef.dsName)
     {
-      	var ds = ds = eng.createDataSource(dsObjDef,true,base);
+      	var ds = eng.createDataSource(dsObjDef,true,base);
       	dsObjDef.ds=ds;
         if(ds==null)console.log("Undefined DS:",dsObjDef,field);
         else 
@@ -37,6 +37,7 @@ eng.fieldProcesors["select"] = function(field)
           	//console.log(ds);
             dsf=ds.displayField;
             dsfmt=ds.displayFormat;
+            ds.canQueueRequests=false;
         }
     }
     
