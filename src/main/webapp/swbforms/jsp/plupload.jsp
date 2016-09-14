@@ -27,6 +27,8 @@
                 FileItemIterator iter = upload.getItemIterator(req);
                 while (iter.hasNext()) {
                     FileItemStream item = iter.next();
+                    System.out.println(item.getContentType()+":"+item.getFieldName()+":"+item.getName()+":"+item.isFormField());
+                    
                     InputStream input = item.openStream();
                     
                     // Handle a form field.
@@ -45,6 +47,8 @@
                             this.user = value;
                         } else if ("time".equals(fileName)) {
                             this.time = value;
+                        } else if ("file".equals(fileName)) {
+                            System.out.println("file:"+value);
                         }
                     } // Handle a multi-part MIME encoded file.
                     else {

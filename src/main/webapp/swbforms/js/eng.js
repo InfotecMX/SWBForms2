@@ -175,7 +175,7 @@ var eng = {
                     var ds=eng.getDataSource(grid.getDataSource().dsName);
                     var val=eng.array(grid.canvasItem.dataValue);
                         
-                    for (var i = earr.length; i--;) 
+                    for (var i = 0; i<earr.length; i++)
                     {
                         var recid=earr[i];
                         var data=grid.getEditValues(recid);
@@ -292,7 +292,7 @@ var eng = {
             form.rememberValues();
             if(form.linkFromForms)
             {
-                for (var i = form.linkFromForms.length; i--;) 
+                for (var i = 0; i<form.linkFromForms.length; i++)
                 {
                     var from=form.linkFromForms[i];  
                     from.form.setValue(from.prop,form.getValue("_id"));
@@ -401,7 +401,7 @@ var eng = {
                 
         if(form.linkToForms)
         {
-            for (var i = form.linkToForms.length; i--;) 
+            for (var i = 0; i<form.linkToForms.length; i++) 
             {
                 var to=form.linkToForms[i];   
                 if(eng.validateForm(to.form)==false)return false;
@@ -410,7 +410,7 @@ var eng = {
         
         if(form.formGrids)
         {
-            for (var i = form.formGrids.length; i--;) 
+            for (var i = 0; i<form.formGrids.length; i++)  
             {
                 var grid=form.formGrids[i];
                 if(grid.canvasItem.validate()==false)return false;
@@ -527,7 +527,7 @@ var eng = {
         eng.stopSubmitTimeOut();
         var txt="";
         var ferr=null;
-        for (var i = eng.validates.errors.length; i--;) 
+        for (var i = 0; i<eng.validates.errors.length; i++)
         {
             var obj=eng.validates.errors[i];
             for (property in obj) 
@@ -597,7 +597,7 @@ var eng = {
                 var inter=window.setInterval(function()
                 {
                     var end=true;
-                    for (var i = eng.validates.length; i--;) 
+                    for (var i = 0; i<eng.validates.length; i++) 
                     {
                         var frm=eng.validates[i];  
                         if(frm.isPendingAsyncValidation()==true)end=false;
@@ -629,7 +629,7 @@ var eng = {
         form.editSelectedData(grid);
         if(form.linkToForms)
         {
-            for (var i = form.linkToForms.length; i--;) 
+            for (var i = 0; i<form.linkToForms.length; i++)
             {
                 var to=form.linkToForms[i];
 
@@ -648,7 +648,7 @@ var eng = {
         {
             if(form.formGrids)
             {
-                for (var i = form.formGrids.length; i--;) 
+                for (var i = 0; i<form.formGrids.length; i++) 
                 {
                     var grid=form.formGrids[i];
 
@@ -662,7 +662,7 @@ var eng = {
             
             if(form.linkToForms)
             {
-                for (var i = form.linkToForms.length; i--;) 
+                for (var i = 0; i<form.linkToForms.length; i++) 
                 {
                     var to=form.linkToForms[i];
 
@@ -678,14 +678,14 @@ var eng = {
     //resize form         
     resize:function(form)
     {
-        for (var i = form.items.length;i--;)
+        for (var i = 0; i<form.items.length;i++)
         {
             form.items[i].setWidth(form.items[i].getWidth());            
         }
         
         if(form.linkToForms)
         {
-            for (var i = form.linkToForms.length; i--;) 
+            for (var i = 0; i<form.linkToForms.length; i++) 
             {
                 var to=form.linkToForms[i];   
                 eng.resize(to.form);
@@ -1553,7 +1553,7 @@ var eng = {
             getDataSourceScriptField: function(name)
             {
                 var fields=this.getDataSourceScript().fields;
-                for (var i = fields.length; i--;) 
+                for (var i = 0; i<fields.length; i++) 
                 {
                     var f=fields[i];
                     if(f.name==name)
