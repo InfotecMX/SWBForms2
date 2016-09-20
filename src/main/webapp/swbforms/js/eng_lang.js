@@ -392,7 +392,7 @@ eng.fieldProcesors["file"] = function(field)
             for(var i=0;i<value.length;i++)
             {
                 var f=value[i];
-                ret+="<a style=\"color: #404040;text-decoration: none;\" target=\"_new\" href=\"/uploadfile/" + f.id + "\">"+f.name;
+                ret+="<a style=\"color: #404040;text-decoration: none;\" target=\"_new\" href=\"/fd/" + f.id + "/"+f.name+"\">"+f.name;
                 if(f.percent)ret+=" ("+f.percent+"%)";
                 ret+="</a>";
                 if(i<value.length-1)ret+=", ";
