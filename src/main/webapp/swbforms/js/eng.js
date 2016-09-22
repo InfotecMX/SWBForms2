@@ -1092,6 +1092,7 @@ var eng = {
         //Para tener acceso al layout desde la forma, al contenedor de botones y al boton de submit
         form.layout=layout;
         form.submitButton=submit;
+        form.printButton=print;
         form.buttons=buttons;
         form.tindex=0;
 
