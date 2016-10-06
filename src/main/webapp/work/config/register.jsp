@@ -21,7 +21,7 @@
             obj.put("password", password);
             ds.addObj(obj);
             //engine.close();
-            response.sendRedirect("login.jsp");
+            response.sendRedirect("/login");
             return;
         }
     }
@@ -32,7 +32,7 @@
     <title>Register</title>
   </head>
   <body>
-    <h1>Login</h1>      
+    <h1>Register</h1>      
     <form action="" method="post">
       <div class="form-group has-feedback">
         <input type="text" name="fullname" class="form-control" placeholder="Full name"/>
@@ -46,6 +46,10 @@
         <input type="password" name="password" class="form-control" placeholder="Password"/>
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
+      <div class="form-group has-feedback">
+        <input type="password" name="password2" class="form-control" placeholder="Retype password"/>
+        <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+      </div>        
       <div class="row">
         <div class="col-xs-4">
           <button type="submit" class="btn btn-primary btn-block btn-flat">Register</button>
