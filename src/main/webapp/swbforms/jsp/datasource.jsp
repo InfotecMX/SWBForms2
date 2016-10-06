@@ -77,6 +77,9 @@
                 if (SWBDataSource.ACTION_FETCH.equals(operationType))
                 {
                     ret=ds.fetch(json);
+                } else if (SWBDataSource.ACTION_AGGREGATE.equals(operationType))
+                {
+                    ret=ds.aggregate(json);
                 } else if (SWBDataSource.ACTION_UPDATE.equals(operationType))
                 {
                     ret=ds.update(json);

@@ -27,6 +27,10 @@ eng.dataStores["mongodb"]={
     class: "org.semanticwb.forms.datastore.DataStoreMongo",
 };
 
+//Agregate
+eng.getDataSource("Estado").aggregate({data:[{$group:{_id:"$nombre"}}]})
+
+
 //Definir un datasource
 eng.dataSources["ReportesVIN"] = {
     scls: "ReportesVIN",

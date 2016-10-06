@@ -1588,6 +1588,16 @@ var eng = {
                 return res;
             },
             
+            aggregate:function(query)
+            {                
+                var data=query;
+                if(!data)data={};                
+                data.operationType="aggregate";
+
+                var res=this.invokeDS(data);
+                return res;
+            },            
+            
             fetchObj:function(obj)
             {
                 var data={};                
