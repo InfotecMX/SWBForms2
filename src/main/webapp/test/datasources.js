@@ -9,7 +9,7 @@ eng.dataSources["Direccion"] = {
         {name: "numero", title: "Numero", type: "string"},
         {name: "colonia", title: "Colonia", type: "string"},
         {name: "municipio", title: "Municipio", type: "string"},
-        {name: "cp", title: "CP", type: "int", validators_:[{stype:"zipcode"}]},
+        {name: "cp", title: "CP", type: "int", validators:[{type:"integerRange", min:5, max:5000}], validators_:[{stype:"zipcode"}]},
         {name: "pais", title: "Pais", required: true, stype: "select", dataSource:"Pais", displayFormat_:"value+'_Hola'", dependentSelect:"estado", dependentSelect_: {filterProp:"pais", dependentField:"estado"}},
         {name: "estado", title: "Estado", required: true, stype: "select", dataSource:"Estado", canFilter:false, initialCriteria_ : {} },
     ]

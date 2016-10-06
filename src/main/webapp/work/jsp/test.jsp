@@ -13,7 +13,7 @@
     </head>
     <body>
         <script type="text/javascript">
-            eng.initPlatform("/test/datasources.js");
+            eng.initPlatform("/test/datasources.js",false);
         </script>  
         
         <div>

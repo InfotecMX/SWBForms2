@@ -4,7 +4,7 @@
     System.out.println(email+" "+password);
     if(email!=null && password!=null)
     {
-        SWBScriptEngine engine=DataMgr.getUserScriptEngine("/test/datasources.js",null);
+        SWBScriptEngine engine=DataMgr.initPlatform(session);
         SWBDataSource ds=engine.getDataSource("User");  
         DataObject r=new DataObject();
         DataObject data=new DataObject();
@@ -27,14 +27,24 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-        <script type="text/javascript" src="/swbforms/js/eng.js" ></script>
+        <title>Login</title>
     </head>
     <body>
-        <script type="text/javascript">
-            eng.initPlatform("/test/datasources.js");
-        </script>  
         <h1>Login</h1>
-        Forma
+        <form action="" method="post">
+          <div class="form-group has-feedback">
+            <input type="email" name="email" class="form-control" placeholder="Email"/>
+            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+          </div>
+          <div class="form-group has-feedback">
+            <input type="password" name="password" class="form-control" placeholder="Password"/>
+            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+          </div>
+          <div class="row">
+            <div class="col-xs-4">
+              <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+            </div><!-- /.col -->
+          </div>
+        </form>
     </body>
 </html>
