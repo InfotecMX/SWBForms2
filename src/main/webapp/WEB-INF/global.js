@@ -24,7 +24,7 @@ eng.dataStores["mongodb"]={
 //******* DataSorices ************
 eng.dataSources["User"]={
     scls: "User",
-    modelid: "Cloudino",
+    modelid: "SWBForms",
     dataStore: "mongodb",   
     fields:[
         {name:"fullname",title:"Nombre",type:"string"},
