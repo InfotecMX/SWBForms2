@@ -1072,6 +1072,7 @@ var eng = {
                 ID: dsObjDef.dsName + "Tabs",
                 tabs: [tab]
             });
+            form.tabs=tabs;
         }
         
         var buttons=buttons=isc.HLayout.create({height: "20px", padding:"10px", membersMargin:20, align:"right", members: butts,autoDraw:false});
