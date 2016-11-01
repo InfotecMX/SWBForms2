@@ -767,6 +767,7 @@ isc.GridViewItem.addProperties({
             baseStyle:this.baseStyle,
             headerHeight:this.headerHeight?this.headerHeight:25,
             headerSpans:this.headerSpans,
+            visibility:this.visibility,
             data:this.data,
             //showFilterEditor: this.showFilter,
         });
