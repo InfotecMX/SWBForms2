@@ -486,3 +486,31 @@ eng.dataServices["LogsService"] = {
         }
     }
 };
+
+
+
+//dataProcesor arrojando exceptions
+eng.dataProcessors["MagicTownProcessor"] = {
+    dataSources: ["MagicTown"],
+    actions:["add","update"],
+    request: function(request, dataSource, action)
+    {
+        print("request:"+request);
+        print("dataSource:"+dataSource);
+        print("action:"+action);
+        print("user:"+this.user);
+      	if(request.data.name=="Jei")throw "No se puede llamar Jei";
+      	request.data.name+=" Hola";
+        
+    }
+};
+
+
+//invoke java Class
+var MyJavaClass = Java.type('my.package.MyJavaClass');
+
+
+//Tabs
+form.tabs.getTab(0).title
+form.tabs.getTab(1).disable()
+form.tabs.getTab(1).enable()
