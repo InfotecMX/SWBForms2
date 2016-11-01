@@ -592,6 +592,7 @@ isc.GridEditorItem.addProperties({
             canRemoveRecords:canEdit && this.canRemove!==false,
             headerHeight:this.headerHeight?this.headerHeight:25,
             headerSpans:this.headerSpans,
+            visibility:this.visibility?this.visibility:"hidden",
             
             recordDoubleClick: function(viewer, record, recordNum, field, fieldNum, value, rawValue)
             {
@@ -767,7 +768,7 @@ isc.GridViewItem.addProperties({
             baseStyle:this.baseStyle,
             headerHeight:this.headerHeight?this.headerHeight:25,
             headerSpans:this.headerSpans,
-            visibility:this.visibility,
+            visibility:this.visibility?this.visibility:"hidden",
             data:this.data,
             //showFilterEditor: this.showFilter,
         });

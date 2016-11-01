@@ -509,7 +509,10 @@ var eng = {
 
                     var stab={
                         title: link.title,
-                        pane: spane
+                        //hidden: link.hidden,
+                        disabled: link.disabled,
+                        enableWhen: link.enableWhen,
+                        pane: spane,
                     };
                     
                     tabs.addTab(stab);
