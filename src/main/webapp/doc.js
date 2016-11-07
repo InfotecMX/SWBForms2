@@ -42,7 +42,7 @@ eng.dataSources["ReportesVIN"] = {
         {name: "cp", title: "CP", required: true, type: "int"},
         {name: "fecha", title: "Fecha", type: "date"},
         {name: "autor", title: "Autor", stype: "select", dataSource:"Personal"},
-        {name: "direccion", title:"Dirección", stype:"grid", dataSource:"Direccion", winEdit:false}
+        {name: "direccion", title:"Dirección", removeDependence_:true, stype:"grid", dataSource:"Direccion", winEdit:false}
     ],
     links: [
         {name: "direccion", title:"Dirección", stype:"subForm", dataSource:"Direccion"}
