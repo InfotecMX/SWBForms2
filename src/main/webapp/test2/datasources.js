@@ -21,6 +21,8 @@ eng.dataSources["ProfileSkils"] = {
         {name: "name", title: "Nombre", required: true, type: "string"},
         {name: "description", title: "Descripción", required: false, type: "string"},
         {name: "tecnocalprofile", title: "Tecnical Profile", required: true, stype: "select", dataSource: "TecnicalProfile"},
+        {name: "active", title: "Active", required: false, type: "boolean"},
+        {name: "index", title: "Index", required: false, type: "boolean"},
     ]
 }
 
@@ -64,7 +66,7 @@ eng.dataSources["Person"] = {
 //            }
             ]},
         {name: "age", title: "Edad", required: true, type: "int", validators: [{type: "integerRange", min: 1, max: 20}]},
-        {name: "email", title: "Correo Electrónico", required: true, type: "string", validators: [{stype: "email"}]},
+        {name: "email", title: "Correo Electrónico", required: true, type: "string", validators: [{stype: "email"},{type:"isUnique"}]},
         {name: "birddate", title: "Fecha Nacimiento", required: true, type: "date"},
         {name: "intitution", title: "Dependecia", required: true, stype: "select", dataSource: "Institution"},
         {name: "lastdegree", title: "Ultimo grado", required: true, stype: "select", dataSource: "LastDegree"},

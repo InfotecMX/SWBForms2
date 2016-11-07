@@ -13,9 +13,9 @@
         <h2>Person</h2>            
         <script type="text/javascript">
             var id = "<%=request.getParameter("id")%>";
-            eng.createForm({
+            var form=eng.createForm({
                 width: "100%",
-                height: 300,
+                height: 600,
                 title:"Información",
                 showTabs: true,
                 fields: [
@@ -30,7 +30,7 @@
                     {name: "profileSkils"},
                     {name: "cvs"},
                     {name: "status"},
-                    {name: "addresses", fields: [
+                    {name: "addresses", hidden:false, fields: [
                             {name: "name"},
                             {name: "street"},
                             {name: "number"},
@@ -58,9 +58,19 @@
                     },
                 ],
                 links: [
-                    {name: "address2", title:"Address"},
-                    {name: "test",
+                    {name: "address2", title:"Address", fields: [
+                            {name: "name", colSpan:2, width:"100%"},
+                            {name: "street"},
+                            {name: "number"},
+                            {name: "city"},
+                            {name: "county"},
+                            {name: "cp"},
+                            {name: "country"},
+                            {name: "state"},
+                        ]},
+                    {name: "test", disabled_:function(){return false;},
                         fields: [
+                            {name: "email", title: "Email"},
                             {name: "addresses", title: "Direcciones", required: false, stype: "grid", dataSource: "Address"},
                             {name: "view", title:"Vista", stype:"gridView", fields: [
                                     {name: "name", title:"Nombre", type:"string"},
