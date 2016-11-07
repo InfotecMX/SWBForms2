@@ -177,6 +177,8 @@
     {
         e.printStackTrace();
         System.out.println("Error"+json);
-        out.print(SWBDataSource.getError(-1));
+        DataObject ret=SWBDataSource.getError(-1);
+        ret.getDataObject("response").addParam("data", e.getMessage());
+        out.print(ret);
     }
 %>

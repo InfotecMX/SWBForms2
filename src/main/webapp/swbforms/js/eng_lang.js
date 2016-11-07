@@ -592,7 +592,7 @@ isc.GridEditorItem.addProperties({
             canRemoveRecords:canEdit && this.canRemove!==false,
             headerHeight:this.headerHeight?this.headerHeight:25,
             headerSpans:this.headerSpans,
-            visibility:this.visibility?this.visibility:"hidden",
+            visibility:this.visibility?this.visibility:"hidden",            
             
             recordDoubleClick: function(viewer, record, recordNum, field, fieldNum, value, rawValue)
             {
@@ -613,6 +613,11 @@ isc.GridEditorItem.addProperties({
                     {
                         win.form.fromGrid = this;
                     }                    
+                }else
+                {
+                    //console.log(this,record,recordNum);
+                    this.startEditing(recordNum);
+                    //this.parentElement.parentElement.startEditing(this.parentElement.parentElement.data.indexOf(record));
                 }
             },
             dataChanged: this.dataChanged?this.dataChanged:function()
@@ -631,7 +636,12 @@ isc.GridEditorItem.addProperties({
         if(this.recordDoubleClick!==undefined)
         {
             grid.recordDoubleClick = this.recordDoubleClick;
-        }        
+        }  
+        
+        if(this.removeRecordClick!==undefined)
+        {
+            grid.removeRecordClick = this.removeRecordClick;
+        } 
         
         grid.form=this.form;
         grid.canvasItem=this;
@@ -776,7 +786,12 @@ isc.GridViewItem.addProperties({
         if(this.recordDoubleClick!==undefined)
         {
             grid.recordDoubleClick = this.recordDoubleClick;
-        }        
+        }   
+        
+        if(this.removeRecordClick!==undefined)
+        {
+            grid.removeRecordClick = this.removeRecordClick;
+        }         
         
         grid.form=this.form;
         grid.canvasItem=this;
