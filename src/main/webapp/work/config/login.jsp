@@ -15,6 +15,8 @@
         //engine.close();
  
         DataList rdata=ret.getDataObject("response").getDataList("data");
+        
+        System.out.println("ret"+ret);
         if(!rdata.isEmpty())
         {
             session.setAttribute("_USER_", rdata.get(0));
@@ -31,7 +33,7 @@
     </head>
     <body>
         <h1>Login</h1>
-        <form action="" method="post">
+        <form action="/login" method="post">
           <div class="form-group has-feedback">
             <input type="email" name="email" class="form-control" placeholder="Email"/>
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
