@@ -1771,6 +1771,25 @@ var eng = {
             }
         };
     },
+    
+    /**
+     * Get the user context data
+     * @returns context data
+     */
+    getContextData: function(key)
+    {
+        var data={};
+        data.operationType="contextData";
+        data.dataKey=key;
+
+        var res=eng.utils.getSynchData(eng.dataSourceServlet+"?dssp="+eng.dataSourceScriptPath,JSON.stringify(data));
+        if(res.status==200)
+        {
+            var ret=JSON.parse(res.response).response; 
+            return ret;
+        }    
+    },               
+    
     /**
      * Login to the platform
      * @param {type} username
@@ -1891,7 +1910,9 @@ var eng = {
             Time.setDefaultDisplayTimezone("-06:00");
             Time.adjustForDST=false;
             
-            if(file)
+            eng.utils.loadJS("/swbforms/js/eng_lang.js",false,cache);
+            
+            if(typeof file === 'string')
             {
                 if(file.charAt(0)!='/')
                 {
@@ -1900,9 +1921,20 @@ var eng = {
                 {
                     eng.dataSourceScriptPath=file;
                 }
-
-                eng.utils.loadJS("/swbforms/js/eng_lang.js",false,cache);
                 eng.utils.loadJS(file,false,cache);     
+            }else if (Array.isArray(file))
+            {
+                for(var i=0;i<file.length;i++)
+                {
+                    if(file[i].charAt(0)!='/')
+                    {
+                        eng.dataSourceScriptPath=window.location.pathname.substring(0,window.location.pathname.lastIndexOf('/'))+"/"+file[i];
+                    }else
+                    {
+                        eng.dataSourceScriptPath=file[i];
+                    }
+                    eng.utils.loadJS(file[i],false,cache);                       
+                }
             }
         }
     }

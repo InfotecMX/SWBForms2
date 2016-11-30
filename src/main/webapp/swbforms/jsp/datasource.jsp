@@ -66,7 +66,13 @@
                 ret=SWBDataSource.getError(0);
                 DataObject resp2=(DataObject)ret.get("response");
                 resp2.put("data",user);
-            }             
+            }else if (SWBDataSource.ACTION_CONTEXTDATA.equals(operationType))
+            {
+                Object data=session.getAttribute("ctx_"+json.getString("dataKey"));
+                ret=SWBDataSource.getError(0);
+                DataObject resp2=(DataObject)ret.get("response");
+                resp2.put("data",data);
+            }        
         }else
         {
             SWBDataSource ds=engine.getDataSource(dataSource);
@@ -160,7 +166,7 @@
                     if(resp!=null)resp.put("queueStatus", resp.getInt("status"));
                     ret.add(r);
             }
-            out.print(ret);
+            out.print("<SCRIPT>//'\"]]>>isc_JSONResponseStart>>"+ret+"//isc_JSONResponseEnd");
             //System.out.println("out:"+ret);
         }else
         {

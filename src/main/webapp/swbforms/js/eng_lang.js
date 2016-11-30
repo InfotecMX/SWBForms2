@@ -643,6 +643,16 @@ isc.GridEditorItem.addProperties({
             grid.removeRecordClick = this.removeRecordClick;
         } 
         
+        if(this.listEndEditAction!==undefined)
+        {
+            grid.listEndEditAction = this.listEndEditAction;
+        } 
+        
+        if(this.enterKeyEditAction!==undefined)
+        {
+            grid.enterKeyEditAction = this.enterKeyEditAction;
+        }         
+        
         grid.form=this.form;
         grid.canvasItem=this;
         this.grid=grid;
