@@ -417,6 +417,8 @@ form.submitButton.setTitle("Enviar");
 //
 //Select
 [
+    //{name: "autor", title: "Autor", stype: "select", dataSource:{dsName:"Personal",dsId:"ds_Personal_1"},
+        
     {name: "autor", title: "Autor", stype: "select", dataSource:"Personal",
         multiple:true, 
         canFilter:true,
@@ -514,3 +516,6 @@ var MyJavaClass = Java.type('my.package.MyJavaClass');
 form.tabs.getTab(0).title
 form.tabs.getTab(1).disable()
 form.tabs.getTab(1).enable()
+
+
+//Date formulas:  formula: { text: "DateAdd(new Date(),'d',shipDays)"} 
