@@ -10,6 +10,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import org.semanticwb.datamanager.DataMgr;
+import org.semanticwb.datamanager.DataObject;
 import org.semanticwb.datamanager.SWBScriptEngine;
 import org.semanticwb.datamanager.script.ScriptObject;
 
@@ -24,7 +25,7 @@ public class FormsServletContextListener implements ServletContextListener {
         DataMgr.createInstance(sce.getServletContext().getRealPath("/"));
         log.info("SWBForms DataMgr Started");
 
-        SWBScriptEngine engine = DataMgr.getUserScriptEngine("/WEB-INF/global.js", null, false);
+        SWBScriptEngine engine = DataMgr.getUserScriptEngine("/WEB-INF/global.js", (DataObject)null, false);
         log.info("SWBForms SWBScriptEngine Started");
 
         ScriptObject config = engine.getScriptObject().get("config");
