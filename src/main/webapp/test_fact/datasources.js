@@ -5,14 +5,13 @@ eng.dataSources["Nota"] = {
     dataStore: "mongodb",    
     displayField: "folio",
     fields: [
-        {name: "folio", title: "Folio", required: true, type: "string"},
-        {name: "fecha", title: "Fecha", type: "date"},
-        {name: "productos", title: "Productos", stype: "grid", removeDependence_:true, dataSource:"DetalleProducto"},
-        {name: "total", title: "Total", type: "float"},        
+        {name: "folio", title: "Folio", required: true, canEdit:true, type: "string"},
+        {name: "fecha", title: "Fecha", type: "date", useTextField:true},
+        {name: "cliente", title: "Cliente", stype: "select", dataSource:"Cliente"},
+        {name: "cliente2", title: "Cliente2", stype: "select", dataSource:"Cliente"},
+        {name: "productos", title: "Productos", stype: "grid", showGridSummary:true, listEndEditAction: "next", removeDependence_:true, dataSource:"DetalleProducto"},
+        {name: "total", title: "Total", canEdit:false, format:"$,##0.00", type: "float"},        
     ],
-    links:[
-        {name: "cliente", title: "Cliente", stype: "subForm", removeDependence_:true, dataSource:"Cliente"}
-    ]
 };
 
 eng.dataSources["DetalleProducto"] = {
@@ -21,10 +20,23 @@ eng.dataSources["DetalleProducto"] = {
     dataStore: "mongodb",    
     displayField: "producto",
     fields: [
-        {name: "producto", title: "Producto", stype: "select", dataSource:"Producto"},
+        {name: "producto", title: "Producto", stype: "select", dataSource:"Producto", changed:function(form,item,value){
+                //console.log(form,item,value);
+                var record=item.getSelectedRecord(); 
+                //console.log(record); 
+                if(record) 
+                {
+                    form.setValue('precio', record.precio);
+                    form.setValue('cantidad', 1);
+                    form.setValue('descripcion', record.descripcion);
+                    form.focusInItem("cantidad");
+                }
+            }
+        },
         {name: "descripcion", title: "Descripcion", type: "text"},
-        {name: "cantidad", title: "Cantidad", type: "float"},
-        {name: "precio", title: "Precio", type: "float"},
+        {name: "cantidad", title: "Cantidad", type: "float", validateOnExit:true},
+        {name: "precio", title: "Precio", format:"$,##0.00", type: "float", showGridSummary:false},
+        {name:"subtotal", title:"Subtotal", type:"float", canEdit:false, readOnlyDisplay:"static", format:"$,##0.00", formula: { text: "precio*cantidad" } },
     ]
 };
 

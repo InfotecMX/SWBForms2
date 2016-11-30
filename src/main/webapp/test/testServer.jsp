@@ -19,8 +19,9 @@
         <h1>Hello World!</h1>
         <pre>
 <%
-    DataObject user = (DataObject) session.getAttribute("_USER_");
-    SWBScriptEngine engine = DataMgr.getUserScriptEngine("/test/datasources.js", user,false);       //
+    SWBScriptEngine engine = DataMgr.initPlatform("/test/datasources.js", session); 
+    DataObject user = engine.getUser();
+    
     SWBDataSource ds=engine.getDataSource("Pais");
     
     //Fetch
